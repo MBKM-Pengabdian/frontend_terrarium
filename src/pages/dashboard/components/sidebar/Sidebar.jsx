@@ -1,19 +1,23 @@
+import { Link } from "react-router-dom"
+
 export const Sidebar = () => {
    return (
       <>
-         <aside className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
+         <aside className="sidenav navbar navbar-vertical navbar-expand-xs fixed-start border-end" id="sidenav-main" style={{ "background": "#fff" }}>
             <div className="sidenav-header">
                <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-               <a className="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
-                  <img src="../assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
-                  <span className="ms-1 font-weight-bold">Soft UI Dashboard</span>
-               </a>
+               <Link to='/dashboard' className="nav-link align-middle p-3 mx-3 text-primary">
+                  <span className="d-none d-sm-inline ms-4">Dashboard</span>
+               </Link>
+               <img src="../assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
+               <span className="ms-1 font-weight-bold">Soft UI Dashboard</span>
+
             </div>
             <hr className="horizontal dark mt-0" />
-            <div className="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <div className="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
                <ul className="navbar-nav">
                   <li className="nav-item">
-                     <a className="nav-link  active" href="../pages/dashboard.html">
+                     <a className="nav-link  active" href="#">
                         <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                            <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg">
                               <title>shop </title>
@@ -33,7 +37,7 @@ export const Sidebar = () => {
                      </a>
                   </li>
                   <li className="nav-item">
-                     <a className="nav-link  " href="../pages/tables.html">
+                     <a className="nav-link" href="#">
                         <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                            <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg">
                               <title>office</title>
@@ -53,7 +57,7 @@ export const Sidebar = () => {
                      </a>
                   </li>
                   <li className="nav-item">
-                     <a className="nav-link  " href="../pages/billing.html">
+                     <a className="nav-link" href="#">
                         <div className="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg">
                               <title>credit-card</title>
