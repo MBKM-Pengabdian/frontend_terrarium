@@ -9,7 +9,7 @@ export const Logout = () => {
 
    return (
       <>
-         <a className="btn btn-white m-0" onClick={handleLogout}>
+         <a className="btn btn-white m-0 shadow-sm" onClick={handleLogout}>
             <i className="fas fa-solid fa-arrow-right-from-bracket me-1"></i>
             <span className="d-sm-inline d-none">Log Out</span>
          </a>
