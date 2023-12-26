@@ -7,11 +7,8 @@ export const Sidebar = () => {
             <div className="sidenav-header">
                <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
                <Link to='/dashboard' className="nav-link align-middle p-3 mx-3 text-primary">
-                  <span className="d-none d-sm-inline ms-4">Dashboard</span>
+                  <span className="d-none d-sm-inline ms-4 fw-semibold fs-4">Dashboard</span>
                </Link>
-               <img src="../assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
-               <span className="ms-1 font-weight-bold">Soft UI Dashboard</span>
-
             </div>
             <hr className="horizontal dark mt-0" />
             <div className="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
