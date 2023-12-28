@@ -1,7 +1,13 @@
+import { CardProduct } from "./components/CardProduct/CardProduct"
+
 export const Product = () => {
    return (
       <>
-         <h1>Product</h1>
+         <div className="container mt-4">
+            <div className="row">
+               <CardProduct />
+            </div>
+         </div>
       </>
    )
 }
