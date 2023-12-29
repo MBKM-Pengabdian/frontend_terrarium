@@ -14,7 +14,9 @@ const AuthService = () => {
          const data = response.data;
 
          if (data.message === 'SUCCESS') {
-            localStorage.setItem('accessToken', data.data.accessToken);
+            console.log(data.data);
+            localStorage.setItem('accessToken', data.data.access_token);
+            localStorage.setItem('user_id', data.data.userId);
             navigate('/dashboard');
          }
       } catch (error) {
