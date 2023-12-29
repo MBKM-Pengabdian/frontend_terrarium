@@ -68,6 +68,11 @@
   --bs-highlight-bg: #fcf8e3;
 }
 
+.rdt_TableRow,
+.rdt_TableHeadRow {
+  padding: 13px;
+}
+
 *,
 *::before,
 *::after {
