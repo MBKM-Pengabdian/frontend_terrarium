@@ -1,6 +1,8 @@
 import { FaCalendar, FaClock, FaMapMarkerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export const CardEvent = ({ data }) => {
+    const navigate = useNavigate()
   return (
     <>
       <div className="col-md-6 col-lg-6">
@@ -8,7 +10,7 @@ export const CardEvent = ({ data }) => {
           <div className="row">
             <div className="col-lg-5" style={{ height: "380px" }}>
               <img
-                src="https://images.unsplash.com/photo-1682685797857-97de838c192e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                src="https://cdn.discordapp.com/attachments/1174741902415900742/1191807387003261019/image.png?ex=65a6c81f&is=6594531f&hm=30644f92bb2a186059e110824657f3e13ca12c7d627158fd618a1e873d4adfeb&"
                 alt=".."
                 className="img-fluid"
                 style={{
@@ -35,7 +37,7 @@ export const CardEvent = ({ data }) => {
                 <div className="time-event mb-3">
                   <FaMapMarkerAlt className="text-primary me-3" /> Zoom
                 </div>
-                <button className="btn border border-primary w-75 ">
+                <button onClick={()=>navigate(`/detail-event/${data.uuid}`)} className="btn border border-primary w-75 ">
                   Detail
                 </button>
               </div>

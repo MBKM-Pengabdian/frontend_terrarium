@@ -12,7 +12,7 @@ import { Register } from './pages/auth/register/Register';
 import { ProductDashboard } from './pages/dashboard/pages/product';
 
 // Main Page
-import { Home, Product, Event } from './pages/main-page';
+import { Home, Product, Event, DetailEvent } from './pages/main-page';
 import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -37,6 +37,7 @@ const AppWrapper = () => {
         {/* Main Page */}
         <Route path="/" element={<Home />} />
         <Route path="/event" element={<Event />} />
+        <Route path="/detail-event/:id" element={<DetailEvent />} />
         <Route path="/product" element={<Product />} />
 
         {/* Dashboard */}
