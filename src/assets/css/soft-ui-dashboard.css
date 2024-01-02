@@ -68,6 +68,14 @@
   --bs-highlight-bg: #fcf8e3;
 }
 
+/* MY CSS */
+.text-3line {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Jumlah baris yang ingin ditampilkan */
+  -webkit-box-orient: vertical;
+}
+
 .rdt_TableRow,
 .rdt_TableHeadRow {
   padding: 13px;
@@ -8752,7 +8760,7 @@ fieldset:disabled .btn {
 }
 
 .border-primary {
-  border-color: #cb0c9f !important;
+  border-color: #80CC28 !important;
 }
 
 .border-secondary {
@@ -10633,7 +10641,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-  background-color: #cb0c9f !important;
+  background-color: #80CC28 !important;
 }
 
 .bg-secondary {
