@@ -76,6 +76,15 @@
   -webkit-box-orient: vertical;
 }
 
+.circle-timeline {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 11px;
+  text-align: center;
+}
+/* END MY CSS */
+
 .rdt_TableRow,
 .rdt_TableHeadRow {
   padding: 13px;
