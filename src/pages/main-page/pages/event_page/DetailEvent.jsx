@@ -73,11 +73,6 @@ export const DetailEvent = () => {
             style={{ minWidth: "200px" }}
           >
             <div className="text-dark fw-medium fs-6">
-              {detailEvent &&
-                detailEvent.detail_event[0].date_event.split(" ")[0]}{" "}
-              {" | "}
-              {detailEvent &&
-                detailEvent.detail_event[0].date_event.split(" ")[1]}
             </div>
             <h3 className="title-event text-primary fs-4">
               {detailEvent && detailEvent.title_event}
