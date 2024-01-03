@@ -5,7 +5,7 @@ const ProductService = () => {
    const handleGetAllProduct = async () => {
       try {
 
-         const response = await axios.get(`${import.meta.env.VITE_API_URL}api/product/get`);
+         const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/product/get`);
 
          const products = response.data;
 
@@ -19,7 +19,7 @@ const ProductService = () => {
    const handleAddProduct = async (productData) => {
       try {
          const response = await axios.post(
-            `${import.meta.env.VITE_API_URL}api/product/store`,
+            `${import.meta.env.VITE_API_URL}/api/product/store`,
             productData,
             {
                headers: {
@@ -39,7 +39,7 @@ const ProductService = () => {
    const handleDeleteProduct = async (productId) => {
       try {
          const response = await axios.delete(
-            `${import.meta.env.VITE_API_URL}api/product/delete/${productId}`,
+            `${import.meta.env.VITE_API_URL}/api/product/delete/${productId}`,
             {
                headers: {
                   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

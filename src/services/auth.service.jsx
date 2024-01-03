@@ -6,7 +6,7 @@ const AuthService = () => {
 
    const handleLogin = async (username, password) => {
       try {
-         const response = await axios.post(`${import.meta.env.VITE_API_URL}api/auth/user/login`, {
+         const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/login`, {
             username,
             password,
          });
@@ -26,7 +26,7 @@ const AuthService = () => {
 
    const handleRegister = async (userData) => {
       try {
-         const response = await axios.put(`${import.meta.env.VITE_API_URL}api/auth/user/register`, userData);
+         const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/auth/user/register`, userData);
 
          const data = response.data;
 

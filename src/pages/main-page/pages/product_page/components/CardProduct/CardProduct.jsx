@@ -10,7 +10,7 @@ export const CardProduct = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}api/product/get`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/product/get`);
             setProductData(response.data.data);
          } catch (error) {
             setError(error);
@@ -65,11 +65,11 @@ const CardImage = ({ imageUrl }) => {
       objectFit: "cover",
       height: "55%"
    }
-   return <img src={imageUrl} className="card-img-top img-fluid rounded" alt="Product Image" style={{ ...style, width: "100%" }} />;
+   return <img src={import.meta.env.VITE_API_URL+imageUrl} className="card-img-top img-fluid rounded" alt="Product Image" style={{ ...style, width: "100%" }} />;
 };
 
 const TitleCard = ({ title }) => {
-   return <h6 className="card-title fs-8">{title}</h6>;
+   return <h6 className="card-title fs-8 text-3line">{title}</h6>;
 };
 
 const DescriptionCard = ({ description }) => {

@@ -10,7 +10,7 @@ export const Event = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}api/event/get`
+          `${import.meta.env.VITE_API_URL}/api/event/get`
         );
         setListEventData(response.data.data);
         console.log(response.data.data);

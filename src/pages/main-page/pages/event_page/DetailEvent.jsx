@@ -25,7 +25,7 @@ export const DetailEvent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}api/event/get/${id}`
+          `${import.meta.env.VITE_API_URL}/api/event/get/${id}`
         );
         setdetailEvent(response.data.data);
         console.log(response.data.data);
