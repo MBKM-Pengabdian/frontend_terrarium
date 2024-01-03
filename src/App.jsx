@@ -10,6 +10,7 @@ import { Dashboard } from './pages/dashboard';
 import { Login } from './pages/auth/login/Login';
 import { Register } from './pages/auth/register/Register';
 import { ProductDashboard } from './pages/dashboard/pages/product';
+import { EventDashboard } from './pages/dashboard/pages/events';
 
 // Main Page
 import { Home, Product, Event, DetailEvent } from './pages/main-page';
@@ -24,6 +25,7 @@ const AppWrapper = () => {
   const excludePaths = [
     '/dashboard',
     '/dashboard/product',
+    '/dashboard/event',
     '/login',
     '/register'
   ];
@@ -45,6 +47,7 @@ const AppWrapper = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/dashboard/product" element={<ProductDashboard />} />
+        <Route path="/dashboard/event" element={<EventDashboard />} />
       </Routes>
       {!shouldExcludeNavbarFooter && <Footer />}
     </>

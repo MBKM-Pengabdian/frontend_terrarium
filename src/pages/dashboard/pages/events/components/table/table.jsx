@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { StyleSheetManager } from 'styled-components';
-import { ModalProduct } from '../modal/modal';
-import ProductService from '../../../../../../services/product.service';
+import EventService from '../../../../../../services/event.service';
+// import { ModalProduct } from '../modal/modal';
 
-const TableProduct = () => {
-   const productService = ProductService();
+const TableEvent = () => {
+   const eventService = EventService();
 
    const [data, setData] = useState([]);
    const [filterText, setFilterText] = useState('');
@@ -15,23 +15,23 @@ const TableProduct = () => {
       setFilterText(e.target.value);
    };
 
-   const handleDeleteClick = async (productId) => {
+   const handleDeleteClick = async (eventId) => {
       try {
-         await productService.handleDeleteProduct(productId);
-         const updatedProducts = await productService.handleGetAllProduct();
-         setData(updatedProducts);
+         await eventService.handleDeleteEvent(eventId);
+         const updatedEvents = await eventService.handleGetAllEvent();
+         setData(updatedEvents);
       } catch (error) {
-         console.error('Error deleting product:', error);
+         console.error('Error deleting event:', error);
       }
    };
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const products = await productService.handleGetAllProduct();
-            setData(products);
+            const events = await eventService.handleGetAllEvent();
+            setData(events);
          } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Error fetching event:', error);
          }
       };
 
@@ -40,16 +40,16 @@ const TableProduct = () => {
 
    const filteredData = (data.data || [])
       .filter((item) =>
-         item.product_name.toLowerCase().includes(filterText.toLowerCase()) ||
-         item.description.toLowerCase().includes(filterText.toLowerCase())
+         item.title_event.toLowerCase().includes(filterText.toLowerCase())
+         // item.description.toLowerCase().includes(filterText.toLowerCase())
       )
       .map((item, index) => ({
          ...item,
          index: index + 1,
       }));
 
-   const handleAddProductClick = () => {
-      setModalTitle('Add Product');
+   const handleAddEventClick = () => {
+      setModalTitle('Add Event');
    };
 
    const columns = [
@@ -60,25 +60,21 @@ const TableProduct = () => {
       },
       {
          name: 'Name',
-         selector: ({ product_name }) => product_name,
+         selector: ({ title_event }) => title_event,
       },
       {
          name: 'Image',
-         selector: ({ product_image }) => (
-            <img src={import.meta.env.VITE_API_URL+product_image} alt={import.meta.env.VITE_API_URL+product_image} style={{ width: '50px' }} />
+         selector: ({ img_event }) => (
+            <img src={import.meta.env.VITE_API_URL+img_event} alt={import.meta.env.VITE_API_URL+img_event} style={{ width: '50px' }} />
          ),
       },
       {
          name: 'Price',
-         selector: ({ price }) => 'Rp ' + price,
+         selector: ({ price_event }) => 'Rp ' + price_event,
       },
       {
-         name: 'Stock',
-         selector: ({ stock_quantity }) => stock_quantity,
-      },
-      {
-         name: 'Description',
-         selector: ({ description }) => description,
+         name: 'Kuota',
+         selector: ({ detail_event }) => (detail_event[0] ? detail_event[0].kuota_event : ''),
       },
       {
          name: 'Action',
@@ -95,7 +91,7 @@ const TableProduct = () => {
 
    return (
       <StyleSheetManager shouldForwardProp={(prop) => prop !== 'align'}>
-         <ModalProduct title={modalTitle} />
+         {/* <ModalProduct title={modalTitle} /> */}
          <DataTable
             columns={columns}
             data={filteredData}
@@ -106,7 +102,7 @@ const TableProduct = () => {
                <div className="d-flex justify-content-between align-items-center w-100">
                   <input
                      type="text"
-                     placeholder="Cari Data Product"
+                     placeholder="Cari Data Event"
                      value={filterText}
                      onChange={handleFilterChange}
                      className="form-control w-25"
@@ -115,16 +111,16 @@ const TableProduct = () => {
                      className="btn btn-success m-0"
                      data-bs-toggle="modal"
                      data-bs-target="#modal-product"
-                     onClick={handleAddProductClick}
+                     onClick={handleAddEventClick}
                   >
-                     Add Product
+                     Add Event
                   </button>
                </div>
             }
-            title="List Product"
+            title="List Events"
          />
       </StyleSheetManager>
    );
 };
 
-export default TableProduct;
+export default TableEvent;
