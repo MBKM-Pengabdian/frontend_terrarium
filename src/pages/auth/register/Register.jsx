@@ -29,7 +29,7 @@ export const Register = () => {
          <div className="container">
             <div className="row justify-content-center">
                <div className="col-md-6">
-                  <div className="card mt-8">
+                  <div className="card mt-8 bg-white rounded">
                      <div className="card-header pb-0 text-left bg-transparent text-center">
                         <h3 className="font-weight-bolder text-success text-gradient">Register</h3>
                         <p className="mb-0">Lengkapi semua form nya</p>
