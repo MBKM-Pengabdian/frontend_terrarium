@@ -2,7 +2,7 @@ import { FaCalendar, FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export const CardEvent = ({ data }) => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div className="col-md-6 col-lg-6">
@@ -27,7 +27,9 @@ export const CardEvent = ({ data }) => {
                     {data2.tag_event}
                   </label>
                 ))}
-                <div className="card-title h5 mb-3 text-3line">{data.title_event}</div>
+                <div className="card-title h5 mb-3 text-3line">
+                  {data.title_event}
+                </div>
                 <div className="time-event mb-2">
                   <FaClock className="text-primary me-3" /> 09:40
                 </div>
@@ -37,17 +39,20 @@ export const CardEvent = ({ data }) => {
                 <div className="time-event mb-3">
                   <FaMapMarkerAlt className="text-primary me-3" /> Zoom
                 </div>
-                <button onClick={()=>navigate(`/detail-event/${data.uuid}`)} className="btn border border-primary w-75 ">
+                <button
+                  onClick={() => navigate(`/detail-event/${data.uuid}`)}
+                  className="btn border border-primary w-75 "
+                >
                   Detail
                 </button>
               </div>
-              
+
               {data.detail_event.map((data2, index) => (
-                <div className="row mt-auto m-2" key={index}>
-                  <div className="col">
+                <div className="row mt-auto my-2" key={index}>
+                  <div className="col fw-bold ">
                     Sisa {data2.sisa_event} Kuota
                   </div>
-                  <div className="col text-end">{data.status}</div>
+                  <div className="col-3 text-end fw-bold  ">{data.status}</div>
                 </div>
               ))}
             </div>

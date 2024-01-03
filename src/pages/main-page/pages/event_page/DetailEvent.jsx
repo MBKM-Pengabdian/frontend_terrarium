@@ -6,7 +6,6 @@ import {
   FaFacebook,
   FaInstagram,
   FaMapMarkerAlt,
-  FaTwitch,
   FaTwitter,
 } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -89,7 +88,7 @@ export const DetailEvent = () => {
                 <FaTwitter className="fs-5 mx-1" />
               </span>
             </div>
-            <div className="mb-2">
+            <div className="mb-2 text-dark">
               <div className="mb-2">
                 <FaClock className="text-primary me-2" /> {detailEvent.detail_event[0].date_event.split(" ")[1]}
                 <FaCalendar className="text-primary ms-4 me-2" /> {detailEvent.detail_event[0].date_event.split(" ")[0]}
@@ -108,7 +107,6 @@ export const DetailEvent = () => {
           <div className="col m-auto text-center" style={{ minWidth: "200px" }}>
             <div>Terbuka Hingga:</div>
             <div className="fw-bold mb-3">
-              {/* 2023-12-31 */}
               {detailEvent &&
                 detailEvent.detail_event[0].last_regist_event.split(" ")[0]}
             </div>
