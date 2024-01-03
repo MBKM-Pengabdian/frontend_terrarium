@@ -72,7 +72,8 @@
 .text-3line {
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Jumlah baris yang ingin ditampilkan */
+  -webkit-line-clamp: 3;
+  /* Jumlah baris yang ingin ditampilkan */
   -webkit-box-orient: vertical;
 }
 
@@ -83,7 +84,34 @@
   font-size: 11px;
   text-align: center;
 }
-/* END MY CSS */
+
+.card {
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+}
+
+.card .card-header {
+  padding: 1.5rem;
+}
+
+.card .card-body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 1.5rem;
+}
+
+.card.card-plain {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.card .card-footer {
+  padding: 1.5rem;
+  background-color: transparent;
+}
+
+.btn:hover:not(.btn-icon-only) {
+  box-shadow: none !important;
+  transform: scale(1.02);
+}
 
 .rdt_TableRow,
 .rdt_TableHeadRow {
@@ -139,7 +167,7 @@ h6,
   margin-bottom: 0.5rem;
   font-weight: 400;
   line-height: 1.2;
-  color: #344767;
+  color: #000;
 }
 
 h1,
@@ -20346,13 +20374,6 @@ fieldset:disabled .btn {
   text-transform: uppercase;
 }
 
-.btn {
-  margin-bottom: 1rem;
-  letter-spacing: -0.025rem;
-  background-size: 150%;
-  background-position-x: 25%;
-}
-
 .btn:not([class*="btn-outline-"]) {
   border: 0;
 }
@@ -20914,29 +20935,6 @@ fieldset:disabled .btn {
   padding: 0;
   margin: 0;
   background: transparent;
-}
-
-.card {
-  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
-}
-
-.card .card-header {
-  padding: 1.5rem;
-}
-
-.card .card-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  padding: 1.5rem;
-}
-
-.card.card-plain {
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.card .card-footer {
-  padding: 1.5rem;
-  background-color: transparent;
 }
 
 .author {

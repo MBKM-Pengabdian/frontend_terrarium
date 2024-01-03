@@ -29,7 +29,7 @@ export const Login = () => {
          <div className="container">
             <div className="row justify-content-center">
                <div className="col-md-6">
-                  <div className="card mt-8 w-100">
+                  <div className="card mt-8 w-100 bg-white rounded">
                      <div className="card-header pb-0 text-left bg-transparent text-center">
                         <h3 className="font-weight-bolder text-success text-gradient">Welcome</h3>
                         <p className="mb-0">Masukan Email dan Password</p>
