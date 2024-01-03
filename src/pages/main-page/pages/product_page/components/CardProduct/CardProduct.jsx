@@ -49,7 +49,8 @@ const ProductCard = ({ product }) => {
    return (
       <div className="col-lg-3" style={style}>
          <div className="card h-100 rounded" key={product.uuid}>
-            <CardImage imageUrl={product_image} />
+            {/* <CardImage imageUrl={product_image} /> */}
+            <CardImage imageUrl='https://plus.unsplash.com/premium_photo-1703689605321-859faed8ebcf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8' />
             <div className="card-body p-3">
                <TitleCard title={product_name} />
                <DescriptionCard description={description} />
