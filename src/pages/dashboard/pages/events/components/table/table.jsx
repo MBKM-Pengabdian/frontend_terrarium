@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import { StyleSheetManager } from 'styled-components';
 import EventService from '../../../../../../services/event.service';
+import { ModalEvent } from '../modal/modal';
 // import { ModalProduct } from '../modal/modal';
 
 const TableEvent = () => {
@@ -91,7 +92,7 @@ const TableEvent = () => {
 
    return (
       <StyleSheetManager shouldForwardProp={(prop) => prop !== 'align'}>
-         {/* <ModalProduct title={modalTitle} /> */}
+         <ModalEvent title={modalTitle} />
          <DataTable
             columns={columns}
             data={filteredData}
