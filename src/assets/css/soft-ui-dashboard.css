@@ -85,6 +85,10 @@
   text-align: center;
 }
 
+.ck-editor__editable {
+    min-height: 270px;
+}
+
 .card {
   box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
 }
