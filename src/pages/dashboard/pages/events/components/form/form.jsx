@@ -1,22 +1,30 @@
 import { useState } from "react";
-import ProductService from "../../../../../../services/product.service";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import EventService from "../../../../../../services/event.service";
+
 export const FormEvent = () => {
-  const productService = ProductService();
+  const eventService = EventService();
   const [formData, setFormData] = useState({
-    product_name: "",
-    description: "",
-    price: "",
-    stock_quantity: "",
-    product_image: null,
+    title_event: "",
+    date_event: "",
+    last_regist_event: "",
+    price_event: "",
+    kuota_event: "",
+    speaker_event: "",
+    sponsor_event: "",
+    place: "",
+    tag_event: "",
+    description_event: "",
+    event_image: null,
+    banner_image: null,
     user_id: localStorage.getItem("user_id"),
   });
   const [errors, setErrors] = useState({});
 
   const [timelines, setTimelines] = useState([
-    { id: 1, title_timeline: '', time: '' },
+    { id: 1, title_timeline: "", time: "" },
   ]);
 
   const handleChangeTimeLines = (event, index, fieldName) => {
@@ -26,14 +34,16 @@ export const FormEvent = () => {
   };
 
   const handleAddTimeline = () => {
-    setTimelines([...timelines, { id: timelines.length + 1, title_timeline: '', time: '' }]);
+    setTimelines([
+      ...timelines,
+      { id: timelines.length + 1, title_timeline: "", time: "" },
+    ]);
   };
 
   const handleRemoveTimeline = (index) => {
     const updatedTimelines = timelines.filter((_, i) => i !== index);
     setTimelines(updatedTimelines);
   };
-
 
   const handleChange = (event) => {
     const { name, value, type } = event.target;
@@ -50,10 +60,10 @@ export const FormEvent = () => {
 
     // Simple required field validation
     const requiredFields = [
-      "product_name",
-      "price",
-      "stock_quantity",
-      "description",
+      "title_event",
+      "date_event",
+      "price_event",
+      "place",
     ];
     const newErrors = {};
 
@@ -74,10 +84,10 @@ export const FormEvent = () => {
     });
 
     try {
-      const addedProduct = await productService.handleAddProduct(payload);
-      return addedProduct;
+      const addedEvent = await eventService.handleAddEvent(payload);
+      return addedEvent;
     } catch (error) {
-      console.error("Error adding product:", error);
+      console.error("Error adding event:", error);
     }
   };
 
@@ -90,14 +100,14 @@ export const FormEvent = () => {
             <input
               type="text"
               className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
+                errors.title_event ? "is-invalid" : ""
               }`}
               placeholder="Masukan Judul Event"
               onChange={handleChange}
-              name="product_name"
+              name="title_event"
             />
-            {errors.product_name && (
-              <div className="invalid-feedback">{errors.product_name}</div>
+            {errors.title_event && (
+              <div className="invalid-feedback">{errors.title_event}</div>
             )}
           </div>
           <div className="col-md-3 mb-3">
@@ -105,29 +115,29 @@ export const FormEvent = () => {
             <input
               type="date"
               className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
+                errors.date_event ? "is-invalid" : ""
               }`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
-              name="stock_quantity"
+              name="date_event"
             />
-            {errors.stock_quantity && (
-              <div className="invalid-feedback">{errors.stock_quantity}</div>
+            {errors.date_event && (
+              <div className="invalid-feedback">{errors.date_event}</div>
             )}
           </div>
           <div className="col-md-2 mb-3">
-            <label>Time Event</label>
+            <label>Time Event *</label>
             <input
               type="time"
               className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
+                errors.date_event ? "is-invalid" : ""
               }`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
-              name="stock_quantity"
+              name="date_event"
             />
-            {errors.stock_quantity && (
-              <div className="invalid-feedback">{errors.stock_quantity}</div>
+            {errors.date_event && (
+              <div className="invalid-feedback">{errors.date_event}</div>
             )}
           </div>
         </div>
@@ -137,44 +147,36 @@ export const FormEvent = () => {
             <label>Batas Pendaftaran</label>
             <input
               type="date"
-              className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
-              }`}
-              placeholder="Masukan Stok Product"
+              className={`form-control`}
+              placeholder="Batas Pendaftaran"
               onChange={handleChange}
               name="stock_quantity"
             />
-            {errors.stock_quantity && (
-              <div className="invalid-feedback">{errors.stock_quantity}</div>
-            )}
           </div>
           <div className="col-md-3 mb-3">
             <label>Harga *</label>
             <input
               type="text"
-              className={`form-control ${errors.price ? "is-invalid" : ""}`}
+              className={`form-control ${
+                errors.price_event ? "is-invalid" : ""
+              }`}
               placeholder="Masukan Harga"
               onChange={handleChange}
-              name="price"
+              name="price_event"
             />
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
+            {errors.price_event && (
+              <div className="invalid-feedback">{errors.price_event}</div>
             )}
           </div>
           <div className="col-md-2 mb-3">
             <label>Kuota Event</label>
             <input
-              type="text"
-              className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
-              }`}
+              type="number"
+              className={`form-control`}
               placeholder="Masukan Kuota Event"
               onChange={handleChange}
-              name="stock_quantity"
+              name="kuota_event"
             />
-            {errors.stock_quantity && (
-              <div className="invalid-feedback">{errors.stock_quantity}</div>
-            )}
           </div>
         </div>
 
@@ -183,58 +185,47 @@ export const FormEvent = () => {
             <label>Speaker</label>
             <input
               type="text"
-              className={`form-control ${errors.price ? "is-invalid" : ""}`}
+              className={`form-control`}
               placeholder="Masukan Pembicara"
               onChange={handleChange}
-              name="price"
+              name="speaker_event"
             />
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
-            )}
           </div>
           <div className="col-md-6 mb-3">
             <label>Sponsor</label>
             <input
               type="text"
-              className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
-              }`}
+              className={`form-control`}
               placeholder="Masukan Sponsor"
               onChange={handleChange}
-              name="stock_quantity"
+              name="sponsor_event"
             />
-            {errors.stock_quantity && (
-              <div className="invalid-feedback">{errors.stock_quantity}</div>
-            )}
           </div>
         </div>
 
         <div className="row">
           <div className="col-md-6 mb-3">
-            <label>Lokasi Event</label>
+            <label>Lokasi Event *</label>
             <textarea
               type="text"
-              className={`form-control ${errors.price ? "is-invalid" : ""}`}
+              className={`form-control ${errors.place ? "is-invalid" : ""}`}
               placeholder="Masukan Lokasi Event"
               onChange={handleChange}
-              name="price"
+              name="place"
             ></textarea>
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
+            {errors.place && (
+              <div className="invalid-feedback">{errors.place}</div>
             )}
           </div>
           <div className="col-md-6 mb-3">
             <label>Tag Event</label>
             <textarea
               type="text"
-              className={`form-control ${errors.price ? "is-invalid" : ""}`}
+              className={`form-control`}
               placeholder="Masukan Tag Event (pisah dengan koma)"
               onChange={handleChange}
-              name="price"
+              name="tag_event"
             ></textarea>
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
-            )}
           </div>
         </div>
         <div className="row">
@@ -242,60 +233,50 @@ export const FormEvent = () => {
             <label className="fs-6 me-4">Time Line Acara</label>
           </div>
           {timelines.map((timeline, index) => (
-        <div key={timeline.id} className="row mb-3">
-          <div className="col-auto">
-            <label className="fs-6 me-4">&nbsp;</label>
-            <div>
-              <button
-                type="button"
-                onClick={handleAddTimeline}
-                className="btn btn-success py-2 px-3 me-2"
-              >
-                <FaPlus />
-              </button>
-              {timelines.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => handleRemoveTimeline(index)}
-                  className="btn btn-danger py-2 px-3"
-                >
-                  <FaMinus />
-                </button>
-              )}
+            <div key={timeline.id} className="row mb-3">
+              <div className="col-auto">
+                <label className="fs-6 me-4">&nbsp;</label>
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleAddTimeline}
+                    className="btn btn-success py-2 px-3 me-2"
+                  >
+                    <FaPlus />
+                  </button>
+                  {timelines.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveTimeline(index)}
+                      className="btn btn-danger py-2 px-3"
+                    >
+                      <FaMinus />
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="col mb-3">
+                <label>Title Acara</label>
+                <input
+                  type="text"
+                  className={`form-control`}
+                  placeholder="Masukan Stok Product"
+                  onChange={(e) => handleChangeTimeLines(e, index)}
+                  name={`title_${timeline.id}`}
+                />
+              </div>
+              <div className="col-md-2 mb-3">
+                <label>Time</label>
+                <input
+                  type="Time"
+                  className={`form-control`}
+                  placeholder="Masukan Stok Product"
+                  onChange={(e) => handleChange(e, index)}
+                  name={`time_${timeline.id}`}
+                />
+              </div>
             </div>
-          </div>
-          <div className="col mb-3">
-            <label>Title Acara</label>
-            <input
-              type="text"
-              className={`form-control ${
-                errors.product_name ? 'is-invalid' : ''
-              }`}
-              placeholder="Masukan Stok Product"
-              onChange={(e) => handleChangeTimeLines(e, index)}
-              name={`title_${timeline.id}`}
-            />
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
-            )}
-          </div>
-          <div className="col-md-2 mb-3">
-            <label>Time</label>
-            <input
-              type="Time"
-              className={`form-control ${
-                errors.product_name ? 'is-invalid' : ''
-              }`}
-              placeholder="Masukan Stok Product"
-              onChange={(e) => handleChange(e, index)}
-              name={`time_${timeline.id}`}
-            />
-            {errors.price && (
-              <div className="invalid-feedback">{errors.price}</div>
-            )}
-          </div>
-        </div>
-      ))}
+          ))}
         </div>
         <div className="row">
           <div className="col-md-12 mb-3">
