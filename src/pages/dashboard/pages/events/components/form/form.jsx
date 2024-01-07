@@ -6,21 +6,48 @@ import EventService from "../../../../../../services/event.service";
 
 export const FormEvent = () => {
   const eventService = EventService();
+  // const [formData, setFormData] = useState({
+  //   title_event: "",
+  //   date_event: "",
+  //   last_regist_event: "",
+  //   price_event: "",
+  //   kuota_event: "",
+  //   speaker_event: "",
+  //   sponsor_event: "",
+  //   place: "",
+  //   tag_event: "",
+  //   description_event: "",
+  //   event_image: null,
+  //   banner_image: null,
+  //   user_id: localStorage.getItem("user_id"),
+  // });
+
   const [formData, setFormData] = useState({
-    title_event: "",
-    date_event: "",
-    last_regist_event: "",
-    price_event: "",
-    kuota_event: "",
-    speaker_event: "",
-    sponsor_event: "",
-    place: "",
-    tag_event: "",
-    description_event: "",
-    event_image: null,
-    banner_image: null,
-    user_id: localStorage.getItem("user_id"),
-  });
+  user_id: localStorage.getItem("user_id"),
+  img_event: null,
+  title_event: "",
+  price_event: "",
+  detailEvent: [
+    {
+      description_event: "",
+      sponsor_event: "",
+      speaker_event: "",
+      banner_event: null,
+      tag_event: "",
+      date_event: "",
+      last_regist_event: "",
+      kuota_event: "",
+      sisa_event: "",
+      timeline: [
+        {
+          title: "",
+          waktu: "",
+        },
+      ],
+    },
+  ],
+});
+
   const [errors, setErrors] = useState({});
 
   const [timelines, setTimelines] = useState([
@@ -45,15 +72,59 @@ export const FormEvent = () => {
     setTimelines(updatedTimelines);
   };
 
-  const handleChange = (event) => {
-    const { name, value, type } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "file" ? event.target.files[0] : value,
-    }));
+  // const handleChange = (event) => {
+  //   const { name, value, type } = event.target;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [name]: type === "file" ? event.target.files[0] : value,
+  //   }));
 
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  };
+  //   setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  // };
+
+  const handleChange = (event) => {
+  const { name, value, type } = event.target;
+
+  setFormData((prevFormData) => {
+    if (name === 'timeline_title' || name === 'timeline_waktu') {
+      // Handle changes for timeline properties
+      const [index, fieldName] = name.split('_');
+      const updatedTimelines = [...prevFormData.detailEvent[0].timeline];
+      updatedTimelines[index][fieldName] = value;
+
+      return {
+        ...prevFormData,
+        detailEvent: [
+          {
+            ...prevFormData.detailEvent[0],
+            timeline: updatedTimelines,
+          },
+        ],
+      };
+    } else if (name.startsWith('detailEvent.')) {
+      // Handle changes for detailEvent properties
+      const detailEventProp = name.split('.')[1];
+
+      return {
+        ...prevFormData,
+        detailEvent: [
+          {
+            ...prevFormData.detailEvent[0],
+            [detailEventProp]: type === 'file' ? event.target.files[0] : value,
+          },
+        ],
+      };
+    } else {
+      // Handle changes for top-level properties
+      return {
+        ...prevFormData,
+        [name]: type === 'file' ? event.target.files[0] : value,
+      };
+    }
+  });
+
+  setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -84,7 +155,8 @@ export const FormEvent = () => {
     });
 
     try {
-      const addedEvent = await eventService.handleAddEvent(payload);
+      console.log(formData);
+      const addedEvent = await eventService.handleAddEvent(formData);
       return addedEvent;
     } catch (error) {
       console.error("Error adding event:", error);
@@ -119,7 +191,7 @@ export const FormEvent = () => {
               }`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
-              name="date_event"
+              name="detailEvent.date_event"
             />
             {errors.date_event && (
               <div className="invalid-feedback">{errors.date_event}</div>
@@ -150,7 +222,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Batas Pendaftaran"
               onChange={handleChange}
-              name="stock_quantity"
+              name="detailEvent.last_regist_event"
             />
           </div>
           <div className="col-md-3 mb-3">
@@ -175,7 +247,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Kuota Event"
               onChange={handleChange}
-              name="kuota_event"
+              name="detailEvent.kuota_event"
             />
           </div>
         </div>
@@ -188,7 +260,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Pembicara"
               onChange={handleChange}
-              name="speaker_event"
+              name="detailEvent.speaker_event"
             />
           </div>
           <div className="col-md-6 mb-3">
@@ -198,7 +270,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Sponsor"
               onChange={handleChange}
-              name="sponsor_event"
+              name="detailEvent.sponsor_event"
             />
           </div>
         </div>
@@ -224,7 +296,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Tag Event (pisah dengan koma)"
               onChange={handleChange}
-              name="tag_event"
+              name="detailEvent.tag_event"
             ></textarea>
           </div>
         </div>
@@ -290,12 +362,6 @@ export const FormEvent = () => {
               }}
               onChange={(event) => {
                 console.log(event);
-              }}
-              onBlur={(event, editor) => {
-                console.log("Blur.", editor);
-              }}
-              onFocus={(event, editor) => {
-                console.log("Focus.", editor);
               }}
             />
           </div>
