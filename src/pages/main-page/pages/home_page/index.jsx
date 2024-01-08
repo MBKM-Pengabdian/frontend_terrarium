@@ -1,4 +1,4 @@
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaTree } from "react-icons/fa";
 
 export const Home = () => {
   return (
@@ -95,8 +95,55 @@ export const Home = () => {
         </button>
       </div>
 
+      <div className="layanan-section-home my-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3 p-5 ">
+              <div className="icon-layanan mb-4 text-center text-primary display-4">
+              <FaTree/>
+              </div>
+              <div className="h5 text-center mb-4">Renovasi taman</div>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+                sint architecto dolores. Voluptatibus, facere doloribus!
+              </p>
+            </div>
+            <div className="col-md-3 p-5 ">
+              <div className="icon-layanan mb-4 text-center text-primary display-4">
+              <FaTree/>
+              </div>
+              <div className="h5 text-center mb-4">konsultasi dan desain taman</div>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+                sint architecto dolores. Voluptatibus, facere doloribus!
+              </p>
+            </div>
+            <div className="col-md-3 p-5 ">
+              <div className="icon-layanan mb-4 text-center text-primary display-4">
+              <FaTree/>
+              </div>
+              <div className="h5 text-center mb-4">konsultasi perawatan tanaman Proyek</div>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+                sint architecto dolores. Voluptatibus, facere doloribus!
+              </p>
+            </div>
+            <div className="col-md-3 p-5 ">
+              <div className="icon-layanan mb-4 text-center text-primary display-4">
+              <FaTree/>
+              </div>
+              <div className="h5 text-center mb-4">Program Khusus</div>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
+                sint architecto dolores. Voluptatibus, facere doloribus!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
-        className="d-flex align-items-lg-center my-5 py-5"
+        className="about-section-home my-5 d-flex align-items-lg-center py-5"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGxhbnRzfGVufDB8fDB8fHww')",
@@ -127,7 +174,7 @@ export const Home = () => {
                 kepada generasi milenial di Kota Medan, dan meraih keuntungan
                 dari usaha berbasis ekonomi kreatif.
               </p>
-              <div className="" style={{ borderLeft: '5px #80CC28 solid' }}>
+              <div className="" style={{ borderLeft: "5px #80CC28 solid" }}>
                 <div className="row ms-3">
                   <div className="col-auto display-4 fw-bold text-primary">
                     6
@@ -135,7 +182,9 @@ export const Home = () => {
                   <div className="col m-auto">
                     <div className="row">
                       <div className="col-12 fs-5">Years of</div>
-                      <div className="col-12 text-light fw-bold fs-5">EXPERIENCE</div>
+                      <div className="col-12 text-light fw-bold fs-5">
+                        EXPERIENCE
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -163,7 +212,7 @@ export const Home = () => {
                   >
                     <div className="card-body">
                       <div className="text-primary display-5 fw-bold mb-2">
-                        120
+                        45
                       </div>
                       <div className="fw-bold h5 text-light">Projects Done</div>
                     </div>
@@ -176,7 +225,7 @@ export const Home = () => {
                   >
                     <div className="card-body">
                       <div className="text-primary display-5 fw-bold mb-2">
-                        120
+                        13
                       </div>
                       <div className="fw-bold h5 text-light">Projects Done</div>
                     </div>
@@ -189,7 +238,7 @@ export const Home = () => {
                   >
                     <div className="card-body">
                       <div className="text-primary display-5 fw-bold mb-2">
-                        120
+                        87
                       </div>
                       <div className="fw-bold h5 text-light">Projects Done</div>
                     </div>
