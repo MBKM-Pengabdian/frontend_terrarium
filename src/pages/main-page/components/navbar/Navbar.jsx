@@ -7,7 +7,7 @@ export const Navbar = () => {
   return (
    <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary text-dark bg-white">
-      <div className="container-fluid">
+      <div className="container">
         <a className="navbar-brand" href="#">
           <img src={Logo} alt="Logo" width={70} />
         </a>
