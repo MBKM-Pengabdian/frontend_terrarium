@@ -1,4 +1,4 @@
-import { FaCartPlus, FaTree } from "react-icons/fa";
+import { FaBitbucket, FaCartPlus, FaHandHoldingWater, FaSeedling, FaSpa, FaTree } from "react-icons/fa";
 
 export const Home = () => {
   return (
@@ -17,7 +17,7 @@ export const Home = () => {
               }}
               alt="..."
             />
-            <div className="carousel-caption position-absolute vh-100 d-flex align-items-center justify-content-center text-center pt-5">
+            <div className="carousel-caption vh-100 d-flex align-items-center justify-content-center text-center pt-5">
               <div className="">
                 <div className="h3 text-primary">Terrarium Medan</div>
                 <div className="text-light display-2 fw-bold">
@@ -95,48 +95,184 @@ export const Home = () => {
         </button>
       </div>
 
-      <div className="layanan-section-home my-5">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3 p-5 ">
-              <div className="icon-layanan mb-4 text-center text-primary display-4">
-              <FaTree/>
+      <div
+        className="layanan-section-home position-absolute"
+        style={{ marginTop: "-120px", marginBottom: "400px", zIndex: "1" }}
+      >
+        <div className="container-fluid top-feature py-5 pt-lg-0">
+          <div className="container py-5 pt-lg-0">
+            <div className="row gx-0">
+              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
+                <div
+                  className="bg-white shadow d-flex align-items-center h-100 px-5"
+                  style={{ minHeight: "160px" }}
+                >
+                  <div className="d-flex">
+                    <div className="flex-shrink-0 btn-lg-square">
+                      <FaTree className="text-primary display-5" />
+                    </div>
+                    <div className="ps-3">
+                      <h4>Renovasi Taman</h4>
+                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="h5 text-center mb-4">Renovasi taman</div>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
-                sint architecto dolores. Voluptatibus, facere doloribus!
-              </p>
+              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
+                <div
+                  className="bg-white shadow d-flex align-items-center h-100 px-5"
+                  style={{
+                    minHeight: "160px",
+                  }}
+                >
+                  <div className="d-flex">
+                    <div className="flex-shrink-0 btn-lg-square">
+                      <FaTree className="text-primary display-5" />
+                    </div>
+                    <div className="ps-3">
+                      <h4>Konsultasi dan Desain Taman</h4>
+                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
+                <div
+                  className="bg-white shadow d-flex align-items-center h-100 px-5"
+                  style={{
+                    minHeight: "160px",
+                  }}
+                >
+                  <div className="d-flex">
+                    <div className="flex-shrink-0 btn-lg-square">
+                      <FaTree className="text-primary display-5" />
+                    </div>
+                    <div className="ps-3">
+                      <h4>Konsultasi Perawatan Tanaman</h4>
+                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="col-md-3 p-5 ">
-              <div className="icon-layanan mb-4 text-center text-primary display-4">
-              <FaTree/>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="layanan-section-home  my-5 d-flex align-items-lg-center"
+        style={{ paddingTop: "100px" }}
+      >
+        <div className="container-fluid py-5 pt-lg-0">
+          <div className="container py-5 pt-lg-0 d-flex justify-content-center">
+            <div className="row px-lg-5">
+              <div className="col-lg-6">
+                <div className="row">
+                  <div className="col-auto pt-5 d-flex justify-content-center px-0 mx-4">
+                    <div className="px-0">
+                      <div
+                        className="card px-0 mb-5 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaSeedling className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Tanaman</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className="card px-0 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaBitbucket className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Aksesoris Terrarium</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-auto d-flex justify-content-center">
+                    <div className="">
+                      <div
+                        className="card px-0 mb-5 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaHandHoldingWater className="display-4 text-primary " />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Media Tanam</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className="card px-0 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaSpa className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Produk Jadi Terrarium</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="h5 text-center mb-4">konsultasi dan desain taman</div>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
-                sint architecto dolores. Voluptatibus, facere doloribus!
-              </p>
-            </div>
-            <div className="col-md-3 p-5 ">
-              <div className="icon-layanan mb-4 text-center text-primary display-4">
-              <FaTree/>
+              <div className="col-lg-6 m-auto">
+                <div className="text-primary h3 mb-4">
+                  Produk yang Kami Tawarkan
+                </div>
+                <p>
+                  Dalam perjalanan kami menuju keberlanjutan dan kecantikan alam, kami dengan bangga mempersembahkan rangkaian produk unggulan kami yang mencerminkan keajaiban dunia tumbuhan. Setiap produk yang kami tawarkan tidak hanya sekadar barang, tetapi juga kisah cinta kami terhadap tanaman dan keberlanjutan.
+                </p>
+                <p>
+                  Kami memahami bahwa setiap tanaman memiliki cerita dan karakternya sendiri, dan itulah yang kami sajikan melalui produk-produk kami. Dari tanaman hidup yang segar hingga aksesoris terrarium yang elegan, kami berkomitmen untuk membawa keindahan hijau ke dalam kehidupan sehari-hari Anda.
+                </p>
               </div>
-              <div className="h5 text-center mb-4">konsultasi perawatan tanaman Proyek</div>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
-                sint architecto dolores. Voluptatibus, facere doloribus!
-              </p>
-            </div>
-            <div className="col-md-3 p-5 ">
-              <div className="icon-layanan mb-4 text-center text-primary display-4">
-              <FaTree/>
-              </div>
-              <div className="h5 text-center mb-4">Program Khusus</div>
-              <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos
-                sint architecto dolores. Voluptatibus, facere doloribus!
-              </p>
             </div>
           </div>
         </div>
@@ -325,99 +461,36 @@ export const Home = () => {
             <div className="col text-end">Selengkapnya</div>
           </div>
           <div className="row justify-content-between">
-            <div
-              className="card px-0 mx-lg-3 rounded-3"
-              style={{ width: "25rem" }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
-                className="card-img-top rounded-top"
-                style={{ height: "300px", objectFit: "cover" }}
-                alt="..."
-              />
-              <div className="card-body">
-                <h5
-                  className="card-title text-2line mb-3"
-                  style={{ minHeight: "50px" }}
-                >
-                  Pot Bentuk Rumah
-                </h5>
+            {["a", "b", "c"].map((data, index) => (
+              <div
+                key={index}
+                className="card px-0 mx-lg-3 rounded-3"
+                style={{ width: "25rem" }}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
+                  className="card-img-top rounded-top"
+                  style={{ height: "300px", objectFit: "cover" }}
+                  alt="..."
+                />
+                <div className="card-body">
+                  <label htmlFor="">Kategori</label>
+                  <h5
+                    className="card-title text-2line mb-2"
+                    style={{ minHeight: "50px" }}
+                  >
+                    Pot Bentuk Rumah Makan Adat Padang
+                  </h5>
+                  <div className="text-end mb-3 fw-bold">Rp. 40.000</div>
 
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-                  dicta quae voluptatem eius molestias sequi quod numquam, earum
-                  molestiae nihil.
-                </p>
-
-                <div className="text-end">
-                  <button className="btn btn-success">
-                    <FaCartPlus className="fs-5" />{" "}
-                  </button>
+                  <div className="text-end">
+                    <button className="btn btn-success">
+                      <FaCartPlus className="fs-5" />{" "}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              className="card px-0 mx-lg-3 rounded-3"
-              style={{ width: "25rem" }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
-                className="card-img-top rounded-top"
-                style={{ height: "300px", objectFit: "cover" }}
-                alt="..."
-              />
-              <div className="card-body">
-                <h5
-                  className="card-title text-2line mb-3"
-                  style={{ minHeight: "50px" }}
-                >
-                  Pupuk Organik Serbuk Emas
-                </h5>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-                  dicta quae voluptatem eius molestias sequi quod numquam, earum
-                  molestiae nihil.
-                </p>
-
-                <div className="text-end">
-                  <button className="btn btn-success">
-                    <FaCartPlus className="fs-5" />{" "}
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              className="card px-0 mx-lg-3 rounded-3"
-              style={{ width: "25rem" }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
-                className="card-img-top rounded-top"
-                style={{ height: "300px", objectFit: "cover" }}
-                alt="..."
-              />
-              <div className="card-body">
-                <h5
-                  className="card-title text-2line mb-3"
-                  style={{ minHeight: "50px" }}
-                >
-                  Tanaman Hias Monstera Variegata Variegata
-                </h5>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-                  dicta quae voluptatem eius molestias sequi quod numquam, earum
-                  molestiae nihil.
-                </p>
-
-                <div className="text-end">
-                  <button className="btn btn-success">
-                    <FaCartPlus className="fs-5" />{" "}
-                  </button>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="event-section-home my-5">
@@ -472,7 +545,7 @@ export const Home = () => {
                           />
                         </div>
                         <div className="col-md-8 ps-4">
-                          <div className="card-title h5">
+                          <div className="card-title h5 text-primary fw-bold">
                             Workshop Tanaman Hidroponik
                           </div>
                           <p className="text-2line">
