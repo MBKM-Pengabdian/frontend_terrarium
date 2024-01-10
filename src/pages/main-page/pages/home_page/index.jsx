@@ -2,15 +2,18 @@ import {
   FaBitbucket,
   FaCartPlus,
   FaHandHoldingWater,
+  FaLongArrowAltDown,
   FaSeedling,
   FaSpa,
   FaTree,
 } from "react-icons/fa";
 
+import { FaClover, FaHandsBubbles, FaTrowel } from "react-icons/fa6";
+
 export const Home = () => {
   return (
     <>
-      <div id="carouselExample" className="carousel slide mb-5">
+      <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
@@ -102,196 +105,100 @@ export const Home = () => {
         </button>
       </div>
 
-      <div
-        className="layanan-section-home position-absolute"
-        style={{ marginTop: "-120px", marginBottom: "400px", zIndex: "1" }}
-      >
-        <div className="container-fluid top-feature py-5 pt-lg-0">
-          <div className="container py-5 pt-lg-0">
-            <div className="row gx-0">
-              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                <div
-                  className="bg-white shadow d-flex align-items-center h-100 px-5"
-                  style={{ minHeight: "160px" }}
-                >
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 btn-lg-square">
-                      <FaTree className="text-primary display-5" />
-                    </div>
-                    <div className="ps-3">
-                      <h4>Renovasi Taman</h4>
-                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                    </div>
-                  </div>
+      <div className="layanan-section-home bg-light">
+        <div className="container-fluid pt-lg-0">
+          <div className="container pt-lg-0">
+            <div className="row gx-0 d-flex justify-content-center">
+              <div
+                className="col-lg-3 py-5 px-4 wow fadeIn"
+                data-wow-delay="0.1s"
+              >
+                <div className="text-center mb-4">
+                  <FaClover className="text-primary display-5" />
                 </div>
+                <div className="text-center">
+                  <h5>Renovasi Taman</h5>
+                </div>
+                <p className="text-center">
+                  Mengubah taman Anda menjadi ruang yang lebih indah dan
+                  fungsional melalui perencanaan kreatif dan renovasi yang
+                  disesuaikan.
+                </p>
               </div>
-              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                <div
-                  className="bg-white shadow d-flex align-items-center h-100 px-5"
-                  style={{
-                    minHeight: "160px",
-                  }}
-                >
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 btn-lg-square">
-                      <FaTree className="text-primary display-5" />
-                    </div>
-                    <div className="ps-3">
-                      <h4>Konsultasi dan Desain Taman</h4>
-                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                    </div>
-                  </div>
+              <div
+                className="col-lg-3 py-5 px-4 wow fadeIn"
+                data-wow-delay="0.1s"
+              >
+                <div className="text-center mb-4">
+                  <FaTrowel className="text-primary display-5" />
                 </div>
+                <div className="text-center">
+                  <h5>Konsultasi dan Desain Taman</h5>
+                </div>
+                <p className="text-center">
+                  Menyediakan panduan ahli dalam perancangan taman yang estetis
+                  dan berfungsional sesuai dengan preferensi dan kebutuhan Anda.
+                </p>
               </div>
-              <div className="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                <div
-                  className="bg-white shadow d-flex align-items-center h-100 px-5"
-                  style={{
-                    minHeight: "160px",
-                  }}
-                >
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 btn-lg-square">
-                      <FaTree className="text-primary display-5" />
-                    </div>
-                    <div className="ps-3">
-                      <h4>Konsultasi Perawatan Tanaman</h4>
-                      <span>Clita erat ipsum lorem sit sed stet duo justo</span>
-                    </div>
-                  </div>
+              <div
+                className="col-lg-3 py-5 px-4 wow fadeIn"
+                data-wow-delay="0.1s"
+              >
+                <div className="text-center mb-4">
+                  <FaHandsBubbles className="text-primary display-5" />
                 </div>
+                <div className="text-center">
+                  <h5>Konsultasi Perawatan Tanaman</h5>
+                </div>
+                <p className="text-center">
+                  Memberikan saran dan arahan untuk merawat tanaman dengan baik,
+                  memastikan pertumbuhan dan keberlanjutan yang optimal.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        className="layanan-section-home  my-5 d-flex align-items-lg-center"
-        style={{ paddingTop: "100px" }}
-      >
-        <div className="container-fluid py-5 pt-lg-0">
-          <div className="container py-5 pt-lg-0 d-flex justify-content-center">
-            <div className="row px-lg-5">
-              <div className="col-lg-6">
-                <div className="row">
-                  <div className="col-auto pt-5 d-flex justify-content-center px-0 mx-4">
-                    <div className="px-0">
-                      <div
-                        className="card px-0 mb-5 rounded-3"
-                        style={{ width: "15rem" }}
-                      >
-                        <div
-                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
-                          style={{ height: "130px" }}
-                        >
-                          <FaSeedling className="display-4 text-primary" />
-                        </div>
-                        <div className="card-body">
-                          <h5 className="card-title h5">Tanaman</h5>
-                          <p
-                            className="card-text"
-                            style={{ fontSize: "0.85em" }}
-                          >
-                            Some quick example text to build on the card title
-                            and make up the bulk
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="card px-0 rounded-3"
-                        style={{ width: "15rem" }}
-                      >
-                        <div
-                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
-                          style={{ height: "130px" }}
-                        >
-                          <FaBitbucket className="display-4 text-primary" />
-                        </div>
-                        <div className="card-body">
-                          <h5 className="card-title h5">Aksesoris Terrarium</h5>
-                          <p
-                            className="card-text"
-                            style={{ fontSize: "0.85em" }}
-                          >
-                            Some quick example text to build on the card title
-                            and make up the bulk
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-auto d-flex justify-content-center">
-                    <div className="">
-                      <div
-                        className="card px-0 mb-5 rounded-3"
-                        style={{ width: "15rem" }}
-                      >
-                        <div
-                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
-                          style={{ height: "130px" }}
-                        >
-                          <FaHandHoldingWater className="display-4 text-primary " />
-                        </div>
-                        <div className="card-body">
-                          <h5 className="card-title h5">Media Tanam</h5>
-                          <p
-                            className="card-text"
-                            style={{ fontSize: "0.85em" }}
-                          >
-                            Some quick example text to build on the card title
-                            and make up the bulk
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        className="card px-0 rounded-3"
-                        style={{ width: "15rem" }}
-                      >
-                        <div
-                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
-                          style={{ height: "130px" }}
-                        >
-                          <FaSpa className="display-4 text-primary" />
-                        </div>
-                        <div className="card-body">
-                          <h5 className="card-title h5">
-                            Produk Jadi Terrarium
-                          </h5>
-                          <p
-                            className="card-text"
-                            style={{ fontSize: "0.85em" }}
-                          >
-                            Some quick example text to build on the card title
-                            and make up the bulk
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-6 m-auto">
-                <div className="text-primary h3 mb-4">
-                  Produk yang Kami Tawarkan
-                </div>
-                <p>
-                  Dalam perjalanan kami menuju keberlanjutan dan kecantikan
-                  alam, kami dengan bangga mempersembahkan rangkaian produk
-                  unggulan kami yang mencerminkan keajaiban dunia tumbuhan.
-                  Setiap produk yang kami tawarkan tidak hanya sekadar barang,
-                  tetapi juga kisah cinta kami terhadap tanaman dan
-                  keberlanjutan.
-                </p>
-                <p>
-                  Kami memahami bahwa setiap tanaman memiliki cerita dan
-                  karakternya sendiri, dan itulah yang kami sajikan melalui
-                  produk-produk kami. Dari tanaman hidup yang segar hingga
-                  aksesoris terrarium yang elegan, kami berkomitmen untuk
-                  membawa keindahan hijau ke dalam kehidupan sehari-hari Anda.
-                </p>
-              </div>
+      <div className="product-section-home my-5">
+        <div className="container">
+          <div className="row mb-3">
+            <div className="col">
+              <div className="h4">Produk Kami</div>
             </div>
+            <div className="col text-end">Selengkapnya</div>
+          </div>
+          <div className="row justify-content-between">
+            {["a", "b", "c", "d"].map((data, index) => (
+              <div
+                key={index}
+                className="card px-0 mx-lg-3 rounded-3"
+                style={{ width: "18rem" }}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
+                  className="card-img-top rounded-top"
+                  style={{ height: "200px", objectFit: "cover" }}
+                  alt="..."
+                />
+                <div className="card-body pt-1">
+                  <label htmlFor="">Kategori</label>
+                  <h5
+                    className="card-title fs-6 text-2line"
+                    style={{ minHeight: "50px" }}
+                  >
+                    Pot Bentuk Rumah Makan Adat Padang
+                  </h5>
+                  <div className="fw-bold">Rp. 40.000</div>
+
+                  <div className="text-end">
+                    <button className="btn btn-sm btn-success">
+                      <FaCartPlus className="fs-5" />{" "}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -404,45 +311,132 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="product-section-home my-5">
-        <div className="container">
-          <div className="row mb-3">
-            <div className="col">
-              <div className="h4">Produk Kami</div>
-            </div>
-            <div className="col text-end">Selengkapnya</div>
-          </div>
-          <div className="row justify-content-between">
-            {["a", "b", "c", "d"].map((data, index) => (
-              <div
-                key={index}
-                className="card px-0 mx-lg-3 rounded-3"
-                style={{ width: "18rem" }}
-              >
-                <img
-                  src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
-                  className="card-img-top rounded-top"
-                  style={{ height: "200px", objectFit: "cover" }}
-                  alt="..."
-                />
-                <div className="card-body pt-1">
-                  <label htmlFor="">Kategori</label>
-                  <h5
-                    className="card-title fs-6 text-2line"
-                    style={{ minHeight: "50px" }}
-                  >
-                    Pot Bentuk Rumah Makan Adat Padang
-                  </h5>
-                  <div className="fw-bold">Rp. 40.000</div>
-
-                  <div className="text-end">
-                    <button className="btn btn-sm btn-success">
-                      <FaCartPlus className="fs-5" />{" "}
-                    </button>
+      <div
+        className="layanan-section-home  my-5 d-flex align-items-lg-center"
+        style={{ paddingTop: "100px" }}
+      >
+        <div className="container-fluid py-5 pt-lg-0">
+          <div className="container py-5 pt-lg-0 d-flex justify-content-center">
+            <div className="row px-lg-5">
+              <div className="col-lg-6">
+                <div className="row">
+                  <div className="col-auto pt-lg-5 d-flex justify-content-center px-0 mx-lg-4">
+                    <div className="px-0">
+                      <div
+                        className="card px-0 mb-5 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaSeedling className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Tanaman</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className="card px-0 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaBitbucket className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Aksesoris Terrarium</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-auto d-flex justify-content-center mx-">
+                    <div className="">
+                      <div
+                        className="card px-0 mb-5 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaHandHoldingWater className="display-4 text-primary " />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">Media Tanam</h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className="card px-0 rounded-3"
+                        style={{ width: "15rem" }}
+                      >
+                        <div
+                          className="bg-dark d-flex align-items-center justify-content-center rounded-top"
+                          style={{ height: "130px" }}
+                        >
+                          <FaSpa className="display-4 text-primary" />
+                        </div>
+                        <div className="card-body">
+                          <h5 className="card-title h5">
+                            Produk Jadi Terrarium
+                          </h5>
+                          <p
+                            className="card-text"
+                            style={{ fontSize: "0.85em" }}
+                          >
+                            Some quick example text to build on the card title
+                            and make up the bulk
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
+              <div className="col-lg-6 m-auto">
+                <div className="text-primary h3 mb-4">
+                  Produk yang Kami Tawarkan
+                </div>
+                <p>
+                  Dalam perjalanan kami menuju keberlanjutan dan kecantikan
+                  alam, kami dengan bangga mempersembahkan rangkaian produk
+                  unggulan kami yang mencerminkan keajaiban dunia tumbuhan.
+                  Setiap produk yang kami tawarkan tidak hanya sekadar barang,
+                  tetapi juga kisah cinta kami terhadap tanaman dan
+                  keberlanjutan.
+                </p>
+                <p>
+                  Kami memahami bahwa setiap tanaman memiliki cerita dan
+                  karakternya sendiri, dan itulah yang kami sajikan melalui
+                  produk-produk kami. Dari tanaman hidup yang segar hingga
+                  aksesoris terrarium yang elegan, kami berkomitmen untuk
+                  membawa keindahan hijau ke dalam kehidupan sehari-hari Anda.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
