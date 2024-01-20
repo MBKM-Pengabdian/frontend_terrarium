@@ -10,7 +10,7 @@ export const CardEvent = ({ data }) => {
           <div className="row">
             <div className="col-lg-5" style={{ height: "380px" }}>
               <img
-                src="https://cdn.discordapp.com/attachments/1174741902415900742/1191807387003261019/image.png?ex=65a6c81f&is=6594531f&hm=30644f92bb2a186059e110824657f3e13ca12c7d627158fd618a1e873d4adfeb&"
+                src={import.meta.env.VITE_API_URL + data.img_event}
                 alt=".."
                 className="img-fluid"
                 style={{

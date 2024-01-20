@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   FaBitbucket,
   FaCartPlus,
@@ -11,6 +13,33 @@ import {
 import { FaClover, FaHandsBubbles, FaTrowel } from "react-icons/fa6";
 
 export const Home = () => {
+
+  const [dataProduk, setdataProduk] = useState([
+    {nama:"Pot bentuk rumah | pot batu | pot aesthetic | home decor | pot hias | pot keramik" ,harga:'70000', img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341234369835108/image.png?ex=65b74699&is=65a4d199&hm=0d2d962ad34542b84711318377326a487e603847e1531c1983260a481a5850a3&'},
+    {nama:"Pot Lavender | pot batu | pot aesthetic | home decor | pot hias | pot keramik" ,harga:'80000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341331165970533/image.png?ex=65b746b0&is=65a4d1b0&hm=68e64af017069155b4760f2ebe55088112ac3d06a804c88a6411826971b4defc&'},
+    {nama:"Dekorasi Natal ( christmas decoration)" ,harga:'50000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341474556657694/image.png?ex=65b746d2&is=65a4d1d2&hm=47528c93d554071cd07f6d0301ed0823230e17e8df612cb3ad03acaeba06123e&'},
+    {nama:"Miniatur Rumah Jamur" ,harga:'20000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341568425181295/image.png?ex=65b746e8&is=65a4d1e8&hm=f61aabc54075f1078f8c2c72b68e1340c0db4e040ea51d4f1985fd7bdbf1a113&'},
+  ])
+
+  const [listEventData, setListEventData] = useState()
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/event/get`
+        );
+        setListEventData(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        // setError(error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <div id="carouselExample" className="carousel slide">
@@ -169,14 +198,14 @@ export const Home = () => {
             <div className="col text-end">Selengkapnya</div>
           </div>
           <div className="row justify-content-between">
-            {["a", "b", "c", "d"].map((data, index) => (
+            {dataProduk.map((data, index) => (
               <div
                 key={index}
                 className="card px-0 mx-lg-3 rounded-3"
                 style={{ width: "18rem" }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1635819335758-304866e30d39?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw4fHx8ZW58MHx8fHx8"
+                  src={data.img}
                   className="card-img-top rounded-top"
                   style={{ height: "200px", objectFit: "cover" }}
                   alt="..."
@@ -187,9 +216,9 @@ export const Home = () => {
                     className="card-title fs-6 text-2line"
                     style={{ minHeight: "50px" }}
                   >
-                    Pot Bentuk Rumah Makan Adat Padang
+                    {data.nama}
                   </h5>
-                  <div className="fw-bold">Rp. 40.000</div>
+                  <div className="fw-bold">Rp. {data.harga}</div>
 
                   <div className="text-end">
                     <button className="btn btn-sm btn-success">
@@ -477,13 +506,13 @@ export const Home = () => {
 
             <div className="col-md-6">
               <div className="row">
-                {[1, 2, 3].map((data, index, array) => (
+                {listEventData && listEventData.map((data, index, array) => (
                   <>
                     <div key={index} className="col-md-12">
                       <div className="row g-0">
                         <div className="col-md-4" style={{ height: "135px" }}>
                           <img
-                            src="https://cdn.discordapp.com/attachments/1174741902415900742/1174741995751755776/event1.jpg?ex=65a94c3d&is=6596d73d&hm=c1553472ced677decf48a3f1fde03d47f2fcc1b868e0241fd334c128d3c0455a&"
+                            src={import.meta.env.VITE_API_URL + data.img_event}
                             className="img-fluid rounded-start"
                             style={{
                               height: "100%",
@@ -494,8 +523,8 @@ export const Home = () => {
                           />
                         </div>
                         <div className="col-md-8 ps-4">
-                          <div className="card-title h5 text-primary fw-bold">
-                            Workshop Tanaman Hidroponik
+                          <div className="card-title h5 text-primary fw-bold text-2line">
+                            {data.title_event}
                           </div>
                           <p className="text-2line">
                             lorem Lorem ipsum dolor sit amet consectetur
@@ -507,7 +536,13 @@ export const Home = () => {
                           </p>
                           <p className="card-text">
                             <small className="text-body-secondary">
-                              2024-01-23
+                              {
+                                data.detail_event.map((data2,index2)=>(
+                                  <small key={index2} className="text-body-secondary fw-bold">
+                                    {data2.date_event.split(' ')[0]}
+                                  </small>
+                                ))
+                              }
                             </small>
                           </p>
                         </div>
