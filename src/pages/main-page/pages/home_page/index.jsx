@@ -4,27 +4,21 @@ import {
   FaBitbucket,
   FaCartPlus,
   FaHandHoldingWater,
-  FaLongArrowAltDown,
   FaSeedling,
   FaSpa,
-  FaTree,
 } from "react-icons/fa";
+import parse from "html-react-parser";
 
 import { FaClover, FaHandsBubbles, FaTrowel } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const navigate = useNavigate();
+  const [listEventData, setListEventData] = useState();
+  const [listProductData, setListProductdata] = useState();
 
-  const [dataProduk, setdataProduk] = useState([
-    {nama:"Pot bentuk rumah | pot batu | pot aesthetic | home decor | pot hias | pot keramik" ,harga:'70000', img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341234369835108/image.png?ex=65b74699&is=65a4d199&hm=0d2d962ad34542b84711318377326a487e603847e1531c1983260a481a5850a3&'},
-    {nama:"Pot Lavender | pot batu | pot aesthetic | home decor | pot hias | pot keramik" ,harga:'80000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341331165970533/image.png?ex=65b746b0&is=65a4d1b0&hm=68e64af017069155b4760f2ebe55088112ac3d06a804c88a6411826971b4defc&'},
-    {nama:"Dekorasi Natal ( christmas decoration)" ,harga:'50000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341474556657694/image.png?ex=65b746d2&is=65a4d1d2&hm=47528c93d554071cd07f6d0301ed0823230e17e8df612cb3ad03acaeba06123e&'},
-    {nama:"Miniatur Rumah Jamur" ,harga:'20000',img: 'https://cdn.discordapp.com/attachments/1174741902415900742/1196341568425181295/image.png?ex=65b746e8&is=65a4d1e8&hm=f61aabc54075f1078f8c2c72b68e1340c0db4e040ea51d4f1985fd7bdbf1a113&'},
-  ])
-
-  const [listEventData, setListEventData] = useState()
-  
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataEvent = async () => {
       try {
         const response = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/event/get`
@@ -37,7 +31,22 @@ export const Home = () => {
         // setLoading(false);
       }
     };
-    fetchData();
+
+    const fetchDataProduct = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/product/get`
+        );
+        setListProductdata(response.data.data);
+        console.log(response.data.data);
+      } catch (error) {
+        // setError(error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+    fetchDataEvent();
+    fetchDataProduct();
   }, []);
 
   return (
@@ -195,17 +204,19 @@ export const Home = () => {
             <div className="col">
               <div className="h4">Produk Kami</div>
             </div>
-            <div className="col text-end">Selengkapnya</div>
+            <Link to="/product" className="col text-end">
+              Selengkapnya
+            </Link>
           </div>
           <div className="row justify-content-between">
-            {dataProduk.map((data, index) => (
+            {listProductData && listProductData.slice(0, 5).map((data, index) => (
               <div
                 key={index}
                 className="card px-0 mx-lg-3 rounded-3"
                 style={{ width: "18rem" }}
               >
                 <img
-                  src={data.img}
+                  src={import.meta.env.VITE_API_URL+data.product_image}
                   className="card-img-top rounded-top"
                   style={{ height: "200px", objectFit: "cover" }}
                   alt="..."
@@ -216,9 +227,9 @@ export const Home = () => {
                     className="card-title fs-6 text-2line"
                     style={{ minHeight: "50px" }}
                   >
-                    {data.nama}
+                    {data.product_name}
                   </h5>
-                  <div className="fw-bold">Rp. {data.harga}</div>
+                  <div className="fw-bold">Rp. {data.price}</div>
 
                   <div className="text-end">
                     <button className="btn btn-sm btn-success">
@@ -476,85 +487,101 @@ export const Home = () => {
             <div className="col">
               <div className="h4">Event Terbaru</div>
             </div>
-            <div className="col text-end">Selengkapnya</div>
+            <Link to="/event" className="col text-end">
+              Selengkapnya
+            </Link>
           </div>
 
           <div className="row justify-content-between mb-5">
             <div className="col-md-6">
-              <div className="card rounded-3" style={{ height: "100%" }}>
-                <img
-                  src="https://cdn.discordapp.com/attachments/1174741902415900742/1174741995751755776/event1.jpg?ex=65a94c3d&is=6596d73d&hm=c1553472ced677decf48a3f1fde03d47f2fcc1b868e0241fd334c128d3c0455a&"
-                  className="card-img-top rounded-top"
-                  style={{ height: "340px", objectFit: "cover" }}
-                  alt="..."
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Kelas Perawatan Tanaman Hias</h5>
-                  <p className="text-2line">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsa voluptatum exercitationem quas expedita placeat
-                    delectus officia esse, error voluptate odio nesciunt
-                    officiis voluptatem doloribus repellat deserunt recusandae,
-                    beatae aspernatur dolorum.
-                  </p>
-                  <p className="card-text">
-                    <small className="text-body-secondary">2024-03-12</small>
-                  </p>
-                </div>
-              </div>
+              {listEventData &&
+                listEventData.slice(0, 1).map((data, index) => (
+                  <div
+                    onClick={() => navigate(`/detail-event/${data.uuid}`)}
+                    key={index}
+                    className="card rounded-3 corsor-pointer"
+                    style={{ height: "100%", cursor: "pointer" }}
+                  >
+                    <img
+                      src={import.meta.env.VITE_API_URL + data.img_event}
+                      className="card-img-top rounded-top"
+                      style={{ height: "340px", objectFit: "cover" }}
+                      alt={"foto " + data.title_event}
+                    />
+                    {data.detail_event.map((data2, index2) => (
+                      <div key={index2} className="card-body">
+                        <h5 className="card-title">
+                          Kelas Perawatan Tanaman Hias
+                        </h5>
+                        <p className="text-2line">
+                          {parse(data2.description_event)}
+                        </p>
+                        <p className="card-text">
+                          <small className="text-body-secondary">
+                            2024-03-12
+                          </small>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
             </div>
 
             <div className="col-md-6">
               <div className="row">
-                {listEventData && listEventData.slice(0, 3).map((data, index, array) => (
-                  <>
-                    <div key={index} className="col-md-12">
-                      <div className="row g-0">
-                        <div className="col-md-4" style={{ height: "135px" }}>
-                          <img
-                            src={import.meta.env.VITE_API_URL + data.img_event}
-                            className="img-fluid rounded-start"
-                            style={{
-                              height: "100%",
-                              width: "100%",
-                              objectFit: "cover",
-                            }}
-                            alt="..."
-                          />
-                        </div>
-                        <div className="col-md-8 ps-4">
-                          <div className="card-title h5 text-primary fw-bold text-2line">
-                            {data.title_event}
-                          </div>
-                          <p className="text-2line">
-                            lorem Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Ipsa voluptatum exercitationem
-                            quas expedita placeat delectus officia esse, error
-                            voluptate odio nesciunt officiis voluptatem
-                            doloribus repellat deserunt recusandae, beatae
-                            aspernatur dolorum. lorem
-                          </p>
-                          <p className="card-text">
-                            <small className="text-body-secondary">
-                              {
-                                data.detail_event.map((data2,index2)=>(
-                                  <small key={index2} className="text-body-secondary fw-bold">
-                                    {data2.date_event.split(' ')[0]}
-                                  </small>
-                                ))
+                {listEventData &&
+                  listEventData.slice(1, 4).map((data, index, array) => (
+                    <>
+                      <div
+                        key={index}
+                        className="col-md-12"
+                        onClick={() => navigate(`/detail-event/${data.uuid}`)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <div className="row g-0">
+                          <div className="col-md-4" style={{ height: "135px" }}>
+                            <img
+                              src={
+                                import.meta.env.VITE_API_URL + data.img_event
                               }
-                            </small>
-                          </p>
+                              className="img-fluid rounded-start"
+                              style={{
+                                height: "100%",
+                                width: "100%",
+                                objectFit: "cover",
+                              }}
+                              alt={"foto " + data.title_event}
+                            />
+                          </div>
+                          {data.detail_event.map((data2, index2) => (
+                            <div key={index2} className="col-md-8 ps-4">
+                              <div className="card-title h5 text-primary fw-bold text-2line">
+                                {data.title_event}
+                              </div>
+                              <p className="text-2line">
+                                {parse(data2.description_event)}
+                              </p>
+                              <p className="card-text">
+                                <small className="text-body-secondary">
+                                  <small
+                                    key={index2}
+                                    className="text-body-secondary fw-bold"
+                                  >
+                                    {data2.date_event.split(" ")[0]}
+                                  </small>
+                                </small>
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                    </div>
-                    {index !== array.length - 1 && (
-                      <div className="px-3 my-4">
-                        <div className="border-bottom w-100"></div>
-                      </div>
-                    )}
-                  </>
-                ))}
+                      {index !== array.length - 1 && (
+                        <div className="px-3 my-4">
+                          <div className="border-bottom w-100"></div>
+                        </div>
+                      )}
+                    </>
+                  ))}
               </div>
             </div>
           </div>

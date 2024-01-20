@@ -7,7 +7,7 @@ import { Toast, getCurrentDate } from "../../../../../../utils/GlobalFunction";
 
 export const FormEvent = () => {
   const eventService = EventService();
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     title_event: "",
     time_e: "",
     date_e: "",
@@ -17,13 +17,19 @@ export const FormEvent = () => {
     kuota_event: 0,
     speaker_event: "",
     sponsor_event: "",
+    contact_person: "",
     place: "",
     tag_event: "",
     description_event: "",
     img_event: null,
     banner_image: null,
     user_id: localStorage.getItem("user_id"),
-  });
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
+
   const [errors, setErrors] = useState({});
 
   const [timelines, setTimelines] = useState([
@@ -81,7 +87,7 @@ export const FormEvent = () => {
     Object.entries(formData).forEach(([key, value]) => {
       if (key === "date_event") {
         payload.append("date_event", dateTime);
-      }else{
+      } else {
         payload.append(key, value);
       }
     });
@@ -94,6 +100,7 @@ export const FormEvent = () => {
           icon: "success",
           title: "Event berhasil ditambah",
         });
+        resetForm()
       }
       return addedEvent;
     } catch (error) {
@@ -116,6 +123,7 @@ export const FormEvent = () => {
                 errors.title_event ? "is-invalid" : ""
               }`}
               placeholder="Masukan Judul Event"
+              value={formData.title_event}
               onChange={handleChange}
               name="title_event"
             />
@@ -128,11 +136,10 @@ export const FormEvent = () => {
             <input
               type="date"
               min={getCurrentDate()}
-              className={`form-control ${
-                errors.date_e ? "is-invalid" : ""
-              }`}
+              className={`form-control ${errors.date_e ? "is-invalid" : ""}`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
+              value={formData.date_e}
               name="date_e"
             />
             {errors.date_e && (
@@ -143,11 +150,10 @@ export const FormEvent = () => {
             <label>Time Event *</label>
             <input
               type="time"
-              className={`form-control ${
-                errors.time_e ? "is-invalid" : ""
-              }`}
+              className={`form-control ${errors.time_e ? "is-invalid" : ""}`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
+              value={formData.time_e}
               name="time_e"
             />
             {errors.time_e && (
@@ -166,6 +172,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Batas Pendaftaran"
               onChange={handleChange}
+              value={formData.last_regist_event}
               name="last_regist_event"
             />
           </div>
@@ -178,6 +185,7 @@ export const FormEvent = () => {
               }`}
               placeholder="Masukan Harga"
               onChange={handleChange}
+              value={formData.price_event}
               onKeyPress={(event) => {
                 if (!/[0-9]/.test(event.key)) {
                   event.preventDefault();
@@ -196,6 +204,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Kuota Event"
               onChange={handleChange}
+              value={formData.kuota_event}
               onKeyPress={(event) => {
                 if (!/[0-9]/.test(event.key)) {
                   event.preventDefault();
@@ -214,6 +223,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Pembicara"
               onChange={handleChange}
+              value={formData.speaker_event}
               name="speaker_event"
             />
           </div>
@@ -224,6 +234,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Sponsor"
               onChange={handleChange}
+              value={formData.sponsor_event}
               name="sponsor_event"
             />
           </div>
@@ -234,6 +245,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Contact Person"
               onChange={handleChange}
+              value={formData.contact_person}
               name="contact_person"
             />
           </div>
@@ -247,6 +259,7 @@ export const FormEvent = () => {
               className={`form-control ${errors.place ? "is-invalid" : ""}`}
               placeholder="Masukan Lokasi Event"
               onChange={handleChange}
+              value={formData.place}
               name="place"
             ></textarea>
             {errors.place && (
@@ -260,6 +273,7 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Tag Event (pisah dengan koma)"
               onChange={handleChange}
+              value={formData.tag_event}
               name="tag_event"
             ></textarea>
           </div>

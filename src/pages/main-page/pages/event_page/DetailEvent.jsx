@@ -1,4 +1,5 @@
 import axios from "axios";
+import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import {
     FaCalendar,
@@ -204,7 +205,7 @@ export const DetailEvent = () => {
           <h4 id="details">Details</h4>
           <div className="details-event mb-5">
             <p>
-              {detailEvent && detailEvent.detail_event[0].description_event}
+              {detailEvent &&  parse(detailEvent.detail_event[0].description_event)}
             </p>
           </div>
         </div>
