@@ -60,7 +60,7 @@ export const DetailEvent = () => {
           <div className="col-lg-3" style={{ minWidth: "250px" }}>
             <div className="img-event" style={{ marginTop: "-90px" }}>
               <img
-                src="https://cdn.discordapp.com/attachments/1174741902415900742/1191807387003261019/image.png?ex=65a6c81f&is=6594531f&hm=30644f92bb2a186059e110824657f3e13ca12c7d627158fd618a1e873d4adfeb&"
+                src={import.meta.env.VITE_API_URL + detailEvent.img_event}
                 className="img-fluid"
                 style={{ width: "100%", height: "370px", objectFit: "cover" }}
                 alt=""
