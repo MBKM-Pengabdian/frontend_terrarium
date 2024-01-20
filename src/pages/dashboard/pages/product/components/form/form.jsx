@@ -20,7 +20,6 @@ export const FormProduct = () => {
       ...prevFormData,
       [name]: type === "file" ? event.target.files[0] : value,
     }));
-
     setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
@@ -60,6 +59,10 @@ export const FormProduct = () => {
       });
       return addedProduct;
     } catch (error) {
+      Toast.fire({
+          icon: "error",
+          title: `${error}`,
+        });
       console.error("Error adding product:", error);
     }
   };

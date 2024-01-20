@@ -12,7 +12,7 @@ export const CardEvent = ({ data }) => {
               <img
                 src={import.meta.env.VITE_API_URL + data.img_event}
                 alt=".."
-                className="img-fluid"
+                className="img-fluid rounded-start"
                 style={{
                   width: "100%",
                   height: "100%",
@@ -21,31 +21,29 @@ export const CardEvent = ({ data }) => {
               />
             </div>
             <div className="col-lg-6 d-flex flex-column">
-              <div className="card-body pt-2">
-                {data.detail_event.map((data2, index) => (
-                  <label className="fs-6 text-primary" key={index}>
-                    {data2.tag_event}
-                  </label>
-                ))}
-                <div className="card-title h5 mb-3 text-3line">
-                  {data.title_event}
+              {data.detail_event.map((data2, index) => (
+                <div key={index} className="card-body pt-2">
+                  <label className="fs-6 text-primary">{data2.tag_event}</label>
+                  <div className="card-title h5 mb-3 text-3line">
+                    {data.title_event}
+                  </div>
+                  <div className="time-event mb-2">
+                    <FaClock className="text-primary me-3" /> {data2.date_event.split(' ')[1]} - Selesai
+                  </div>
+                  <div className="date-event mb-2">
+                    <FaCalendar className="text-primary me-3" /> {data2.date_event.split(' ')[0]}
+                  </div>
+                  <div className="time-event mb-3 text-2line">
+                    <FaMapMarkerAlt className="text-primary me-3" /> {data.place}
+                  </div>
+                  <button
+                    onClick={() => navigate(`/detail-event/${data.uuid}`)}
+                    className="btn border border-primary w-75 "
+                  >
+                    Detail
+                  </button>
                 </div>
-                <div className="time-event mb-2">
-                  <FaClock className="text-primary me-3" /> 09:40
-                </div>
-                <div className="date-event mb-2">
-                  <FaCalendar className="text-primary me-3" /> 18 Desember 2023
-                </div>
-                <div className="time-event mb-3">
-                  <FaMapMarkerAlt className="text-primary me-3" /> Zoom
-                </div>
-                <button
-                  onClick={() => navigate(`/detail-event/${data.uuid}`)}
-                  className="btn border border-primary w-75 "
-                >
-                  Detail
-                </button>
-              </div>
+              ))}
 
               {data.detail_event.map((data2, index) => (
                 <div className="row mt-auto my-2" key={index}>

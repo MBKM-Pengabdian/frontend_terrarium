@@ -506,7 +506,7 @@ export const Home = () => {
 
             <div className="col-md-6">
               <div className="row">
-                {listEventData && listEventData.map((data, index, array) => (
+                {listEventData && listEventData.slice(0, 3).map((data, index, array) => (
                   <>
                     <div key={index} className="col-md-12">
                       <div className="row g-0">

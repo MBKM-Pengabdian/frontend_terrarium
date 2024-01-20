@@ -82,6 +82,7 @@ const TableEvent = () => {
     {
       name: "Name",
       selector: ({ title_event }) => title_event,
+      width: "250px",
     },
     {
       name: "Image",
@@ -112,6 +113,7 @@ const TableEvent = () => {
           Hapus
         </button>
       ),
+      width: "200px",
     },
   ];
 
