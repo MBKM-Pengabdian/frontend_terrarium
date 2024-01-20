@@ -3,50 +3,32 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import EventService from "../../../../../../services/event.service";
+import { Toast, getCurrentDate } from "../../../../../../utils/GlobalFunction";
 
 export const FormEvent = () => {
   const eventService = EventService();
-  // const [formData, setFormData] = useState({
-  //   title_event: "",
-  //   date_event: "",
-  //   last_regist_event: "",
-  //   price_event: "",
-  //   kuota_event: "",
-  //   speaker_event: "",
-  //   sponsor_event: "",
-  //   place: "",
-  //   tag_event: "",
-  //   description_event: "",
-  //   event_image: null,
-  //   banner_image: null,
-  //   user_id: localStorage.getItem("user_id"),
-  // });
-
-  const [formData, setFormData] = useState({
-  user_id: localStorage.getItem("user_id"),
-  img_event: null,
-  title_event: "",
-  price_event: "",
-  detailEvent: [
-    {
-      description_event: "",
-      sponsor_event: "",
-      speaker_event: "",
-      banner_event: null,
-      tag_event: "",
-      date_event: "",
-      last_regist_event: "",
-      kuota_event: "",
-      sisa_event: "",
-      timeline: [
-        {
-          title: "",
-          waktu: "",
-        },
-      ],
-    },
-  ],
-});
+  const initialFormData = {
+    title_event: "",
+    time_e: "",
+    date_e: "",
+    date_event: "",
+    last_regist_event: "",
+    price_event: 0,
+    kuota_event: 0,
+    speaker_event: "",
+    sponsor_event: "",
+    contact_person: "",
+    place: "",
+    tag_event: "",
+    description_event: "",
+    img_event: null,
+    banner_image: null,
+    user_id: localStorage.getItem("user_id"),
+  };
+  const [formData, setFormData] = useState(initialFormData);
+  const resetForm = () => {
+    setFormData(initialFormData);
+  };
 
   const [errors, setErrors] = useState({});
 
@@ -54,10 +36,14 @@ export const FormEvent = () => {
     { id: 1, title_timeline: "", time: "" },
   ]);
 
-  const handleChangeTimeLines = (event, index, fieldName) => {
-    const updatedTimelines = [...timelines];
-    updatedTimelines[index][fieldName] = event.target.value;
-    setTimelines(updatedTimelines);
+  const handleChange = (event) => {
+    const { name, value, type } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "file" ? event.target.files[0] : value,
+    }));
+    console.log(formData);
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const handleAddTimeline = () => {
@@ -72,67 +58,14 @@ export const FormEvent = () => {
     setTimelines(updatedTimelines);
   };
 
-  // const handleChange = (event) => {
-  //   const { name, value, type } = event.target;
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [name]: type === "file" ? event.target.files[0] : value,
-  //   }));
-
-  //   setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  // };
-
-  const handleChange = (event) => {
-  const { name, value, type } = event.target;
-
-  setFormData((prevFormData) => {
-    if (name === 'timeline_title' || name === 'timeline_waktu') {
-      // Handle changes for timeline properties
-      const [index, fieldName] = name.split('_');
-      const updatedTimelines = [...prevFormData.detailEvent[0].timeline];
-      updatedTimelines[index][fieldName] = value;
-
-      return {
-        ...prevFormData,
-        detailEvent: [
-          {
-            ...prevFormData.detailEvent[0],
-            timeline: updatedTimelines,
-          },
-        ],
-      };
-    } else if (name.startsWith('detailEvent.')) {
-      // Handle changes for detailEvent properties
-      const detailEventProp = name.split('.')[1];
-
-      return {
-        ...prevFormData,
-        detailEvent: [
-          {
-            ...prevFormData.detailEvent[0],
-            [detailEventProp]: type === 'file' ? event.target.files[0] : value,
-          },
-        ],
-      };
-    } else {
-      // Handle changes for top-level properties
-      return {
-        ...prevFormData,
-        [name]: type === 'file' ? event.target.files[0] : value,
-      };
-    }
-  });
-
-  setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
-};
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Simple required field validation
     const requiredFields = [
       "title_event",
-      "date_event",
+      "date_e",
+      "time_e",
       "price_event",
       "place",
     ];
@@ -149,20 +82,35 @@ export const FormEvent = () => {
       return;
     }
 
+    const dateTime = `${formData.date_e} ${formData.time_e}`;
     const payload = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      payload.append(key, value);
+      if (key === "date_event") {
+        payload.append("date_event", dateTime);
+      } else {
+        payload.append(key, value);
+      }
     });
 
     try {
       console.log(formData);
-      const addedEvent = await eventService.handleAddEvent(formData);
+      const addedEvent = await eventService.handleAddEvent(payload);
+      if (addedEvent.status === 201) {
+        Toast.fire({
+          icon: "success",
+          title: "Event berhasil ditambah",
+        });
+        resetForm()
+      }
       return addedEvent;
     } catch (error) {
+      Toast.fire({
+        icon: "error",
+        title: `${error}`,
+      });
       console.error("Error adding event:", error);
     }
   };
-
   return (
     <>
       <form role="form" onSubmit={handleSubmit}>
@@ -175,6 +123,7 @@ export const FormEvent = () => {
                 errors.title_event ? "is-invalid" : ""
               }`}
               placeholder="Masukan Judul Event"
+              value={formData.title_event}
               onChange={handleChange}
               name="title_event"
             />
@@ -186,30 +135,29 @@ export const FormEvent = () => {
             <label>Date Event *</label>
             <input
               type="date"
-              className={`form-control ${
-                errors.date_event ? "is-invalid" : ""
-              }`}
+              min={getCurrentDate()}
+              className={`form-control ${errors.date_e ? "is-invalid" : ""}`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
-              name="detailEvent.date_event"
+              value={formData.date_e}
+              name="date_e"
             />
-            {errors.date_event && (
-              <div className="invalid-feedback">{errors.date_event}</div>
+            {errors.date_e && (
+              <div className="invalid-feedback">{errors.date_e}</div>
             )}
           </div>
           <div className="col-md-2 mb-3">
             <label>Time Event *</label>
             <input
               type="time"
-              className={`form-control ${
-                errors.date_event ? "is-invalid" : ""
-              }`}
+              className={`form-control ${errors.time_e ? "is-invalid" : ""}`}
               placeholder="Masukan Stok Product"
               onChange={handleChange}
-              name="date_event"
+              value={formData.time_e}
+              name="time_e"
             />
-            {errors.date_event && (
-              <div className="invalid-feedback">{errors.date_event}</div>
+            {errors.time_e && (
+              <div className="invalid-feedback">{errors.time_e}</div>
             )}
           </div>
         </div>
@@ -219,10 +167,13 @@ export const FormEvent = () => {
             <label>Batas Pendaftaran</label>
             <input
               type="date"
+              min={getCurrentDate()}
+              max={formData.date_e}
               className={`form-control`}
               placeholder="Batas Pendaftaran"
               onChange={handleChange}
-              name="detailEvent.last_regist_event"
+              value={formData.last_regist_event}
+              name="last_regist_event"
             />
           </div>
           <div className="col-md-3 mb-3">
@@ -234,6 +185,12 @@ export const FormEvent = () => {
               }`}
               placeholder="Masukan Harga"
               onChange={handleChange}
+              value={formData.price_event}
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
               name="price_event"
             />
             {errors.price_event && (
@@ -243,34 +200,53 @@ export const FormEvent = () => {
           <div className="col-md-2 mb-3">
             <label>Kuota Event</label>
             <input
-              type="number"
+              type="text"
               className={`form-control`}
               placeholder="Masukan Kuota Event"
               onChange={handleChange}
-              name="detailEvent.kuota_event"
+              value={formData.kuota_event}
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              name="kuota_event"
             />
           </div>
         </div>
 
         <div className="row">
-          <div className="col-md-6 mb-3">
+          <div className="col-md-4 mb-3">
             <label>Speaker</label>
             <input
               type="text"
               className={`form-control`}
               placeholder="Masukan Pembicara"
               onChange={handleChange}
-              name="detailEvent.speaker_event"
+              value={formData.speaker_event}
+              name="speaker_event"
             />
           </div>
-          <div className="col-md-6 mb-3">
+          <div className="col-md-4 mb-3">
             <label>Sponsor</label>
             <input
               type="text"
               className={`form-control`}
               placeholder="Masukan Sponsor"
               onChange={handleChange}
-              name="detailEvent.sponsor_event"
+              value={formData.sponsor_event}
+              name="sponsor_event"
+            />
+          </div>
+          <div className="col-md-4 mb-3">
+            <label>Contact Person Event</label>
+            <input
+              type="text"
+              className={`form-control`}
+              placeholder="Masukan Contact Person"
+              onChange={handleChange}
+              value={formData.contact_person}
+              name="contact_person"
             />
           </div>
         </div>
@@ -283,6 +259,7 @@ export const FormEvent = () => {
               className={`form-control ${errors.place ? "is-invalid" : ""}`}
               placeholder="Masukan Lokasi Event"
               onChange={handleChange}
+              value={formData.place}
               name="place"
             ></textarea>
             {errors.place && (
@@ -296,7 +273,8 @@ export const FormEvent = () => {
               className={`form-control`}
               placeholder="Masukan Tag Event (pisah dengan koma)"
               onChange={handleChange}
-              name="detailEvent.tag_event"
+              value={formData.tag_event}
+              name="tag_event"
             ></textarea>
           </div>
         </div>
@@ -333,8 +311,8 @@ export const FormEvent = () => {
                   type="text"
                   className={`form-control`}
                   placeholder="Masukan Stok Product"
-                  onChange={(e) => handleChangeTimeLines(e, index)}
-                  name={`title_${timeline.id}`}
+                  onChange={handleChange}
+                  name={`timeline[${index}][title]`}
                 />
               </div>
               <div className="col-md-2 mb-3">
@@ -343,8 +321,8 @@ export const FormEvent = () => {
                   type="Time"
                   className={`form-control`}
                   placeholder="Masukan Stok Product"
-                  onChange={(e) => handleChange(e, index)}
-                  name={`time_${timeline.id}`}
+                  onChange={handleChange}
+                  name={`timeline[${index}][waktu]`}
                 />
               </div>
             </div>
@@ -355,13 +333,20 @@ export const FormEvent = () => {
             <label>Descripsi Event</label>
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor&nbsp;5!</p>"
+              data="<p></p>"
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
               }}
-              onChange={(event) => {
-                console.log(event);
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                handleChange({
+                  target: {
+                    name: "description_event",
+                    value: data,
+                    type: "text",
+                  },
+                });
               }}
             />
           </div>
@@ -373,9 +358,9 @@ export const FormEvent = () => {
             <input
               type="file"
               className="form-control"
-              placeholder="Masukan Gambar Product"
+              placeholder="Masukan Gambar Event"
               onChange={handleChange}
-              name="product_image"
+              name="img_event"
             />
           </div>
           <div className="col-md-12 mb-3">
@@ -385,7 +370,7 @@ export const FormEvent = () => {
               className="form-control"
               placeholder="Masukan Gambar Product"
               onChange={handleChange}
-              name="product_image"
+              name="banner_event"
             />
           </div>
         </div>
