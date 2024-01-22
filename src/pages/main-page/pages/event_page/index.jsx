@@ -41,8 +41,8 @@ export const Event = () => {
         }}
       >
         <div className="container py-5">
-          <div className="text-white mb-3 h1 text-center">Event</div>
-          <div className="text-white mb-3 h4 text-center">Event-event Cacti Life (CL)</div>
+          <div className="text-white h1 text-center">Event</div>
+          <div className="text-white mb-3 h4 text-center">Event-event Cacti Life</div>
         </div>
       </div>
       <div className="container">
