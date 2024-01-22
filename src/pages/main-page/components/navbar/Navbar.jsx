@@ -4,7 +4,7 @@ import Logo from "./../../../../assets/img/logo.png";
 export const Navbar = () => {
   const location = useLocation();
 
-  return (
+  return (  
    <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary text-dark bg-white">
       <div className="container">
@@ -24,7 +24,7 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
+            <li className="nav-item me-2">
               <Link
                 className={`nav-link ${
                   location.pathname === "/" ? "active" : ""
@@ -34,7 +34,7 @@ export const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-2">
               <Link
                 className={`nav-link ${
                   location.pathname === "/product" ? "active" : ""
@@ -44,7 +44,7 @@ export const Navbar = () => {
                 Product
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-2">
               <Link
                 className={`nav-link ${
                   location.pathname === "/event" ? "active" : ""
@@ -54,7 +54,7 @@ export const Navbar = () => {
                 Event
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-2">
               <Link
                 className={`nav-link ${
                   location.pathname === "/about" ? "active" : ""
@@ -64,7 +64,7 @@ export const Navbar = () => {
                 About
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item me-2">
               <Link
                 className={`nav-link ${
                   location.pathname === "/contact" ? "active" : ""
