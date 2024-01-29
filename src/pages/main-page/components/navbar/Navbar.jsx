@@ -1,9 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./../../../../assets/img/logo.png";
 import { FaUserCircle } from "react-icons/fa";
+import AuthService from "../../../../services/auth.service";
 
 export const Navbar = () => {
   const location = useLocation();
+  const authService = AuthService();
+
+  const handleLogout = () => {
+    authService.handleLogoutCustomer();
+  };
 
   return (
     <>
@@ -76,34 +82,55 @@ export const Navbar = () => {
                 </Link>
               </li>
             </ul>
-
-            <ul className="navbar-nav ms-auto me-4">
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle fw-bold"
-                  href="#"
-                  id="ourProductDropdown"
-                  data-bs-toggle="dropdown"
-                >
-                  <FaUserCircle className="fs-5 me-3" />
-                  Putra
-                </a>
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="ourProductDropdown"
-                >
-                  <a className="dropdown-item p-3" href="#ourProduct">
-                    Tiket Saya
+            {window.localStorage.getItem("customer_id") ? (
+              <ul className="navbar-nav ms-auto me-4">
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle fw-bold"
+                    href="#"
+                    id="ourProductDropdown"
+                    data-bs-toggle="dropdown"
+                  >
+                    <FaUserCircle className="fs-5 me-3" />
+                    {window.localStorage.getItem("customer_username") &&
+                      window.localStorage.getItem("customer_username")}
                   </a>
-                  <a className="dropdown-item p-3" href="#ourProduct">
-                    Pesanan Saya
-                  </a>
-                  <a className="dropdown-item p-3" href="#ourProduct">
-                    Logout
-                  </a>
-                </div>
-              </li>
-            </ul>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="ourProductDropdown"
+                  >
+                    <Link to='profile' className="dropdown-item p-3" href="#ourProduct">
+                      Profile
+                    </Link>
+                    <Link to='tiket-saya' className="dropdown-item p-3" href="#ourProduct">
+                      Tiket Saya
+                    </Link>
+                    <Link to='pesanan-saya' className="dropdown-item p-3" href="#ourProduct">
+                      Pesanan Saya
+                    </Link>
+                    <div
+                      onClick={handleLogout}
+                      className="dropdown-item p-3"
+                    >
+                      Logout
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            ) : (
+              <>
+                <ul className="navbar-nav ms-auto me-4">
+                  <li className="nav-item ">
+                    <Link
+                      to="user-login"
+                      className="btn btn-success py-2 px-5 nav-link fw-bold text-light "
+                    >
+                      Login
+                    </Link>
+                  </li>
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </nav>
