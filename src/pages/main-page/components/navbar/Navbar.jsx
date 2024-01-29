@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./../../../../assets/img/logo.png";
-import { FaUser, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -25,9 +25,9 @@ export const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item me-2">
+              <li className="nav-item me-3">
                 <Link
-                  className={`nav-link ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/" ? "active" : ""
                   }`}
                   to="/"
@@ -35,9 +35,9 @@ export const Navbar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item me-2">
+              <li className="nav-item me-3">
                 <Link
-                  className={`nav-link ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/product" ? "active" : ""
                   }`}
                   to="/product"
@@ -45,9 +45,9 @@ export const Navbar = () => {
                   Product
                 </Link>
               </li>
-              <li className="nav-item me-2">
+              <li className="nav-item me-3">
                 <Link
-                  className={`nav-link ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/event" ? "active" : ""
                   }`}
                   to="/event"
@@ -55,9 +55,9 @@ export const Navbar = () => {
                   Event
                 </Link>
               </li>
-              <li className="nav-item me-2">
+              <li className="nav-item me-3">
                 <Link
-                  className={`nav-link ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/about" ? "active" : ""
                   }`}
                   to="/about"
@@ -65,9 +65,9 @@ export const Navbar = () => {
                   About
                 </Link>
               </li>
-              <li className="nav-item me-2">
+              <li className="nav-item me-3">
                 <Link
-                  className={`nav-link ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/contact" ? "active" : ""
                   }`}
                   to="/contact"
@@ -75,14 +75,17 @@ export const Navbar = () => {
                   Contact
                 </Link>
               </li>
+            </ul>
+
+            <ul className="navbar-nav ms-auto me-4">
               <li className="nav-item dropdown">
                 <a
-                  className="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle fw-bold"
                   href="#"
                   id="ourProductDropdown"
                   data-bs-toggle="dropdown"
                 >
-                  <FaUserCircle className="fs-5 me-2"/>
+                  <FaUserCircle className="fs-5 me-3" />
                   Putra
                 </a>
                 <div

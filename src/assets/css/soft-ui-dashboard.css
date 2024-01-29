@@ -98,7 +98,7 @@
 .line-title {
   width: 40px;
   border-bottom: 5px solid var(--bs-primary);
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 .card {
