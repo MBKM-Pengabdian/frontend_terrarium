@@ -13,10 +13,11 @@ import { ProductDashboard } from './pages/dashboard/pages/product';
 import { EventDashboard } from './pages/dashboard/pages/events';
 
 // Main Page
-import { Home, Product, Event, DetailEvent, AboutPage, ContactPage } from './pages/main-page';
+import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer } from './pages/main-page';
 import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
+import { PageNotFound } from './pages/notfound';
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -27,7 +28,10 @@ const AppWrapper = () => {
     '/dashboard/product',
     '/dashboard/event',
     '/login',
-    '/register'
+    '/user-login',
+    '/register',
+    '/user-register',
+    '/*',
   ];
 
   const shouldExcludeNavbarFooter = excludePaths.includes(location.pathname);
@@ -37,6 +41,8 @@ const AppWrapper = () => {
       {!shouldExcludeNavbarFooter && <Navbar />}
       <Routes>
         {/* Main Page */}
+        <Route path="/user-login" element={<LoginCustomer />} />
+        <Route path="/user-register" element={<RegisterCustomer />} />
         <Route path="/" element={<Home />} />
         <Route path="/event" element={<Event />} />
         <Route path="/detail-event/:id" element={<DetailEvent />} />
@@ -50,6 +56,8 @@ const AppWrapper = () => {
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/dashboard/product" element={<ProductDashboard />} />
         <Route path="/dashboard/event" element={<EventDashboard />} />
+
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       {!shouldExcludeNavbarFooter && <Footer />}
     </>
