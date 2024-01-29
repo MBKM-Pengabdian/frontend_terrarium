@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./../../../../assets/img/logo.png";
-import { FaUser, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -27,7 +27,7 @@ export const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item me-3">
                 <Link
-                  className={`nav-link fw-bold ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/" ? "active" : ""
                   }`}
                   to="/"
@@ -37,7 +37,7 @@ export const Navbar = () => {
               </li>
               <li className="nav-item me-3">
                 <Link
-                  className={`nav-link fw-bold ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/product" ? "active" : ""
                   }`}
                   to="/product"
@@ -47,7 +47,7 @@ export const Navbar = () => {
               </li>
               <li className="nav-item me-3">
                 <Link
-                  className={`nav-link fw-bold ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/event" ? "active" : ""
                   }`}
                   to="/event"
@@ -57,7 +57,7 @@ export const Navbar = () => {
               </li>
               <li className="nav-item me-3">
                 <Link
-                  className={`nav-link fw-bold ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/about" ? "active" : ""
                   }`}
                   to="/about"
@@ -67,7 +67,7 @@ export const Navbar = () => {
               </li>
               <li className="nav-item me-3">
                 <Link
-                  className={`nav-link fw-bold ${
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/contact" ? "active" : ""
                   }`}
                   to="/contact"
@@ -80,7 +80,7 @@ export const Navbar = () => {
             <ul className="navbar-nav ms-auto me-4">
               <li className="nav-item dropdown">
                 <a
-                  className="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle fw-bold"
                   href="#"
                   id="ourProductDropdown"
                   data-bs-toggle="dropdown"
