@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { FaCartPlus } from "react-icons/fa";
-import axios from "axios";
 import { Toast } from "../../../../../../utils/GlobalFunction";
+import CartService from "../../../../../../services/cart.service";
+import ProductService from "../../../../../../services/product.service";
 
 // // const StarRating = ({ rating }) => {
 // //   const stars = Array.from({ length: 5 }, (_, index) => (
@@ -15,6 +16,8 @@ import { Toast } from "../../../../../../utils/GlobalFunction";
 // // };
 
 export const CardProduct = () => {
+  const cartservice = CartService();
+  const productservice = ProductService();
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,10 +25,10 @@ export const CardProduct = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/product/get`
-        );
-        setProductData(response.data.data);
+        const response = await productservice.handleGetAllProduct();
+        if (response.status === 200) {
+          setProductData(response.data);
+        }
       } catch (error) {
         setError(error);
       } finally {
@@ -51,20 +54,14 @@ export const CardProduct = () => {
       quantity: 1,
     };
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/cart/store`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken_customer")}`,
-          },
-        }
-      );
-      Toast.fire({
+      const response = await cartservice.handleNewShoppingCart(data);
+
+      if (response.status === 200) {
+        Toast.fire({
           icon: "success",
           title: `Berhasil Masuk Keranjang`,
         });
-      console.log(response.data.data);
+      }
     } catch (error) {
       setError(error);
     } finally {

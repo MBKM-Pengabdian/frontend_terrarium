@@ -83,7 +83,7 @@ export const Navbar = () => {
               </li>
             </ul>
             {window.localStorage.getItem("customer_id") ? (
-              <ul className="navbar-nav ms-auto me-4">
+              <ul className="navbar-nav ms-auto me-4 disabled-absolute" style={{ zIndex: '100' }}>
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle fw-bold"

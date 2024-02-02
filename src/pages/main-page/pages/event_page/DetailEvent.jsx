@@ -1,4 +1,3 @@
-import axios from "axios";
 import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import {
@@ -10,9 +9,11 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import EventService from "../../../../services/event.service";
 
 export const DetailEvent = () => {
   const { id } = useParams();
+  const eventService = EventService() 
   const [activeTab, setActiveTab] = useState("timeline");
   const [detailEvent, setdetailEvent] = useState();
   const [loading, setLoading] = useState(true);
@@ -25,11 +26,10 @@ export const DetailEvent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/event/get/${id}`
-        );
-        setdetailEvent(response.data.data);
-        console.log(response.data.data);
+        const response = await eventService.handleGetDetailEvent(id)
+        if (response.status === 200) {
+          setdetailEvent(response.data);
+        }
       } catch (error) {
         setError(error);
       } finally {

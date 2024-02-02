@@ -1,38 +1,80 @@
-import { FaMinus, FaPlus } from "react-icons/fa";
-import sampel from "./../../../../assets/img/forest.jpg";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useEffect } from "react";
-import axios from "axios";
 import { useState } from "react";
-import { formatRupiah } from "../../../../utils/GlobalFunction";
+import { Toast, formatRupiah } from "../../../../utils/GlobalFunction";
+import CartService from "../../../../services/cart.service";
 
 export const CartShopPage = () => {
+  const cartService = CartService();
   const [cartList, setCartList] = useState();
+  const [selectedItems, setSelectedItems] = useState({});
+
+  const handleCheckboxChange = (data, index) => {
+    setSelectedItems((prevSelectedItems) => {
+      const isSelected = !!prevSelectedItems[index];
+      // Jika checkbox di-uncheck dan data sudah ada dalam selectedItems, maka hapus data tersebut
+      if (isSelected) {
+        const updatedSelectedItems = { ...prevSelectedItems };
+        delete updatedSelectedItems[index];
+        return updatedSelectedItems;
+      } else {
+        // Jika checkbox di-check, tambahkan data ke selectedItems
+        return { ...prevSelectedItems, [index]: data };
+      }
+    });
+    // calculateTotalPrice()
+  };
+
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+
+    for (const index in selectedItems) {
+      totalPrice +=
+        selectedItems[index].product.price * selectedItems[index].quantity;
+    }
+    return totalPrice;
+  };
+
+  const handleDeleteCart = async (id) => {
+    try {
+      const response = await cartService.handleDeleteShoppingCart(id);
+      if (response.status === 200) {
+        handleGetCart();
+        Toast.fire({
+        icon: "success",
+        title: `Produk Dihapus`,
+      });
+      }
+    } catch (error) {
+      // setError(error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  const handleGetCart = async () => {
+    try {
+      const response = await cartService.handleGetShoppingCart();
+      if (response.status === 200) {
+        setCartList(response.data);
+        return;
+      }
+      Toast.fire({
+        icon: "error",
+        title: `Ada Kesalahan`,
+      });
+    } catch (error) {
+      if (error.status === 404) {
+        Toast.fire({
+          icon: "error",
+          title: `Ada Kesalahan`,
+        });
+      }
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/cart/get/${localStorage.getItem(
-            "customer_id"
-          )}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem(
-                "accessToken_customer"
-              )}`,
-            },
-          }
-        );
-
-        setCartList(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        // setError(error);
-      } finally {
-        // setLoading(false);
-      }
-    };
-    fetchData();
+    handleGetCart();
   }, []);
   return (
     <>
@@ -44,7 +86,12 @@ export const CartShopPage = () => {
                 <div key={index} className="bg-light mb-3">
                   <div className="row g-0">
                     <div className="col-auto text-end p-3">
-                      <input type="checkbox" className="form-check-input" />
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={!!selectedItems[index]} // Tentukan apakah checkbox harus dicentang atau tidak berdasarkan state
+                        onChange={() => handleCheckboxChange(data, index)} // Panggil fungsi handleCheckboxChange saat checkbox diubah
+                      />
                     </div>
                     <div className="col-md-2">
                       <img
@@ -66,18 +113,18 @@ export const CartShopPage = () => {
                         <h5 className="card-title mb-2">
                           {data.product.product_name}
                         </h5>
-
                         <p className="card-text">
                           <button className="btn btn-sm px-3 border border-2">
                             <FaPlus />
                           </button>
-                          <span className="mx-3">
-                            {" "}
-                            {data.product.stock_quantity}{" "}
-                          </span>
+                          <span className="mx-3">{data.quantity} </span>
                           <button className="btn btn-sm px-3 border border-2">
                             <FaMinus />
                           </button>
+                          <FaTrash
+                            className="ms-4 fs-5 text-danger"
+                            onClick={() => handleDeleteCart(data.uuid)}
+                          />
                         </p>
                       </div>
                     </div>
@@ -90,7 +137,7 @@ export const CartShopPage = () => {
                 </div>
               ))}
           </div>
-          <div className="col-lg-4 pb-4">
+          <div className="col-lg-4 pb-4 fixed-sm-bottom">
             <div className="sticky-top bg-light py-3 px-4">
               <div className="fs-6 text-dark fw-bold mb-3">Ringkasan</div>
               <div className="row">
@@ -98,7 +145,9 @@ export const CartShopPage = () => {
                   <div className="fs-6 text-dark fw-bold mb-5">Total</div>
                 </div>
                 <div className="col-lg-6 text-end">
-                  <div className="text-dark fw-bold mb-5 h5">Rp 100.000</div>
+                  <div className="text-dark fw-bold mb-5 h5">
+                    Rp {calculateTotalPrice().toLocaleString()}
+                  </div>
                 </div>
               </div>
               <button className="btn bg-primary text-light fw-bold w-100 fs-6">

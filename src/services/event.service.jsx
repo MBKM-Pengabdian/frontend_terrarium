@@ -16,6 +16,18 @@ const EventService = () => {
     }
   };
 
+  const handleGetDetailEvent = async (id) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/event/get/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      throw error;
+    }
+  };
+
   const handleAddEvent = async (eventData) => {
     try {
       const response = await axios.post(
@@ -56,7 +68,12 @@ const EventService = () => {
     }
   };
 
-  return { handleGetAllEvent, handleAddEvent, handleDeleteEvent };
+  return {
+    handleGetAllEvent,
+    handleAddEvent,
+    handleDeleteEvent,
+    handleGetDetailEvent,
+  };
 };
 
 export default EventService;
