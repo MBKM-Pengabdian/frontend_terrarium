@@ -31,7 +31,7 @@ export const LoginCustomer = () => {
           "accessToken_customer",
           res.data.access_token
         );
-        window.localStorage.setItem("customer_id", res.data.userId);
+        window.localStorage.setItem("customer_id", res.data.customerId);
         window.localStorage.setItem("customer_username", res.data.username);
         Toast.fire({
           icon: "success",
