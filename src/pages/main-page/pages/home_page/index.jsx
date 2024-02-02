@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   FaBitbucket,
@@ -11,20 +10,24 @@ import parse from "html-react-parser";
 
 import { FaClover, FaHandsBubbles, FaTrowel } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import EventService from "../../../../services/event.service";
+import ProductService from "../../../../services/product.service";
 
 export const Home = () => {
   const navigate = useNavigate();
+  const eventService = EventService()
+  const productService = ProductService()
+
   const [listEventData, setListEventData] = useState();
   const [listProductData, setListProductdata] = useState();
 
   useEffect(() => {
     const fetchDataEvent = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/event/get`
-        );
-        setListEventData(response.data.data);
-        console.log(response.data.data);
+         const response = await eventService.handleGetAllEvent();
+        if (response.status === 200) {
+          setListEventData(response.data);
+        }
       } catch (error) {
         // setError(error);
       } finally {
@@ -34,11 +37,10 @@ export const Home = () => {
 
     const fetchDataProduct = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/product/get`
-        );
-        setListProductdata(response.data.data);
-        console.log(response.data.data);
+        const response = await productService.handleGetAllProduct();
+        if (response.status === 200) {
+          setListProductdata(response.data);
+        }
       } catch (error) {
         // setError(error);
       } finally {
