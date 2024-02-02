@@ -36,3 +36,11 @@ export const getCurrentDate = () => {
   const day = String(today.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
+
+export const formatRupiah = (angka) => {
+  var reverse = angka.toString().split('').reverse().join('');
+    var ribuan = reverse.match(/\d{1,3}/g);
+    var formatted = ribuan.join('.').split('').reverse().join('');
+    return 'Rp ' + formatted;
+};
+

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./../../../../assets/img/logo.png";
-import { FaUserCircle } from "react-icons/fa";
+import { FaCartArrowDown, FaUserCircle } from "react-icons/fa";
 import AuthService from "../../../../services/auth.service";
 
 export const Navbar = () => {
@@ -116,6 +116,14 @@ export const Navbar = () => {
                     </div>
                   </div>
                 </li>
+                <li className="nav-item me-3">
+                <Link
+                  className="nav-link fw-bold fs-6"
+                  to="/cart-shop"
+                >
+                  <FaCartArrowDown  className="fs-4 ms-lg-3 text-primary"/>
+                </Link>
+              </li>
               </ul>
             ) : (
               <>
