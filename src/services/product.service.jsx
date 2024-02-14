@@ -16,6 +16,21 @@ const ProductService = () => {
     }
   };
 
+  const handleGetDetailProduct = async (id) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/product/get/${id}`,
+      );
+
+      const products = response.data;
+
+      return products;
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      throw error;
+    }
+  };
+
   const handleAddProduct = async (productData) => {
     try {
       const response = await axios.post(
@@ -56,7 +71,7 @@ const ProductService = () => {
     }
   };
 
-  return { handleGetAllProduct, handleAddProduct, handleDeleteProduct };
+  return { handleGetAllProduct, handleAddProduct, handleDeleteProduct, handleGetDetailProduct };
 };
 
 export default ProductService;
