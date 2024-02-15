@@ -51,7 +51,6 @@ export const CardProduct = () => {
     };
     try {
       const response = await cartservice.handleNewShoppingCart(data);
-
       if (response.status === 200) {
         Toast.fire({
           icon: "success",
@@ -59,6 +58,14 @@ export const CardProduct = () => {
         });
       }
     } catch (error) {
+      if (error.response.data.status == 401) {
+        navigate("/user-login");
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: `Ups ada kesalahan!`,
+        });
+      }
       setError(error);
     } finally {
       setLoading(false);

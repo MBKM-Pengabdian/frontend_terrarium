@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ProductService from "../../../../../../services/product.service";
 import { Toast } from "../../../../../../utils/GlobalFunction";
 
@@ -60,9 +62,9 @@ export const FormProduct = () => {
       return addedProduct;
     } catch (error) {
       Toast.fire({
-          icon: "error",
-          title: `${error}`,
-        });
+        icon: "error",
+        title: `${error}`,
+      });
       console.error("Error adding product:", error);
     }
   };
@@ -71,7 +73,7 @@ export const FormProduct = () => {
     <>
       <form role="form" onSubmit={handleSubmit}>
         <div className="row">
-          <div className="col-md-6 mb-3">
+          <div className="col-md-12 mb-3">
             <label>Nama Product</label>
             <input
               type="text"
@@ -84,21 +86,6 @@ export const FormProduct = () => {
             />
             {errors.product_name && (
               <div className="invalid-feedback">{errors.product_name}</div>
-            )}
-          </div>
-          <div className="col-md-6 mb-3">
-            <label>Deskripsi</label>
-            <input
-              type="text"
-              className={`form-control ${
-                errors.product_name ? "is-invalid" : ""
-              }`}
-              placeholder="Masukan Deskripsi"
-              onChange={handleChange}
-              name="description"
-            />
-            {errors.description && (
-              <div className="invalid-feedback">{errors.description}</div>
             )}
           </div>
         </div>
@@ -130,6 +117,32 @@ export const FormProduct = () => {
             />
             {errors.stock_quantity && (
               <div className="invalid-feedback">{errors.stock_quantity}</div>
+            )}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 mb-3">
+            <label>Deskripsi</label>
+            <CKEditor
+              editor={ClassicEditor}
+              data="<p></p>"
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                console.log("Editor is ready to use!", editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                handleChange({
+                  target: {
+                    name: "description",
+                    value: data,
+                    type: "text",
+                  },
+                });
+              }}
+            />
+            {errors.description && (
+              <div className="invalid-feedback">{errors.description}</div>
             )}
           </div>
         </div>
