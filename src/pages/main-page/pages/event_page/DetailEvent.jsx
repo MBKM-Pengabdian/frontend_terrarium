@@ -1,8 +1,8 @@
 import parse from "html-react-parser";
 import { useEffect, useState } from "react";
 import {
-    FaCalendar,
-    FaClock,
+  FaCalendar,
+  FaClock,
   FaFacebook,
   FaInstagram,
   FaMapMarkerAlt,
@@ -13,7 +13,7 @@ import EventService from "../../../../services/event.service";
 
 export const DetailEvent = () => {
   const { id } = useParams();
-  const eventService = EventService() 
+  const eventService = EventService();
   const [activeTab, setActiveTab] = useState("timeline");
   const [detailEvent, setdetailEvent] = useState();
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ export const DetailEvent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await eventService.handleGetDetailEvent(id)
+        const response = await eventService.handleGetDetailEvent(id);
         if (response.status === 200) {
           setdetailEvent(response.data);
         }
@@ -72,8 +72,7 @@ export const DetailEvent = () => {
             className="col-lg-6 pt-3 d-flex flex-column"
             style={{ minWidth: "200px" }}
           >
-            <div className="text-dark fw-medium fs-6">
-            </div>
+            <div className="text-dark fw-medium fs-6"></div>
             <h3 className="title-event text-primary fs-4">
               {detailEvent && detailEvent.title_event}
             </h3>
@@ -91,8 +90,10 @@ export const DetailEvent = () => {
             </div>
             <div className="mb-2 text-dark">
               <div className="mb-2">
-                <FaClock className="text-primary me-2" /> {detailEvent.detail_event[0].date_event.split(" ")[1]}
-                <FaCalendar className="text-primary ms-4 me-2" /> {detailEvent.detail_event[0].date_event.split(" ")[0]}
+                <FaClock className="text-primary me-2" />{" "}
+                {detailEvent.detail_event[0].date_event.split(" ")[1]}
+                <FaCalendar className="text-primary ms-4 me-2" />{" "}
+                {detailEvent.detail_event[0].date_event.split(" ")[0]}
               </div>
               <div className="mb-2">
                 <FaMapMarkerAlt className="text-primary me-2" /> Zoom
@@ -205,7 +206,8 @@ export const DetailEvent = () => {
           <h4 id="details">Details</h4>
           <div className="details-event mb-5">
             <p>
-              {detailEvent &&  parse(detailEvent.detail_event[0].description_event)}
+              {detailEvent &&
+                parse(detailEvent.detail_event[0].description_event)}
             </p>
           </div>
         </div>
