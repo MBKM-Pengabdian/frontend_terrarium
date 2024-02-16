@@ -3,13 +3,17 @@ import { useEffect, useState } from "react";
 import {
   FaCalendar,
   FaClock,
+  FaCopy,
   FaFacebook,
   FaInstagram,
   FaMapMarkerAlt,
+  FaRegCopy,
   FaTwitter,
 } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import EventService from "../../../../services/event.service";
+import { ModalForm } from "./components/modalForm/modalForm";
+import { Toast } from "../../../../utils/GlobalFunction";
 
 export const DetailEvent = () => {
   const { id } = useParams();
@@ -21,6 +25,38 @@ export const DetailEvent = () => {
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+  };
+
+  const handleShareEvent = (type) => {
+    const currentUrl = window.location.href;
+
+    const shareUrls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        currentUrl
+      )}`,
+      instagram: `https://www.instagram.com/?url=${encodeURIComponent(
+        currentUrl
+      )}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+        currentUrl
+      )}`,
+    };
+
+    if (type in shareUrls) {
+      window.open(shareUrls[type], "_blank");
+    } else if (type === "copy-link") {
+      navigator.clipboard
+        .writeText(currentUrl)
+        .then(() => {
+          Toast.fire({
+            icon: "success",
+            title: `Link berhasil dicopy`,
+          });
+        })
+        .catch((error) => {
+          console.error("Gagal menyalin URL ke clipboard:", error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -79,13 +115,32 @@ export const DetailEvent = () => {
             <div className="fw-bold mb-3">
               Share:
               <span>
-                <FaFacebook className="fs-5 mx-1" />
+                <FaFacebook
+                  role="button"
+                  className="fs-5 mx-1"
+                  onClick={() => handleShareEvent("facebook")}
+                />
               </span>
               <span>
-                <FaInstagram className="fs-5 mx-1" />
+                <FaInstagram
+                  role="button"
+                  className="fs-5 mx-1"
+                  onClick={() => handleShareEvent("instagram")}
+                />
               </span>
               <span>
-                <FaTwitter className="fs-5 mx-1" />
+                <FaTwitter
+                  role="button"
+                  className="fs-5 mx-1"
+                  onClick={() => handleShareEvent("twitter")}
+                />
+              </span>
+              <span>
+                <FaRegCopy
+                  role="button"
+                  className="fs-5 mx-1"
+                  onClick={() => handleShareEvent("copy-link")}
+                />
               </span>
             </div>
             <div className="mb-2 text-dark">
@@ -100,12 +155,9 @@ export const DetailEvent = () => {
               </div>
             </div>
             <div className="mt-auto mb-3">
-              <button className="btn bg-primary text-light w-100 fw-bold fs-6">
-                Daftar Sekarang
-              </button>
+              <ModalForm title="Isi data anda" />
             </div>
           </div>
-
           <div className="col m-auto text-center" style={{ minWidth: "200px" }}>
             <div>Terbuka Hingga:</div>
             <div className="fw-bold mb-3">
@@ -114,10 +166,11 @@ export const DetailEvent = () => {
             </div>
             <div>Sisa Kuota:</div>
             <div className="fw-bold">
-              {detailEvent && detailEvent.detail_event[0].sisa_event}
+              {detailEvent && detailEvent.detail_event[0].kuota_event}
             </div>
           </div>
         </div>
+
         <hr />
         <nav id="navbar-example2" className="navbar bg-body-tertiary px-3 mb-3">
           <ul className="nav nav-pills">
@@ -176,9 +229,19 @@ export const DetailEvent = () => {
           tabIndex="0"
         >
           <h4 id="timeline">Timeline</h4>
-          <div className="timeline-event mb-5">
-            {detailEvent &&
-              detailEvent.detail_event[0].timeline.map((resTimeline, index) => (
+          {detailEvent &&
+            detailEvent.detail_event[0].timeline
+              .sort((a, b) => {
+                const [hoursA, minutesA] = a.waktu.split(":").map(Number);
+                const [hoursB, minutesB] = b.waktu.split(":").map(Number);
+                // Bandingkan jam dan menit
+                if (hoursA !== hoursB) {
+                  return hoursA - hoursB; // Urutkan berdasarkan jam secara ascending
+                } else {
+                  return minutesA - minutesB; // Jika jam sama, urutkan berdasarkan menit secara ascending
+                }
+              })
+              .map((resTimeline, index) => (
                 <div className="row mb-4" key={index}>
                   <div className="col-1" style={{ width: "80px" }}>
                     <div className="circle-timeline p-auto d-flex align-items-center justify-content-center text-danger fw-bold border border-danger">
@@ -191,7 +254,6 @@ export const DetailEvent = () => {
                   </div>
                 </div>
               ))}
-          </div>
 
           <h4 id="speaker">Speaker</h4>
           <div className="speaker-event mb-5">
