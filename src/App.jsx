@@ -13,7 +13,7 @@ import { ProductDashboard } from './pages/dashboard/pages/product';
 import { EventDashboard } from './pages/dashboard/pages/events';
 
 // Main Page
-import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage } from './pages/main-page';
+import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage, MyTicketPage } from './pages/main-page';
 import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -51,6 +51,7 @@ const AppWrapper = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/tiket-saya" element={<MyTicketPage />} />
 
         <Route path="/cart-shop" element={<CartShopPage />} />
 

@@ -51,3 +51,22 @@ export const nameTitleUrl = (text) => {
   text = text.replace(/[^a-zA-Z0-9-]/g, "-");
   return text;
 };
+
+export const getTanggal = (d) => {
+  const date = new Date(d);
+  return date.getDate();
+};
+
+export const getNamaBulan = (d) => {
+  const bulanNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  const date = new Date(d);
+  const bulanIndex = date.getMonth();
+  return bulanNames[bulanIndex];
+};
+
+export const getWaktu = (d) => {
+  const date = new Date(d);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+};

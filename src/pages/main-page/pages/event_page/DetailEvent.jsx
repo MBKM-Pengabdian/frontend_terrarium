@@ -65,6 +65,7 @@ export const DetailEvent = () => {
         const response = await eventService.handleGetDetailEvent(id);
         if (response.status === 200) {
           setdetailEvent(response.data);
+          console.log(response.data);
         }
       } catch (error) {
         setError(error);
@@ -151,7 +152,7 @@ export const DetailEvent = () => {
                 {detailEvent.detail_event[0].date_event.split(" ")[0]}
               </div>
               <div className="mb-2">
-                <FaMapMarkerAlt className="text-primary me-2" /> Zoom
+                <FaMapMarkerAlt className="text-primary me-2" /> {detailEvent && detailEvent.place}
               </div>
             </div>
             <div className="mt-auto mb-3">

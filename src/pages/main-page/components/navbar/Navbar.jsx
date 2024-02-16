@@ -102,7 +102,7 @@ export const Navbar = () => {
                     <Link to='profile' className="dropdown-item p-3" href="#ourProduct">
                       Profile
                     </Link>
-                    <Link to='tiket-saya' className="dropdown-item p-3" href="#ourProduct">
+                    <Link to='tiket-saya' className="dropdown-item p-3" >
                       Tiket Saya
                     </Link>
                     <Link to='pesanan-saya' className="dropdown-item p-3" href="#ourProduct">

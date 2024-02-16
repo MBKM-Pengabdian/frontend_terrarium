@@ -8,6 +8,8 @@ import { LoginCustomer } from "./pages/auth/login/LoginCustomer";
 import { RegisterCustomer } from "./pages/auth/register/RegisterCustomer";
 import { CartShopPage } from "./pages/cartshop_page";
 import { ContactPage } from "./pages/contact_page";
+import { MyTicketPage } from "./pages/mytiket_page";
+
 
 export {
   Home,
@@ -20,4 +22,5 @@ export {
   LoginCustomer,
   RegisterCustomer,
   CartShopPage,
+  MyTicketPage
 };
