@@ -15,6 +15,7 @@ export const Event = () => {
         const response = await eventService.handleGetAllEvent();
         if (response.status === 200) {
           setListEventData(response.data);
+          console.log(response.data);
         }
       } catch (error) {
         setError(error);
@@ -52,7 +53,7 @@ export const Event = () => {
         </div>
       </div>
       <div className="container">
-        <div className="row d-flex justify-content-center">
+        <div className="row g-5 d-flex justify-content-center">
           {listEventData &&
             listEventData.map((data, index) => (
               <CardEvent key={index} data={data} />
