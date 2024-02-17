@@ -69,6 +69,19 @@
 }
 
 /* MY CSS */
+
+.receipt-text-normal{
+  font-family: 'consolas';
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.receipt-text-bold{
+  font-family: 'consolas';
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
 .text-3line {
   overflow: hidden;
   display: -webkit-box;

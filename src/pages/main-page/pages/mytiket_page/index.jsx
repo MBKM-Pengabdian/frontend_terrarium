@@ -7,6 +7,7 @@ import {
   getTanggal,
   getWaktu,
 } from "../../../../utils/GlobalFunction";
+import { ModalDetailTiket } from "./components/modalDetailTiket";
 
 export const MyTicketPage = () => {
   const [listMyTicket, setListMyTicket] = useState([
@@ -90,9 +91,10 @@ export const MyTicketPage = () => {
                     {data.place}
                   </div>
                   <div className="col-10 col-lg-2 col-md-5 col-sm-5 m-auto">
-                    <button className="btn bg-primary text-light fw-bold ">
+                    <ModalDetailTiket title="Ini adalah tiket Anda" />
+                    {/* <button className="btn bg-primary text-light fw-bold ">
                       Lihat Tiket
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
