@@ -57,6 +57,12 @@ export const getTanggal = (d) => {
   return date.getDate();
 };
 
+export const getTahun = (d) => {
+  const date = new Date(d);
+  const year = date.getFullYear();
+  return year;
+};
+
 export const getNamaBulan = (d) => {
   const bulanNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
   const date = new Date(d);

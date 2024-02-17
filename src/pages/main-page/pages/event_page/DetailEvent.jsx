@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   FaCalendar,
   FaClock,
-  FaCopy,
   FaFacebook,
   FaInstagram,
   FaMapMarkerAlt,
