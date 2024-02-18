@@ -64,6 +64,16 @@ export const Navbar = () => {
               <li className="nav-item me-3">
                 <Link
                   className={`nav-link fw-bold fs-6 ${
+                    location.pathname === "/layanan-khusus" ? "active" : ""
+                  }`}
+                  to="/layanan-khusus"
+                >
+                  Layanan Khusus
+                </Link>
+              </li>
+              <li className="nav-item me-3">
+                <Link
+                  className={`nav-link fw-bold fs-6 ${
                     location.pathname === "/about" ? "active" : ""
                   }`}
                   to="/about"

@@ -9,6 +9,8 @@ import { RegisterCustomer } from "./pages/auth/register/RegisterCustomer";
 import { CartShopPage } from "./pages/cartshop_page";
 import { ContactPage } from "./pages/contact_page";
 import { MyTicketPage } from "./pages/mytiket_page";
+import { LayananKhususPage } from "./pages/layanan_khusus_page";
+
 
 
 export {
@@ -22,5 +24,6 @@ export {
   LoginCustomer,
   RegisterCustomer,
   CartShopPage,
-  MyTicketPage
+  MyTicketPage,
+  LayananKhususPage
 };

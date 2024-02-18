@@ -70,6 +70,10 @@
 
 /* MY CSS */
 
+.label-for-input{
+  font-size: 0.88em;
+}
+
 .receipt-text-normal{
   font-family: 'consolas';
   font-size: 1.2em;
