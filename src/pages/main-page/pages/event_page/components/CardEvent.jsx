@@ -23,7 +23,7 @@ export const CardEvent = ({ data }) => {
             <div className="col-lg-6 d-flex flex-column">
               {data.detail_event.map((data2, index) => (
                 <div key={index} className="card-body pt-2">
-                  <label className="text-primary">{data2.tag_event}</label>
+                  <label className="text-primary text-break">{data2.tag_event}</label>
                   <div className="card-title h5 mb-3 text-2line">
                     {data.title_event}
                   </div>

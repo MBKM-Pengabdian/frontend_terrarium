@@ -13,11 +13,12 @@ import { ProductDashboard } from './pages/dashboard/pages/product';
 import { EventDashboard } from './pages/dashboard/pages/events';
 
 // Main Page
-import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage, MyTicketPage } from './pages/main-page';
+import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage, MyTicketPage, LayananKhususPage } from './pages/main-page';
 import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
 import { PageNotFound } from './pages/notfound';
+import { LayananSpesialDashboard } from './pages/dashboard/pages/layanan-spesial';
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const AppWrapper = () => {
     '/dashboard',
     '/dashboard/product',
     '/dashboard/event',
+    '/dashboard/layanan-spesial',
     '/login',
     '/user-login',
     '/register',
@@ -51,8 +53,10 @@ const AppWrapper = () => {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/tiket-saya" element={<MyTicketPage />} />
+        <Route path="/layanan-khusus" element={<LayananKhususPage />} />
 
+        {/* Only Sign in customer */}
+        <Route path="/tiket-saya" element={<MyTicketPage />} />
         <Route path="/cart-shop" element={<CartShopPage />} />
 
 
@@ -62,6 +66,7 @@ const AppWrapper = () => {
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/dashboard/product" element={<ProductDashboard />} />
         <Route path="/dashboard/event" element={<EventDashboard />} />
+        <Route path="/dashboard/layanan-spesial" element={<LayananSpesialDashboard />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
