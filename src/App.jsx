@@ -18,6 +18,7 @@ import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
 import { PageNotFound } from './pages/notfound';
+import { LayananSpesialDashboard } from './pages/dashboard/pages/layanan-spesial';
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const AppWrapper = () => {
     '/dashboard',
     '/dashboard/product',
     '/dashboard/event',
+    '/dashboard/layanan-spesial',
     '/login',
     '/user-login',
     '/register',
@@ -64,6 +66,7 @@ const AppWrapper = () => {
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/dashboard/product" element={<ProductDashboard />} />
         <Route path="/dashboard/event" element={<EventDashboard />} />
+        <Route path="/dashboard/layanan-spesial" element={<LayananSpesialDashboard />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
