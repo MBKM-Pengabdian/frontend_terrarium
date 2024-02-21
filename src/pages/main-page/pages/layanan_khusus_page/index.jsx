@@ -26,9 +26,9 @@ export const LayananKhususPage = () => {
     service_type: "",
     description: "",
     deadline: "",
-    budget_estimation: 0,
+    budget_estimation: "0",
     project_location: "",
-    photo: null,
+    photo: "",
   };
   const [formData, setFormData] = useState(initialFormData);
 
@@ -42,13 +42,11 @@ export const LayananKhususPage = () => {
       ...prevFormData,
       [name]: type === "file" ? event.target.files[0] : value,
     }));
-    console.log(formData);
     // setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log();
 
     // Simple required field validation
     // const requiredFields = [

@@ -1,35 +1,38 @@
 import axios from "axios";
 
 const SpecialRequestService = () => {
-//   const handleGetAllProduct = async () => {
-//     try {
-//       const response = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/api/product/get`
-//       );
+  const handleGetSpecialRequest = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/special-request/get`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      const result = response.data;
+      return result;
+    } catch (error) {
+      console.error("Error fetching Special Request:", error);
+      throw error;
+    }
+  };
 
-//       const products = response.data;
+  // const handleGetDetailProduct = async (id) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_URL}/api/product/get/${id}`,
+  //     );
 
-//       return products;
-//     } catch (error) {
-//       console.error("Error fetching products:", error);
-//       throw error;
-//     }
-//   };
+  //     const products = response.data;
 
-//   const handleGetDetailProduct = async (id) => {
-//     try {
-//       const response = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/api/product/get/${id}`,
-//       );
-
-//       const products = response.data;
-
-//       return products;
-//     } catch (error) {
-//       console.error("Error fetching products:", error);
-//       throw error;
-//     }
-//   };
+  //     return products;
+  //   } catch (error) {
+  //     console.error("Error fetching products:", error);
+  //     throw error;
+  //   }
+  // };
 
   const handleAddRequest = async (data) => {
     try {
@@ -51,7 +54,7 @@ const SpecialRequestService = () => {
     }
   };
 
-  return { handleAddRequest,};
+  return { handleAddRequest, handleGetSpecialRequest};
 };
 
 export default SpecialRequestService;

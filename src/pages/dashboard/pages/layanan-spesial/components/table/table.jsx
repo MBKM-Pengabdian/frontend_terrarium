@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { StyleSheetManager } from "styled-components";
-import ProductService from "../../../../../../services/product.service";
 import Swal from "sweetalert2";
 import {
   Toast,
   showConfirmationDialog,
 } from "../../../../../../utils/GlobalFunction";
+import SpecialRequestService from "../../../../../../services/specialRequest.service";
 
 const TableLayananSpesial = () => {
-  const productService = ProductService();
+  const specialRequestService = SpecialRequestService();
 
   const [data, setData] = useState([]);
   const [filterText, setFilterText] = useState("");
@@ -19,38 +19,39 @@ const TableLayananSpesial = () => {
   };
 
   const handleDeleteClick = async (productId) => {
-    const result = await showConfirmationDialog({
-      title: "Apakah anda yakin ingin menghapus Product ini?",
-      icon: "warning",
-      confirmButtonText: "Ya, Hapus!",
-      cancelButtonText: "Batal",
-    });
+    // const result = await showConfirmationDialog({
+    //   title: "Apakah anda yakin ingin menghapus Product ini?",
+    //   icon: "warning",
+    //   confirmButtonText: "Ya, Hapus!",
+    //   cancelButtonText: "Batal",
+    // });
 
-    if (result.isConfirmed) {
-      try {
-        await productService.handleDeleteProduct(productId);
-        const updatedProducts = await productService.handleGetAllProduct();
-        setData(updatedProducts);
-        Toast.fire({
-          icon: "success",
-          title: "Product berhasil dihapus",
-        });
-      } catch (error) {
-        console.error("Error deleting product:", error);
-        Swal.fire(
-          "Gagal",
-          "Terjadi kesalahan saat menghapus product.",
-          "error"
-        );
-      }
-    }
+    // if (result.isConfirmed) {
+    //   try {
+    //     await productService.handleDeleteProduct(productId);
+    //     const updatedProducts = await productService.handleGetAllProduct();
+    //     setData(updatedProducts);
+    //     Toast.fire({
+    //       icon: "success",
+    //       title: "Product berhasil dihapus",
+    //     });
+    //   } catch (error) {
+    //     console.error("Error deleting product:", error);
+    //     Swal.fire(
+    //       "Gagal",
+    //       "Terjadi kesalahan saat menghapus product.",
+    //       "error"
+    //     );
+    //   }
+    // }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const products = await productService.handleGetAllProduct();
-        setData(products);
+        const result = await specialRequestService.handleGetSpecialRequest();
+        console.log(result);
+        setData(result);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -62,8 +63,8 @@ const TableLayananSpesial = () => {
   const filteredData = (data.data || [])
     .filter(
       (item) =>
-        item.product_name.toLowerCase().includes(filterText.toLowerCase()) ||
-        item.description.toLowerCase().includes(filterText.toLowerCase())
+        item.fullname.toLowerCase().includes(filterText.toLowerCase()) ||
+        item.service_type.toLowerCase().includes(filterText.toLowerCase())
     )
     .map((item, index) => ({
       ...item,
@@ -77,26 +78,24 @@ const TableLayananSpesial = () => {
       width: "50px",
     },
     {
-      name: "Name",
-      selector: ({ product_name }) => product_name,
+      name: "Request Custumer",
+      selector: ({ service_type }) => service_type,
     },
     {
-      name: "Image",
-      selector: ({ product_image }) => (
-        <img
-          src={import.meta.env.VITE_API_URL + product_image}
-          alt={import.meta.env.VITE_API_URL + product_image}
-          style={{ width: "50px" }}
-        />
-      ),
+      name: "Lokasi Project",
+      selector: ({ project_location }) => project_location,
     },
     {
-      name: "Price",
-      selector: ({ price }) => "Rp " + price,
+      name: "Nama",
+      selector: ({ fullname }) => fullname,
     },
     {
-      name: "Stock",
-      selector: ({ stock_quantity }) => stock_quantity,
+      name: "No Telp",
+      selector: ({ phone_number }) => phone_number,
+    },
+    {
+      name: "Email",
+      selector: ({ email }) => email,
     },
     {
       name: "Action",
