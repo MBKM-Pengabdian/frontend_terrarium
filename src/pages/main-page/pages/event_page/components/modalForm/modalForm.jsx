@@ -1,66 +1,48 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "../../../../../../utils/GlobalFunction";
+import EventService from "../../../../../../services/event.service";
 
-export const ModalForm = ({ title }) => {
+export const ModalForm = ({ title, idEvent }) => {
   const navigate = useNavigate();
+  const eventService = EventService();
   const initDataPendaftar = {
-    nama: "",
+    customer_id: localStorage.getItem("customer_id"),
+    event_id: idEvent,
+    fullname_customer: "",
     notelp: "",
-    email: "",
+    email_customer: "",
   };
 
   const [formData, setFormData] = useState(initDataPendaftar);
   const [errors, setErrors] = useState({});
 
-  const handleChange = (event) => {
-    const { name, value, type } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "file" ? event.target.files[0] : value,
-    }));
-    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Simple required field validation
-    const requiredFields = ["nama", "notelp", "email"];
-    const newErrors = {};
-    
-    requiredFields.forEach((field) => {
-      if (!formData[field]) {
-        newErrors[field] = `${field.replace("_", " ")} is required.`;
+    try {
+      const addedProduct = await eventService.handleRegisterEvent(formData);
+      Toast.fire({
+        icon: "success",
+        title: "Product berhasil ditambah",
+      });
+      return addedProduct;
+    } catch (error) {
+      if (error.response.status === 400) {
+        return Toast.fire({
+          icon: "error",
+          title: `Anda sudah terdaftar di event ini!`,
+        });
       }
-    });
-    
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      console.log(newErrors);
-      return;
+      Toast.fire({
+        icon: "error",
+        title: `${error}`,
+      });
+      console.error("Error adding product:", error);
     }
-    const payload = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      payload.append(key, value);
-    });
-
-    // try {
-    //   const addedProduct = await productService.handleAddProduct(payload);
-    //   Toast.fire({
-    //     icon: "success",
-    //     title: "Product berhasil ditambah",
-    //   });
-    //   return addedProduct;
-    // } catch (error) {
-    //   Toast.fire({
-    //     icon: "error",
-    //     title: `${error}`,
-    //   });
-    //   console.error("Error adding product:", error);
-    // }
   };
 
   const openModal = () => {
-    setFormData(initDataPendaftar)
+    setFormData(initDataPendaftar);
     const isAuthenticated = localStorage.getItem("accessToken_customer");
     if (!isAuthenticated) {
       navigate("/user-login");
@@ -109,13 +91,20 @@ export const ModalForm = ({ title }) => {
                   <label htmlFor="">Nama Lengkap</label>
                   <input
                     type="text"
-                    name="nama"
-                    onChange={handleChange}
+                    name="full_name"
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        fullname_customer: e.target.value,
+                      })
+                    }
                     value={formData.nama}
-                    className={`form-control ${errors.nama ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.nama ? "is-invalid" : ""
+                    }`}
                     placeholder=""
                     aria-describedby="helpId"
-                    />
+                  />
                   {errors.nama && (
                     <div className="invalid-feedback">{errors.nama}</div>
                   )}
@@ -125,12 +114,16 @@ export const ModalForm = ({ title }) => {
                   <input
                     type="text"
                     name="notelp"
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      setFormData({ ...formData, notelp: e.target.value })
+                    }
                     value={formData.notelp}
-                    className={`form-control ${errors.notelp ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.notelp ? "is-invalid" : ""
+                    }`}
                     placeholder=""
                     aria-describedby="helpId"
-                    />
+                  />
                   {errors.notelp && (
                     <div className="invalid-feedback">{errors.notelp}</div>
                   )}
@@ -139,15 +132,24 @@ export const ModalForm = ({ title }) => {
                   <label htmlFor="">Email</label>
                   <input
                     type="text"
-                    name="email"
-                    onChange={handleChange}
-                    value={formData.email}
-                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                    name="email_customer"
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        email_customer: e.target.value,
+                      })
+                    }
+                    value={formData.email_customer}
+                    className={`form-control ${
+                      errors.email_customer ? "is-invalid" : ""
+                    }`}
                     placeholder=""
                     aria-describedby="helpId"
                   />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
+                  {errors.email_customer && (
+                    <div className="invalid-feedback">
+                      {errors.email_customer}
+                    </div>
                   )}
                 </div>
                 <div className="modal-footer">

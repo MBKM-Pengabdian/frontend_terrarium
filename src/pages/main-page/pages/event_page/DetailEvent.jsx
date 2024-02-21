@@ -155,7 +155,7 @@ export const DetailEvent = () => {
               </div>
             </div>
             <div className="mt-auto mb-3">
-              <ModalForm title="Isi data anda" />
+              <ModalForm title="Isi data anda" idEvent={detailEvent.uuid} />
             </div>
           </div>
           <div className="col m-auto text-center" style={{ minWidth: "200px" }}>
