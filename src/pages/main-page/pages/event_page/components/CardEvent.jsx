@@ -1,5 +1,5 @@
 import { FaCalendar, FaClock, FaMapMarkerAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CardEvent = ({ data }) => {
   const navigate = useNavigate();
@@ -9,32 +9,50 @@ export const CardEvent = ({ data }) => {
         <div className="card shadow-sm rounded-3">
           <div className="row">
             <div className="col-lg-5" style={{ height: "350px" }}>
-              <img
-                src={import.meta.env.VITE_API_URL + data.img_event}
-                alt=".."
-                className="img-fluid rounded-start"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
+              <Link to={`/detail-event/${data.uuid}`}>
+                <img
+                  src={import.meta.env.VITE_API_URL + data.img_event}
+                  alt=".."
+                  className="img-fluid rounded-start"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </Link>
             </div>
             <div className="col-lg-6 d-flex flex-column">
               {data.detail_event.map((data2, index) => (
                 <div key={index} className="card-body pt-2">
-                  <label className="text-primary text-break">{data2.tag_event}</label>
+                  <label className="text-primary text-break">
+                    {data2.tag_event}
+                  </label>
                   <div className="card-title h5 mb-3 text-2line">
-                    {data.title_event}
+                    <Link to={`/detail-event/${data.uuid}`}>
+                      {data.title_event}
+                    </Link>
                   </div>
-                  <div className="time-event mb-2" style={{ fontSize: '0.9rem' }}>
-                    <FaClock className="text-primary me-3" /> {data2.date_event.split(' ')[1]} - Selesai
+                  <div
+                    className="time-event mb-2"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    <FaClock className="text-primary me-3" />{" "}
+                    {data2.date_event.split(" ")[1]} - Selesai
                   </div>
-                  <div className="date-event mb-2" style={{ fontSize: '0.9rem' }}>
-                    <FaCalendar className="text-primary me-3" /> {data2.date_event.split(' ')[0]}
+                  <div
+                    className="date-event mb-2"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    <FaCalendar className="text-primary me-3" />{" "}
+                    {data2.date_event.split(" ")[0]}
                   </div>
-                  <div className="time-event mb-3 text-2line" style={{ fontSize: '0.9rem' }}>
-                    <FaMapMarkerAlt className="text-primary me-3" /> {data.place}
+                  <div
+                    className="time-event mb-3 text-2line"
+                    style={{ fontSize: "0.9rem" }}
+                  >
+                    <FaMapMarkerAlt className="text-primary me-3" />{" "}
+                    {data.place}
                   </div>
                   <button
                     onClick={() => navigate(`/detail-event/${data.uuid}`)}

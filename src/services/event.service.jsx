@@ -68,11 +68,32 @@ const EventService = () => {
     }
   };
 
+  const handleRegisterEvent = async (data) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/event/register-event/store`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken_customer")}`,
+          },
+        }
+      );
+
+      const addedEvent = response.data;
+      return addedEvent;
+    } catch (error) {
+      console.error("Error adding event:", error);
+      throw error;
+    }
+  };
+
   return {
     handleGetAllEvent,
     handleAddEvent,
     handleDeleteEvent,
     handleGetDetailEvent,
+    handleRegisterEvent,
   };
 };
 
