@@ -1,28 +1,18 @@
 import { Link } from "react-router-dom";
 import img_banner1 from "./../../../../assets/img/banner-1.jpg";
 import { FaUser } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getNamaBulan,
   getTanggal,
   getWaktu,
 } from "../../../../utils/GlobalFunction";
 import { ModalDetailTiket } from "./components/modalDetailTiket";
+import EventService from "../../../../services/event.service";
 
 export const MyTicketPage = () => {
+  const eventService = EventService()
   const [listMyTicket, setListMyTicket] = useState([
-    {
-      date: "2024-01-25 08:00",
-      title_event: "Workshop Tanaman Hidroponik",
-      place: "Zoom",
-      pembicara: "Dr. Muhammad Syahputra S.KOM",
-    },
-    {
-      date: "2024-02-10 18:30",
-      title_event: "Pertemuan Komunitas Programmer",
-      place: "Gedung Serbaguna",
-      pembicara: "Dr. Linda Wijaya",
-    },
     {
       date: "2024-03-03 09:15",
       title_event: "Seminar Kewirausahaan",
@@ -30,6 +20,23 @@ export const MyTicketPage = () => {
       pembicara: "Prof. Ahmad Ridwan, MBA",
     },
   ]);
+
+  useEffect(() => {
+    // handleGetTicket()
+  }, [])
+
+  const handleGetTicket = async () => {
+    try {
+      const response = await eventService.handleGetTicketEvent()
+      if (response.status === 200) {
+        setListMyTicket(response.data)
+      }
+
+      console.log(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -50,7 +57,7 @@ export const MyTicketPage = () => {
       <div className="container bg-white card py-3">
         <div className="row">
           <div className="col-lg-9 col-md-9 col-sm-12">
-            <div className="h4">Semua event ku</div>
+            <div className="h4">Tiket Saya</div>
           </div>
           <div className="col-lg-3 col-md-3 col-sm-12">
             <div className="form-group d-flex">
@@ -91,7 +98,7 @@ export const MyTicketPage = () => {
                     {data.place}
                   </div>
                   <div className="col-10 col-lg-2 col-md-5 col-sm-5 m-auto">
-                    <ModalDetailTiket title="Ini adalah tiket Anda" />
+                    <ModalDetailTiket title="Tiket Anda" />
                     {/* <button className="btn bg-primary text-light fw-bold ">
                       Lihat Tiket
                     </button> */}

@@ -25,8 +25,8 @@ export const LayananKhususPage = () => {
     cutomer_address: "",
     service_type: "",
     description: "",
-    deadline: "",
-    budget_estimation: "0",
+    start_project: "",
+    budget_estimation: 0,
     project_location: "",
     photo: "",
   };
@@ -36,59 +36,22 @@ export const LayananKhususPage = () => {
     setIsButtonDisabled(!isAgree || !capVal);
   }, [isAgree, capVal]);
 
-  const handleChange = (event) => {
-    const { name, value, type } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "file" ? event.target.files[0] : value,
-    }));
-    // setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Simple required field validation
-    // const requiredFields = [
-    //   "fullname",
-    //   "phone_number",
-    //   "customer_city",
-    //   "service_type",
-    //   "description",
-    // ];
-    // const newErrors = {};
-
-    // requiredFields.forEach((field) => {
-    //   if (!formData[field]) {
-    //     newErrors[field] = `${field.replace("_", " ")} is required.`;
-    //   }
-    // });
-
-    // if (Object.keys(newErrors).length > 0) {
-    //   setErrors(newErrors);
-    //   return;
-    // }
-
-    const payload = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      payload.append(key, value);
-    });
-
     try {
-      console.log(formData);
-      const addedEvent = await specialRequestService.handleAddRequest(payload);
+      const addedEvent = await specialRequestService.handleAddRequest(formData);
       if (addedEvent.status === 201) {
         Toast.fire({
           icon: "success",
           title: "Event berhasil ditambah",
         });
         setFormData(initialFormData);
-      }else{
+      } else {
         Toast.fire({
           icon: "error",
           title: "yah error",
         });
-
       }
       return addedEvent;
     } catch (error) {
@@ -123,10 +86,12 @@ export const LayananKhususPage = () => {
                       <input
                         type="text"
                         required
-                        className={`form-control ${
+                        className={`form-control border-2 ${
                           errors.fullname ? "is-invalid" : ""
                         }`}
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          setFormData({ ...formData, fullname: e.target.value })
+                        }
                         value={formData.fullname}
                         name="fullname"
                       />
@@ -145,8 +110,13 @@ export const LayananKhususPage = () => {
                           <input
                             type="text"
                             required
-                            className="form-control"
-                            onChange={handleChange}
+                            className="form-control border-2"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                phone_number: e.target.value,
+                              })
+                            }
                             value={formData.phone_number}
                             name="phone_number"
                           />
@@ -157,8 +127,13 @@ export const LayananKhususPage = () => {
                           <label className="mb-1 label-for-input">Email</label>
                           <input
                             type="text"
-                            className="form-control"
-                            onChange={handleChange}
+                            className="form-control border-2"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                email: e.target.value,
+                              })
+                            }
                             value={formData.email}
                             name="email"
                           />
@@ -172,8 +147,13 @@ export const LayananKhususPage = () => {
                         <input
                           type="text"
                           required
-                          className="form-control"
-                          onChange={handleChange}
+                          className="form-control border-2"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              customer_city: e.target.value,
+                            })
+                          }
                           value={formData.customer_city}
                           name="customer_city"
                         />
@@ -183,9 +163,14 @@ export const LayananKhususPage = () => {
                           Alamat Rumah
                         </label>
                         <textarea
-                          className="form-control"
+                          className="form-control border-2"
                           style={{ height: "85px" }}
-                          onChange={handleChange}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              cutomer_address: e.target.value,
+                            })
+                          }
                           value={formData.cutomer_address}
                           name="cutomer_address"
                         ></textarea>
@@ -207,7 +192,18 @@ export const LayananKhususPage = () => {
                         Jenis Layanan yang Diminta
                         <span className="text-danger">*</span>
                       </label>
-                      <select className="form-select mb-3" name="service_type">
+                      <select
+                        className="form-select mb-3 border-2"
+                        name="service_type"
+                        required
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            service_type: e.target.value,
+                          })
+                        }
+                      >
+                        <option value="" disabled selected>--Pilih Jenis Request</option>
                         {listlayanan.map((data, index) => (
                           <option value={data.namaLayaman} key={index}>
                             {data.namaLayaman}
@@ -217,15 +213,20 @@ export const LayananKhususPage = () => {
                     </div>
                     <div className="form-group">
                       <label className="mb-1 label-for-input">
-                        Deskripsi Kebutuhan{" "}
+                        Deskripsi Kebutuhan
                         <span className="text-danger">*</span>
                       </label>
                       <textarea
-                        className="form-control"
+                        className="form-control border-2"
                         required
                         style={{ height: "125px" }}
                         name="description"
-                        onChange={handleChange}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            description: e.target.value,
+                          })
+                        }
                         value={formData.description}
                       ></textarea>
                     </div>
@@ -237,10 +238,15 @@ export const LayananKhususPage = () => {
                           </label>
                           <input
                             type="date"
-                            className="form-control"
-                            onChange={handleChange}
-                            value={formData.deadline}
-                            name="deadline"
+                            className="form-control border-2"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                start_project: e.target.value,
+                              })
+                            }
+                            value={formData.start_project}
+                            name="start_project"
                           />
                         </div>
                       </div>
@@ -251,9 +257,20 @@ export const LayananKhususPage = () => {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
-                            onChange={handleChange}
-                            value={formData.budget_estimation}
+                            className="form-control border-2"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                budget_estimation:
+                                  e.target.value !== ""
+                                    ? parseInt(
+                                        e.target.value.replace(/\D/g, ""),
+                                        10
+                                      )
+                                    : 0,
+                              })
+                            }
+                            value={formatRupiah(formData.budget_estimation, 0)}
                             onKeyPress={(event) => {
                               if (!/[0-9]/.test(event.key)) {
                                 event.preventDefault();
@@ -270,8 +287,13 @@ export const LayananKhususPage = () => {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
-                            onChange={handleChange}
+                            className="form-control border-2"
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                project_location: e.target.value,
+                              })
+                            }
                             value={formData.project_location}
                             name="project_location"
                           />
@@ -283,7 +305,13 @@ export const LayananKhususPage = () => {
                         </label>
                         <input
                           type="file"
-                          className="form-control"
+                          className="form-control border-2"
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              photo: e.target.files[0],
+                            })
+                          }
                           name="photo"
                         />
                         <div className="mt-2">
@@ -304,7 +332,7 @@ export const LayananKhususPage = () => {
                       />
                       <div className="form-group text-end">
                         <button
-                        type="submit"
+                          type="submit"
                           className="btn btn-success w-25"
                           disabled={isButtonDisabled}
                         >

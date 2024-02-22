@@ -36,6 +36,7 @@ const SpecialRequestService = () => {
 
   const handleAddRequest = async (data) => {
     try {
+      console.log(data);
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/special-request/store`,
         data,
@@ -45,7 +46,6 @@ const SpecialRequestService = () => {
         //   },
         // }
       );
-
       const addedSpecialRequest = response.data;
       return addedSpecialRequest;
     } catch (error) {
