@@ -37,11 +37,11 @@ export const getCurrentDate = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const formatRupiah = (angka) => {
+export const formatRupiah = (angka, valas = 1) => {
   var reverse = angka.toString().split("").reverse().join("");
   var ribuan = reverse.match(/\d{1,3}/g);
   var formatted = ribuan.join(".").split("").reverse().join("");
-  return "Rp " + formatted;
+  return valas === 0 ? formatted : "Rp " + formatted;
 };
 
 export const nameTitleUrl = (text) => {

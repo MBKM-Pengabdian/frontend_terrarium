@@ -41,7 +41,7 @@ export const ModalDetailTiket = ({ title }) => {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <h1
-              className="modal-title fs-5 bg-light px-3 py-2"
+              className="modal-title fs-5 bg-primary px-3 py-2"
               id="modalLabelDaftar"
             >
               <div className="row justify-content-between">
