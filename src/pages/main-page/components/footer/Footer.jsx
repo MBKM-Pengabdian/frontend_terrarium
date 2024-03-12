@@ -18,7 +18,7 @@ export const Footer = () => {
       const response = await eventService.handleGetAllEvent();
       if (response.status === 200) {
         setListEventData(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       }
     } catch (error) {
       setError(error);

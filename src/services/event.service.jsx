@@ -91,7 +91,7 @@ const EventService = () => {
   const handleGetTicketEvent = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/event/register-event/get`,
+        `${import.meta.env.VITE_API_URL}/api/event/register-event/${localStorage.getItem("customer_id")}/get`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken_customer")}`,
