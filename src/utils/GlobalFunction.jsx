@@ -76,3 +76,11 @@ export const getWaktu = (d) => {
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 };
+
+export const myDate = (d) => {
+   const date = new Date(d);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const datee = date.getDate();
+  return `${year}-${month < 10 ? '0': '' }${month}-${datee}`;
+}
