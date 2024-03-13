@@ -12,11 +12,12 @@ import { FaClover, FaHandsBubbles, FaTrowel } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import EventService from "../../../../services/event.service";
 import ProductService from "../../../../services/product.service";
+import  banner1 from "./../../../../assets/img/banner-1.png";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const eventService = EventService()
-  const productService = ProductService()
+  const eventService = EventService();
+  const productService = ProductService();
 
   const [listEventData, setListEventData] = useState();
   const [listProductData, setListProductdata] = useState();
@@ -24,7 +25,7 @@ export const Home = () => {
   useEffect(() => {
     const fetchDataEvent = async () => {
       try {
-         const response = await eventService.handleGetAllEvent();
+        const response = await eventService.handleGetAllEvent();
         if (response.status === 200) {
           setListEventData(response.data);
         }
@@ -57,7 +58,7 @@ export const Home = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              src="https://cdn.discordapp.com/attachments/1174741902415900742/1192019147979247647/image.png?ex=65a78d57&is=65951857&hm=dbce737ffdcefb360291bee786d369fe38ef976f07868b61eafb7e3e7f8bf973&"
+              src={banner1}
               className="d-block vh-50"
               style={{
                 width: "100%",
@@ -76,9 +77,9 @@ export const Home = () => {
               </div>
             </div>
           </div>
-          <div className="carousel-item">
+          {/* <div className="carousel-item">
             <img
-              src="https://cdn.discordapp.com/attachments/1174741902415900742/1192019147979247647/image.png?ex=65a78d57&is=65951857&hm=dbce737ffdcefb360291bee786d369fe38ef976f07868b61eafb7e3e7f8bf973&"
+              src={banner1}
               className="d-block vh-50"
               style={{
                 width: "100%",
@@ -117,7 +118,7 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <button
           className="carousel-control-prev"
@@ -211,36 +212,37 @@ export const Home = () => {
             </Link>
           </div>
           <div className="row justify-content-between">
-            {listProductData && listProductData.slice(0, 5).map((data, index) => (
-              <div
-                key={index}
-                className="card px-0 mx-lg-3 rounded-3"
-                style={{ width: "18rem" }}
-              >
-                <img
-                  src={import.meta.env.VITE_API_URL+data.product_image}
-                  className="card-img-top rounded-top"
-                  style={{ height: "200px", objectFit: "cover" }}
-                  alt="..."
-                />
-                <div className="card-body pt-1">
-                  <label htmlFor="">Kategori</label>
-                  <h5
-                    className="card-title fs-6 text-2line"
-                    style={{ minHeight: "50px" }}
-                  >
-                    {data.product_name}
-                  </h5>
-                  <div className="fw-bold">Rp. {data.price}</div>
+            {listProductData &&
+              listProductData.slice(0, 5).map((data, index) => (
+                <div
+                  key={index}
+                  className="card px-0 mx-lg-3 rounded-3"
+                  style={{ width: "18rem" }}
+                >
+                  <img
+                    src={import.meta.env.VITE_API_URL + data.product_image}
+                    className="card-img-top rounded-top"
+                    style={{ height: "200px", objectFit: "cover" }}
+                    alt="..."
+                  />
+                  <div className="card-body pt-1">
+                    <label htmlFor="">Kategori</label>
+                    <h5
+                      className="card-title fs-6 text-2line"
+                      style={{ minHeight: "50px" }}
+                    >
+                      {data.product_name}
+                    </h5>
+                    <div className="fw-bold">Rp. {data.price}</div>
 
-                  <div className="text-end">
-                    <button className="btn btn-sm btn-success">
-                      <FaCartPlus className="fs-5" />{" "}
-                    </button>
+                    <div className="text-end">
+                      <button className="btn btn-sm btn-success">
+                        <FaCartPlus className="fs-5" />{" "}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

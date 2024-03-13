@@ -19,6 +19,9 @@ import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
 import { PageNotFound } from './pages/notfound';
 import { LayananSpesialDashboard } from './pages/dashboard/pages/layanan-spesial';
+import { EventDetailDashboard } from './pages/dashboard/pages/events/detail_event/detailEvent';
+import { ProductDetailDashboard } from './pages/dashboard/pages/product/detail_product/detailProduct';
+import { LayananSpesiaDetaillDashboard } from './pages/dashboard/pages/layanan-spesial/detail_data_layanan/detailDataLayanan';
 
 const AppWrapper = () => {
   const location = useLocation();
@@ -36,7 +39,7 @@ const AppWrapper = () => {
     '/*',
   ];
 
-  const shouldExcludeNavbarFooter = excludePaths.includes(location.pathname);
+  const shouldExcludeNavbarFooter = excludePaths.some(path => location.pathname.startsWith(path));
 
   return (
     <>
@@ -65,8 +68,11 @@ const AppWrapper = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/dashboard/product" element={<ProductDashboard />} />
+        <Route path="/dashboard/product/:id" element={<ProductDetailDashboard />} />
         <Route path="/dashboard/event" element={<EventDashboard />} />
+        <Route path="/dashboard/event/:id" element={<EventDetailDashboard />} />
         <Route path="/dashboard/layanan-spesial" element={<LayananSpesialDashboard />} />
+        <Route path="/dashboard/layanan-spesial/:id" element={<LayananSpesiaDetaillDashboard />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

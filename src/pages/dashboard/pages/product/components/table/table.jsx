@@ -8,8 +8,10 @@ import {
   Toast,
   showConfirmationDialog,
 } from "../../../../../../utils/GlobalFunction";
+import { useNavigate } from "react-router-dom";
 
 const TableProduct = () => {
+  const navigate = useNavigate();
   const productService = ProductService();
 
   const [data, setData] = useState([]);
@@ -108,10 +110,10 @@ const TableProduct = () => {
       name: "Action",
       cell: ({ uuid }) => (
         <button
-          className="btn btn-danger btn-sm m-1"
-          onClick={() => handleDeleteClick(uuid)}
+          className="btn btn-info btn-sm m-1"
+          onClick={() => navigate(`/dashboard/product/${uuid}`)}
         >
-          Hapus
+          Detail
         </button>
       ),
     },
@@ -146,6 +148,18 @@ const TableProduct = () => {
           </div>
         }
         title="List Product"
+        onRowClicked={(rowData) => navigate(`/dashboard/product/${rowData.uuid}`)}
+        customStyles={{
+          rows: {
+            style: {
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+                color: "#007bff",
+              },
+            },
+          },
+        }}
       />
     </StyleSheetManager>
   );
