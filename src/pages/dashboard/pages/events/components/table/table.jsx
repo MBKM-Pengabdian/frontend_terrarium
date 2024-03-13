@@ -8,9 +8,11 @@ import {
   Toast,
   showConfirmationDialog,
 } from "../../../../../../utils/GlobalFunction";
+import { useNavigate } from "react-router-dom";
 // import { ModalProduct } from '../modal/modal';
 
 const TableEvent = () => {
+  const navigate = useNavigate();
   const eventService = EventService();
 
   const [data, setData] = useState([]);
@@ -145,7 +147,19 @@ const TableEvent = () => {
             </button>
           </div>
         }
+        onRowClicked={(rowData) => navigate(`/dashboard/event/${rowData.uuid}`)}
         title="List Events"
+        customStyles={{
+          rows: {
+            style: {
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+                color: "#007bff",
+              },
+            },
+          },
+        }}
       />
     </StyleSheetManager>
   );

@@ -7,8 +7,10 @@ import {
   showConfirmationDialog,
 } from "../../../../../../utils/GlobalFunction";
 import SpecialRequestService from "../../../../../../services/specialRequest.service";
+import { useNavigate } from "react-router-dom";
 
 const TableLayananSpesial = () => {
+  const navigate = useNavigate()
   const specialRequestService = SpecialRequestService();
 
   const [data, setData] = useState([]);
@@ -25,7 +27,6 @@ const TableLayananSpesial = () => {
     //   confirmButtonText: "Ya, Hapus!",
     //   cancelButtonText: "Batal",
     // });
-
     // if (result.isConfirmed) {
     //   try {
     //     await productService.handleDeleteProduct(productId);
@@ -130,6 +131,18 @@ const TableLayananSpesial = () => {
           </div>
         }
         title="List Request Spesial Customer"
+        onRowClicked={(rowData) => navigate(`/dashboard/layanan-spesial/${rowData.uuid}`)}
+        customStyles={{
+          rows: {
+            style: {
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#f5f5f5",
+                color: "#007bff",
+              },
+            },
+          },
+        }}
       />
     </StyleSheetManager>
   );
