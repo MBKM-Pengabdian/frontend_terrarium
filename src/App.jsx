@@ -13,7 +13,7 @@ import { ProductDashboard } from './pages/dashboard/pages/product';
 import { EventDashboard } from './pages/dashboard/pages/events';
 
 // Main Page
-import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage, MyTicketPage, LayananKhususPage } from './pages/main-page';
+import { Home, Product, Event, DetailEvent, AboutPage, ContactPage, LoginCustomer, RegisterCustomer, CartShopPage, DetailProductPage, MyTicketPage, LayananKhususPage, PesananSaya, PembayaranSaya, EventPesananSaya, ProdukPesananSaya, RequestPesananSaya } from './pages/main-page';
 import { Navbar } from './pages/main-page/components/navbar/Navbar';
 import { Footer } from './pages/main-page/components/footer/Footer';
 import PrivateRoute from './routes/PrivateRoutes';
@@ -57,6 +57,12 @@ const AppWrapper = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/layanan-khusus" element={<LayananKhususPage />} />
+
+        <Route path="/purchase" element={<PesananSaya />} />
+        <Route path="/purchase/pembayaran-saya" element={<PembayaranSaya />} />
+        <Route path="/purchase/event-saya" element={<EventPesananSaya />} />
+        <Route path="/purchase/produk-saya" element={<ProdukPesananSaya />} />
+        <Route path="/purchase/request-saya" element={<RequestPesananSaya />} />
 
         {/* Only Sign in customer */}
         <Route path="/tiket-saya" element={<MyTicketPage />} />

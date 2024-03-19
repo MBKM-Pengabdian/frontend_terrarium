@@ -115,7 +115,7 @@ export const Navbar = () => {
                     <Link to='tiket-saya' className="dropdown-item p-3" >
                       Tiket Saya
                     </Link>
-                    <Link to='pesanan-saya' className="dropdown-item p-3" href="#ourProduct">
+                    <Link to='purchase' className="dropdown-item p-3" href="#ourProduct">
                       Pesanan Saya
                     </Link>
                     <div
