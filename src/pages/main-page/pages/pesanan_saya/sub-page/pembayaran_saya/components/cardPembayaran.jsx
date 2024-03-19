@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { formatRupiah } from "../../../../../../../utils/GlobalFunction";
 
@@ -208,8 +209,19 @@ export const ComponentCardPembayaran = ({ data }) => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <div className="fw-bold text-dark fs-5 bg-light p-3 rounded-top">
-              Bukti Pembayaran
+            <div className="col bg-light rounded-top">
+              <div className="row">
+                <div className="col m-auto">
+                  <div className="fw-bold text-dark fs-5 p-3 ">
+                    Bukti Pembayaran
+                  </div>
+                </div>
+                <div className="col text-end">
+                  <div className="fw-bold text-dark fs-5 p-3 rounded-top">
+                    <button type="button" data-bs-dismiss="modal" className="btn btn-danger">Kembali</button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="img p-2 pt-0">
               <img
@@ -250,11 +262,23 @@ export const ComponentCardPembayaran = ({ data }) => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <div className="fw-bold text-dark fs-5 bg-light p-3 rounded-top">
-              Alasan Penolakan
+            <div className="col bg-light rounded-top">
+              <div className="row">
+                <div className="col m-auto">
+                  <div className="fw-bold text-dark fs-5 p-3 ">
+                    Alasan Penolakan
+                  </div>
+                </div>
+                <div className="col text-end">
+                  <div className="fw-bold text-dark fs-5 p-3 rounded-top">
+                    <button type="button" data-bs-dismiss="modal" className="btn btn-danger">Kembali</button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="p-4 ">
+              <div className="h5">Foto Kurang Jelas</div>
               <p>
                 Maaf, kami tidak dapat memproses pembayaran Anda saat ini karena terdapat ketidaksesuaian dalam informasi yang diberikan.
                 Silahkan lakukan pembayaran dan jika sudah upload bukti pembayaran kembali. Terima kasih
@@ -274,16 +298,16 @@ export const ComponentCardPembayaran = ({ data }) => {
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
-            <div className="col bg-light">
+            <div className="col bg-light rounded-top">
               <div className="row">
                 <div className="col m-auto">
-                  <div className="fw-bold text-dark fs-5 p-3 rounded-top">
+                  <div className="fw-bold text-dark fs-5 p-3 ">
                     Lakukan Pembayaran
                   </div>
                 </div>
                 <div className="col text-end">
                   <div className="fw-bold text-dark fs-5 p-3 rounded-top">
-                    <button className="btn btn-danger">Kembali</button>
+                    <button type="button" data-bs-dismiss="modal" className="btn btn-danger">Kembali</button>
                   </div>
                 </div>
               </div>

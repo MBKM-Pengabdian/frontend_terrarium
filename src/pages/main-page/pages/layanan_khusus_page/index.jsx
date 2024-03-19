@@ -193,7 +193,8 @@ export const LayananKhususPage = () => {
                         <span className="text-danger">*</span>
                       </label>
                       <select
-                        className="form-select mb-3 border-2"
+                        className="form-select  mb-3 border-2"
+                        style={{ fontSize: "1.1em" }}
                         name="service_type"
                         required
                         onChange={(e) =>
@@ -203,9 +204,20 @@ export const LayananKhususPage = () => {
                           })
                         }
                       >
-                        <option value="" disabled selected>--Pilih Jenis Request</option>
+                        <option
+                          style={{ fontSize: "1.1em" }}
+                          value=""
+                          disabled
+                          selected
+                        >
+                          --Pilih Jenis Request
+                        </option>
                         {listlayanan.map((data, index) => (
-                          <option value={data.namaLayaman} key={index}>
+                          <option
+                            style={{ fontSize: "1.1em" }}
+                            value={data.namaLayaman}
+                            key={index}
+                          >
                             {data.namaLayaman}
                           </option>
                         ))}
