@@ -84,3 +84,48 @@ export const myDate = (d) => {
   const datee = date.getDate();
   return `${year}-${month < 10 ? '0': '' }${month}-${datee}`;
 }
+
+export const getStatusTextClassName = (status) => {
+    switch (status) {
+      case 1:
+        return "text-info";
+      case 2:
+        return "text-warning";
+      case 3:
+        return "text-success";
+      case 0:
+        return "text-danger";
+      default:
+        return "";
+    }
+  };
+
+export const getStatusBgClassName = (status) => {
+    switch (status) {
+      case 1:
+        return "text-bg-secondary";
+      case 2:
+        return "text-bg-warning";
+      case 3:
+        return "text-bg-success";
+      case 0:
+        return "text-bg-danger";
+      default:
+        return "";
+    }
+  };
+
+  export const getStatusName = (status) => {
+    switch (status) {
+      case 1:
+        return "Menunggu";
+      case 2:
+        return "Diproses";
+      case 3:
+        return "Disetujui";
+      case 0:
+        return "Ditolak";
+      default:
+        return "";
+    }
+  };

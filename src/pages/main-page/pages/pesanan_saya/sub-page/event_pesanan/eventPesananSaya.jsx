@@ -1,8 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SidebarPesanan } from "../../components/sidebar_pesanan";
+import { Link } from "react-router-dom";
+import EventService from "../../../../../../services/event.service";
+import empty_tiket from "./../../../../../../assets/img/empty-event.svg";
+import { ComponentCardTiketSaya } from "./components/cardTiketSaya";
 
 export const EventPesananSaya = () => {
-  const [fotoBukti, setFotoBukti] = useState(null);
+  const eventService = EventService();
+  const [listMyTicket, setListMyTicket] = useState([]);
+
+  useEffect(() => {
+    handleGetTicket();
+  }, []);
+  const handleGetTicket = async () => {
+    try {
+      const response = await eventService.handleGetTicketEvent();
+      if (response.status === 200) {
+        setListMyTicket(response.data);
+        console.log(response.data);
+      }
+
+      // console.log(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="container-fluid my-4">
@@ -21,7 +44,7 @@ export const EventPesananSaya = () => {
                       href="#"
                       style={{ fontSize: "1.1em" }}
                     >
-                      Semua
+                      Tiket Saya
                     </a>
                   </li>
                   <li className="nav-item">
@@ -31,79 +54,39 @@ export const EventPesananSaya = () => {
                       href="#"
                       style={{ fontSize: "1.1em" }}
                     >
-                      Menunggu
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link mx-3"
-                      href="#"
-                      style={{ fontSize: "1.1em" }}
-                    >
-                      Diproses
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link mx-3"
-                      href="#"
-                      style={{ fontSize: "1.1em" }}
-                    >
-                      Disetujui
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link mx-3"
-                      href="#"
-                      style={{ fontSize: "1.1em" }}
-                    >
-                      Ditolak
+                      Riwayat Event
                     </a>
                   </li>
                 </ul>
               </div>
               <div className="col-12 bg-white p-3">
-                <div className="h3">Event Saya</div>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia facere a et voluptate nulla sed eligendi, quidem nobis distinctio ex voluptas atque repellat assumenda tenetur magni ut labore inventore neque.
+                {listMyTicket && listMyTicket.length > 0 ? (
+                  listMyTicket.map((data, index) => (
+                    <ComponentCardTiketSaya key={index} data={data} />
+                  ))
+                ) : (
+                  <div className="text-center">
+                    <img
+                      src={empty_tiket}
+                      className="img-fluid"
+                      style={{ width: "200px" }}
+                      alt="empty cart"
+                    />
+                    <div className="h5 my-3 text-muted">
+                      Anda belum mendaftar event apapun
+                    </div>
+                    <div className="mt-3">
+                      <Link
+                        to="/event"
+                        href="#"
+                        className="btn btn-success btn-square mt-2 fs-6"
+                      >
+                        Cari Event
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="modal fade modal-md"
-        id="modalUpload"
-        tabIndex="-1"
-        aria-labelledby="modalLabelDaftar"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content p-4">
-            <div className="mb-3">
-              <div className="mb-3">
-                <img
-                  src={fotoBukti}
-                  alt=""
-                  className="img-fluid"
-                  style={{ width: "100%" }}
-                />
-              </div>
-              <label htmlFor="formFile" className="form-label">
-                Upload Foto Bukti
-              </label>
-              <input
-                className="form-control"
-                type="file"
-                onChange={(e) =>
-                  setFotoBukti(URL.createObjectURL(e.target.files[0]))
-                }
-                accept=".jpg, .jpeg, .png"
-                id="formFile"
-              />
-            </div>
-            <div className="mb-3">
-              <button className="btn btn-primary">Kirim</button>
             </div>
           </div>
         </div>
