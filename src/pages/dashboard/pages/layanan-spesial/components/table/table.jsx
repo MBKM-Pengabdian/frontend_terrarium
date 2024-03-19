@@ -99,6 +99,14 @@ const TableLayananSpesial = () => {
       selector: ({ email }) => email,
     },
     {
+      name: "Status",
+      cell: ({ uuid }) => (
+        <div className="text-center">
+          <span className="badge text-bg-secondary p-2">Waiting</span>
+        </div>
+      ),
+    },
+    {
       name: "Action",
       cell: ({ uuid }) => (
         <button
