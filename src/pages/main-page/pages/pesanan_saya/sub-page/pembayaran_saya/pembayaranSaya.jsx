@@ -57,52 +57,45 @@ export const PembayaranSaya = () => {
             <div className="row g-3">
               <div className="col-12 bg-white">
                 <ul className="nav py-2">
-                  <li className="nav-item">
+                  <li className={`nav-item ${selectedStatus === null && "bg-primary fw-bold"}`} style={{ cursor: 'pointer' }}>
                     <a
-                      className="nav-link mx-3 active"
-                      aria-current="page"
-                      href="#"
+                      className={`nav-link mx-3 ${selectedStatus === null && "text-white"}`}
                       onClick={() => setselectedStatus(null)}
                       style={{ fontSize: "1.1em" }}
                     >
                       Semua
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className={`nav-item ${selectedStatus === 1 && "bg-primary fw-bold"}`} style={{ cursor: 'pointer' }}>
                     <a
-                      className="nav-link mx-3 active"
-                      aria-current="page"
-                      href="#"
+                      className={`nav-link mx-3 ${selectedStatus === 1 && "text-white"}`}
                       onClick={() => setselectedStatus(1)}
                       style={{ fontSize: "1.1em" }}
                     >
                       Menunggu
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className={`nav-item ${selectedStatus === 2 && "bg-primary fw-bold"}`} style={{ cursor: 'pointer' }}>
                     <a
-                      className="nav-link mx-3"
-                      href="#"
+                     className={`nav-link mx-3 ${selectedStatus === 2 && "text-white"}`}
                       onClick={() => setselectedStatus(2)}
                       style={{ fontSize: "1.1em" }}
                     >
                       Diproses
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className={`nav-item ${selectedStatus === 3 && "bg-primary fw-bold"}`} style={{ cursor: 'pointer' }}>
                     <a
-                      className="nav-link mx-3"
-                      href="#"
+                      className={`nav-link mx-3 ${selectedStatus === 3 && "text-white"}`}
                       onClick={() => setselectedStatus(3)}
                       style={{ fontSize: "1.1em" }}
                     >
                       Disetujui
                     </a>
                   </li>
-                  <li className="nav-item">
+                  <li className={`nav-item ${selectedStatus === 0 && "bg-primary fw-bold"}`} style={{ cursor: 'pointer' }}>
                     <a
-                      className="nav-link mx-3"
-                      href="#"
+                      className={`nav-link mx-3 ${selectedStatus === 0 && "text-white"}`}
                       onClick={() => setselectedStatus(0)}
                       style={{ fontSize: "1.1em" }}
                     >
