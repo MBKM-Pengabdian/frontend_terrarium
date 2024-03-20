@@ -11,7 +11,7 @@ export const SidebarPesanan = () => {
         >
           <div className="d-flex justify-content-between">
             Pembayaran
-            <span className="badge text-bg-primary rounded-pill">1</span>
+            <span className="badge text-bg-danger rounded-pill">1</span>
           </div>
         </Link>
         <Link
@@ -20,7 +20,7 @@ export const SidebarPesanan = () => {
         >
           <div className="d-flex justify-content-between">
             Event
-            <span className="badge text-bg-primary rounded-pill">5</span>
+            <span className="badge text-bg-danger rounded-pill">5</span>
           </div>
         </Link>
         <Link
@@ -29,7 +29,7 @@ export const SidebarPesanan = () => {
         >
           <div className="d-flex justify-content-between">
             Produk
-            <span className="badge text-bg-primary rounded-pill">1</span>
+            <span className="badge text-bg-danger rounded-pill">1</span>
           </div>
         </Link>
         <Link
@@ -38,7 +38,7 @@ export const SidebarPesanan = () => {
         >
           <div className="d-flex justify-content-between">
             Riwayat Layananan Spesial Saya
-            <span className="badge text-bg-primary rounded-pill">3</span>
+            <span className="badge text-bg-danger rounded-pill">3</span>
           </div>
         </Link>
       </div>
