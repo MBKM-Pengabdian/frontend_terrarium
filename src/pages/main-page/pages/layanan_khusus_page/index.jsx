@@ -243,100 +243,107 @@ export const LayananKhususPage = () => {
                       ></textarea>
                     </div>
                     <div className="row">
-                      <div className="col-4">
-                        <div className="form-group">
-                          <label className="mb-1 label-for-input">
-                            Tanggal yang Diinginkan
-                          </label>
-                          <input
-                            type="date"
-                            className="form-control border-2"
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                start_project: e.target.value,
-                              })
-                            }
-                            value={formData.start_project}
-                            name="start_project"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-4">
-                        <div className="form-group">
-                          <label className="mb-1 label-for-input">
-                            Budget Estimasi
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control border-2"
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                budget_estimation:
-                                  e.target.value !== ""
-                                    ? parseInt(
-                                        e.target.value.replace(/\D/g, ""),
-                                        10
-                                      )
-                                    : 0,
-                              })
-                            }
-                            value={formatRupiah(formData.budget_estimation, 0)}
-                            onKeyPress={(event) => {
-                              if (!/[0-9]/.test(event.key)) {
-                                event.preventDefault();
+                      {formData.service_type != "Konsultasi" && (
+                        <>
+                          <div className="col-4">
+                            <div className="form-group">
+                              <label className="mb-1 label-for-input">
+                                Tanggal yang Diinginkan
+                              </label>
+                              <input
+                                type="date"
+                                className="form-control border-2"
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    start_project: e.target.value,
+                                  })
+                                }
+                                value={formData.start_project}
+                                name="start_project"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-4">
+                            <div className="form-group">
+                              <label className="mb-1 label-for-input">
+                                Budget Estimasi
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control border-2"
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    budget_estimation:
+                                      e.target.value !== ""
+                                        ? parseInt(
+                                            e.target.value.replace(/\D/g, ""),
+                                            10
+                                          )
+                                        : 0,
+                                  })
+                                }
+                                value={formatRupiah(
+                                  formData.budget_estimation,
+                                  0
+                                )}
+                                onKeyPress={(event) => {
+                                  if (!/[0-9]/.test(event.key)) {
+                                    event.preventDefault();
+                                  }
+                                }}
+                                name="budget_estimation"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-4">
+                            <div className="form-group">
+                              <label className="mb-1 label-for-input">
+                                Lokasi Proyek
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control border-2"
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    project_location: e.target.value,
+                                  })
+                                }
+                                value={formData.project_location}
+                                name="project_location"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <label className="mb-1 label-for-input">
+                              Lampiran Foto
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control border-2"
+                              onChange={(e) =>
+                                setFormData({
+                                  ...formData,
+                                  photo: e.target.files[0],
+                                })
                               }
-                            }}
-                            name="budget_estimation"
-                          />
-                        </div>
-                      </div>
-                      <div className="col-4">
-                        <div className="form-group">
-                          <label className="mb-1 label-for-input">
-                            Lokasi Proyek
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control border-2"
-                            onChange={(e) =>
-                              setFormData({
-                                ...formData,
-                                project_location: e.target.value,
-                              })
-                            }
-                            value={formData.project_location}
-                            name="project_location"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="mb-1 label-for-input">
-                          Lampiran Foto
-                        </label>
+                              name="photo"
+                            />
+                          </div>
+                        </>
+                      )}
+                      <div className="">
                         <input
-                          type="file"
-                          className="form-control border-2"
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              photo: e.target.files[0],
-                            })
-                          }
-                          name="photo"
+                          className="form-check-input border border-2"
+                          type="checkbox"
+                          id="agree"
+                          onChange={(e) => setIsAgree(e.target.checked)}
                         />
-                        <div className="mt-2">
-                          <input
-                            className="form-check-input border border-2"
-                            type="checkbox"
-                            id="agree"
-                            onChange={(e) => setIsAgree(e.target.checked)}
-                          />
-                          <label className="text-muted mb-4" htmlFor="agree">
-                            Setujui Syarat dan Ketentuan
-                          </label>
-                        </div>
+                        <label className="text-muted mb-4" htmlFor="agree">
+                          Setujui Syarat dan Ketentuan
+                        </label>
                       </div>
                       <ReCAPTCHA
                         sitekey="6LeQBXcpAAAAALBTBIpN59SBTZXEiRXFswSSYbBt"
