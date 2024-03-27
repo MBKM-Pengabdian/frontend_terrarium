@@ -53,7 +53,7 @@ export const Event = () => {
         </div>
       </div>
       <div className="container">
-        <div className="row g-5 d-flex justify-content-center">
+        <div className="row g-4 d-flex justify-content-center">
           {listEventData &&
             listEventData.map((data, index) => (
               <CardEvent key={index} data={data} />

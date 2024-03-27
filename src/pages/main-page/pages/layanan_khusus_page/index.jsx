@@ -17,7 +17,7 @@ export const LayananKhususPage = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [errors, setErrors] = useState({});
   const initialFormData = {
-    // customer_id: "",
+    customer_id: localStorage.getItem("customer_id"),
     fullname: "",
     phone_number: "",
     email: "",

@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SidebarPesanan } from "../../components/sidebar_pesanan";
 import {
+  formatRupiah,
   getStatusBgClassName,
   getStatusName,
+  myDate,
 } from "../../../../../../utils/GlobalFunction";
+import SpecialRequestService from "../../../../../../services/specialRequest.service";
 
 export const RequestPesananSaya = () => {
+  const specialReqService = SpecialRequestService();
+
   const [listRiwayatSpesialReq, setlistRiwayatSpesialReq] = useState([
     { layanan: "Renovasi Taman", date: "20-03-2024", status: 2 },
     { layanan: "Pembuatan Proyek Taman", date: "20-03-2024", status: 3 },
@@ -16,6 +21,18 @@ export const RequestPesananSaya = () => {
     },
     { layanan: "Kosultasi", date: "20-03-2024", status: 2 },
   ]);
+
+  useEffect(() => {
+    getSpecialRequestUser();
+  }, []);
+
+  const getSpecialRequestUser = async () => {
+    const response = await specialReqService.handleGetSpecialRequestUser(
+      localStorage.getItem("customer_id")
+    );
+    console.log(response.data);
+    setlistRiwayatSpesialReq(response.data);
+  };
 
   const [selectedRiwayat, setselectedRiwayat] = useState();
   return (
@@ -64,11 +81,11 @@ export const RequestPesananSaya = () => {
                           data-bs-target="#modalDetailrequest"
                         >
                           <th className="">{index + 1}</th>
-                          <td className="">{data.layanan}</td>
-                          <td className="">{data.date}</td>
+                          <td className="">{data.service_type}</td>
+                          <td className="">{myDate(data.start_project)}</td>
                           <td className="">
                             <span
-                              className={`badge py-2 ${getStatusBgClassName(
+                              className={`badge py-2 fw-bold ${getStatusBgClassName(
                                 data.status
                               )}`}
                               style={{ minWidth: "50%" }}
@@ -103,12 +120,32 @@ export const RequestPesananSaya = () => {
                   <div className="fw-bold text-dark fs-5 p-3 ">
                     {selectedRiwayat && selectedRiwayat.layanan}
                     <span
-                      className={`ms-3 badge ${getStatusBgClassName(
+                      className={`mx-3 badge ${getStatusBgClassName(
                         selectedRiwayat && selectedRiwayat.status
                       )}`}
                       style={{ fontSize: "12px" }}
                     >
                       {getStatusName(selectedRiwayat && selectedRiwayat.status)}
+                    </span>
+                    <span className="fs-6 text-muted">
+                      <u>
+                        {selectedRiwayat && selectedRiwayat.status == 0 ? (
+                          <>
+                            |
+                            <u
+                              type="button"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalAlasan"
+                              className="ms-3"
+                              style={{ cursor: "pointer" }}
+                            >
+                              Alasan
+                            </u>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                      </u>
                     </span>
                   </div>
                 </div>
@@ -132,24 +169,32 @@ export const RequestPesananSaya = () => {
                   <div className="row mb-4">
                     <div className="col-lg-4 fw-bold text-dark">Nama</div>
                     <div className="col-auto">:</div>
-                    <div className="col fs-5">Muhammmad Syahputra</div>
+                    <div className="col fs-5">
+                      {selectedRiwayat && selectedRiwayat.fullname}
+                    </div>
                   </div>
                   <div className="row mb-4">
                     <div className="col-lg-4 fw-bold text-dark">
                       No Handphone
                     </div>
                     <div className="col-auto">:</div>
-                    <div className="col fs-5">08887599774</div>
+                    <div className="col fs-5">
+                      {selectedRiwayat && selectedRiwayat.phone_number}
+                    </div>
                   </div>
                   <div className="row mb-4">
                     <div className="col-lg-4 fw-bold text-dark">Email</div>
                     <div className="col-auto">:</div>
-                    <div className="col fs-5">putramhmmd22@gmail.com</div>
+                    <div className="col fs-5">
+                      {selectedRiwayat && selectedRiwayat.email}
+                    </div>
                   </div>
                   <div className="row mb-4">
                     <div className="col-lg-4 fw-bold text-dark">Alamat</div>
                     <div className="col-auto">:</div>
-                    <div className="col fs-5">Medan Marelan</div>
+                    <div className="col fs-5">
+                      {selectedRiwayat && selectedRiwayat.customer_city}
+                    </div>
                   </div>
                 </div>
 
@@ -168,11 +213,7 @@ export const RequestPesananSaya = () => {
                   <div className="mb-4">
                     <div className="fw-bold text-dark mb-2">Deskripsi</div>
                     <div className="">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Excepturi modi voluptate repellat, in laudantium
-                      reprehenderit. Alias, ducimus? Aperiam libero dolorem fuga
-                      tempore repellendus aspernatur deleniti dicta
-                      reprehenderit! Minus, maiores accusantium?
+                      {selectedRiwayat && selectedRiwayat.description}
                     </div>
                   </div>
                   <div className="mb-4">
@@ -181,24 +222,70 @@ export const RequestPesananSaya = () => {
                         <div className="fw-bold text-dark mb-2">
                           Lokasi Proyek
                         </div>
-                        <div className="">Medan Sunggal</div>
+                        <div className="">
+                          {selectedRiwayat && selectedRiwayat.project_location}
+                        </div>
                       </div>
                       <div className="col-lg-4">
                         <div className="fw-bold text-dark mb-2">
                           Waktu Pengerjaan
                         </div>
-                        <div className="">024-02-22</div>
+                        <div className="">
+                          {selectedRiwayat &&
+                            myDate(selectedRiwayat.start_project)}
+                        </div>
                       </div>
                       <div className="col-lg-4">
                         <div className="fw-bold text-dark mb-2">
                           Estimasi Budget
                         </div>
-                        <div className="">-</div>
+                        <div className="">
+                          {selectedRiwayat &&
+                            formatRupiah(selectedRiwayat.budget_estimation)}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ALERT DITOLAK */}
+      <div
+        className="modal fade modal-md"
+        id="modalAlasan"
+        tabIndex="-1"
+        aria-labelledby="modalLabelAlasan"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="col bg-light rounded-top">
+              <div className="row">
+                <div className="col m-auto">
+                  <div className="fw-bold text-dark fs-5 p-3 ">
+                    Alasan Penolakan
+                  </div>
+                </div>
+                <div className="col text-end">
+                  <div className="fw-bold text-dark fs-5 p-3 rounded-top">
+                    <button
+                      type="button"
+                      data-bs-dismiss="modal"
+                      className="btn btn-danger"
+                    >
+                      Kembali
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 ">
+              <p>{selectedRiwayat && selectedRiwayat.alasan}</p>
             </div>
           </div>
         </div>

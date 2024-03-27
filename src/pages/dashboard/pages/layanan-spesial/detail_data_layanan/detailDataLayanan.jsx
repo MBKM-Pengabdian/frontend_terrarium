@@ -4,14 +4,24 @@ import { Sidebar } from "../../../components/sidebar/Sidebar";
 import { Link, useParams } from "react-router-dom";
 import SpecialRequestService from "../../../../../services/specialRequest.service";
 import noimg from "../../../../../assets/img/noimg.jpg";
-
 import { useEffect, useState } from "react";
+import {
+  Toast,
+  formatRupiah,
+  getStatusBgClassName,
+  getStatusName,
+  myDate,
+  showConfirmationDialog,
+} from "../../../../../utils/GlobalFunction";
+import Swal from "sweetalert2";
 
 export const LayananSpesiaDetaillDashboard = () => {
   const { id } = useParams();
   const layananService = SpecialRequestService();
+  const [dataDetailSpecialReq, setDataDetailSpecialReq] = useState();
   const [formData, setFormData] = useState({
-    status: "1",
+    status: 1,
+    alasan: "",
   });
 
   const dataStatus = [
@@ -21,30 +31,52 @@ export const LayananSpesiaDetaillDashboard = () => {
     { label: "Ditolak", status: 0, color: "text-danger" }, //ditolak
   ];
 
+  const handleUpdateStatus = async () => {
+    const result = await showConfirmationDialog({
+      title: "Data yang ingin ada update sudah sesuai?",
+      icon: "warning",
+      confirmButtonText: "Ya, Hapus!",
+      cancelButtonText: "Batal",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const data = {
+          status: formData.status,
+          idSpecialReq: id,
+          alasan: formData.alasan,
+        };
+        const response = await layananService.handleUpdateStatusSpecialReq(
+          data
+        );
+        if (response.status === 200) {
+          setDataDetailSpecialReq(response.udpateSpecialReq);
+          Toast.fire({
+            icon: "success",
+            title: "Status berhasil diupdate",
+          });
+        }
+      } catch (error) {
+        console.error("Error deleting event:", error);
+        Swal.fire("Gagal", "Terjadi kesalahan saat menghapus event.", "error");
+      }
+    }
+  };
+
   const handleGetDetail = async () => {
-    const response = await layananService.handleGetSpecialRequest(id);
+    const response = await layananService.handleGetDetailSpecialReq(id);
     if (response.status === 200) {
-      console.log(response.data.product);
+      setDataDetailSpecialReq(response.data);
+      setFormData({
+        ...formData,
+        status: response.data.status,
+        alasan: response.data.alasan,
+      });
     }
   };
   useEffect(() => {
     handleGetDetail();
   }, []);
-
-  const getStatusClassName = (status) => {
-    switch (status) {
-        case 1:
-            return "bg-info";
-        case 2:
-            return "bg-warning";
-        case 3:
-            return "bg-success";
-        case 0:
-            return "bg-danger";
-        default:
-            return "";
-    }
-};
 
   return (
     <>
@@ -73,9 +105,14 @@ export const LayananSpesiaDetaillDashboard = () => {
               <select
                 className="form-select form-select-lg"
                 name="statusLayanan"
+                value={formData.status}
                 style={{ fontSize: "1.1em" }}
                 onChange={(e) =>
-                  setFormData({ ...formData, status: Number(e.target.value) })
+                  setFormData({
+                    ...formData,
+                    status: Number(e.target.value),
+                    alasan: "",
+                  })
                 }
               >
                 {dataStatus.map((data, index) => (
@@ -85,30 +122,44 @@ export const LayananSpesiaDetaillDashboard = () => {
                     style={{ fontSize: "1.1em" }}
                     className={``}
                   >
-                    {data.label}
+                    {getStatusName(data.status)}
                   </option>
                 ))}
               </select>
-              {formData.status === 0 && (
-                <div className="">
-                  <textarea
-                    name=""
-                    style={{ height: "90px" }}
-                    className="form-control mt-4"
-                  ></textarea>
-                  <small id="helpId" className="text-muted">
-                    * Alasan
-                  </small>
-                </div>
-              )}
             </div>
             <div className="col">
-              <button className="btn btn-info h-100">Konfirmasi</button>
+              <button
+                className="btn btn-success h-100"
+                onClick={() => handleUpdateStatus()}
+              >
+                Konfirmasi
+              </button>
             </div>
           </div>
+
+          {formData.status === 0 && (
+            <div className="row ps-3 mb-3">
+              <div className="col-2 m-auto">Alasan</div>
+              <div className="col-auto m-auto">:</div>
+              <div className="col-3 fw-bold">
+                <textarea
+                  value={formData.alasan}
+                  onChange={(e) =>
+                    setFormData({ ...formData, alasan: e.target.value })
+                  }
+                  style={{ height: "90px" }}
+                  className="form-control mt-4"
+                ></textarea>
+              </div>
+              <div className="col">&nbsp;</div>
+            </div>
+          )}
           <div className="card">
             <div
-              className={`h4 text-light fw-bold py-2 px-3 ${getStatusClassName(1)}`}
+              className={`h5   text-light fw-bold py-2 px-3 ${
+                dataDetailSpecialReq &&
+                getStatusBgClassName(dataDetailSpecialReq.status)
+              }`}
             >
               Pengirim
             </div>
@@ -116,63 +167,72 @@ export const LayananSpesiaDetaillDashboard = () => {
               <div className="row mb-3">
                 <div className="col-2">Nama</div>
                 <div className="col-auto">:</div>
-                <div className="col fw-bold">Muhammad Syahputra</div>
+                <div className="col fw-bold">
+                  {dataDetailSpecialReq && dataDetailSpecialReq.fullname}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">No Handphone</div>
                 <div className="col-auto">:</div>
-                <div className="col fw-bold">08887599774</div>
+                <div className="col fw-bold">
+                  {dataDetailSpecialReq && dataDetailSpecialReq.phone_number}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Email</div>
                 <div className="col-auto">:</div>
-                <div className="col fw-bold">putramhmmd22@gmail.com</div>
+                <div className="col fw-bold">
+                  {dataDetailSpecialReq && dataDetailSpecialReq.email}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Alamat</div>
                 <div className="col-auto">:</div>
-                <div className="col fw-bold">Medan Marelan</div>
+                <div className="col fw-bold">
+                  {dataDetailSpecialReq && dataDetailSpecialReq.customer_city}
+                </div>
               </div>
             </div>
           </div>
           <div className="card">
-            <div className={`h4 text-light fw-bold py-2 px-3 ${getStatusClassName(1)}`}>
-              Renovasi Taman
+            <div
+              className={`h5 text-light fw-bold py-2 px-3 ${
+                dataDetailSpecialReq &&
+                getStatusBgClassName(dataDetailSpecialReq.status)
+              }`}
+            >
+              {dataDetailSpecialReq && dataDetailSpecialReq.service_type}
             </div>
             <div className="card-body">
               <div className="row mb-3">
                 <div className="col-2">keterangan</div>
                 <div className="col-auto">:</div>
                 <div className="col">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium mollitia eius voluptatum architecto unde, sed
-                  aliquam excepturi possimus dolorem quis at necessitatibus qui
-                  quidem neque! Doloremque vel recusandae modi et quasi itaque
-                  laborum eveniet architecto inventore ea libero, fugit
-                  consequuntur. Iure quam similique quos nulla, minima dolorum
-                  aliquam voluptates optio perferendis, voluptatem corrupti eos
-                  blanditiis sed accusantium corporis. Ad quae exercitationem,
-                  doloremque quos impedit eos saepe illo veniam aliquid
-                  veritatis consectetur qui accusantium sint odit pariatur, est,
-                  dicta totam asperiores. Maiores ad architecto, nemo facilis
-                  illo libero placeat, quibusdam animi qui magnam dolorum. Odio
-                  ipsum nemo voluptatibus praesentium, harum eius.
+                  {dataDetailSpecialReq && dataDetailSpecialReq.description}
                 </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Lokasi Proyek</div>
                 <div className="col-auto">:</div>
-                <div className="col">Medan Sunggal</div>
+                <div className="col">
+                  {dataDetailSpecialReq &&
+                    dataDetailSpecialReq.project_location}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Waktu Pengerjaan</div>
                 <div className="col-auto">:</div>
-                <div className="col">2024-02-22</div>
+                <div className="col">
+                  {dataDetailSpecialReq && myDate(dataDetailSpecialReq.start_project)}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Estimasi Budget</div>
                 <div className="col-auto">:</div>
-                <div className="col">Rp. -</div>
+                <div className="col">
+                  {dataDetailSpecialReq &&
+                    formatRupiah(dataDetailSpecialReq.budget_estimation)}
+                </div>
               </div>
               <div className="row mb-3">
                 <div className="col-2">Foto</div>
