@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { StyleSheetManager } from "styled-components";
-import Swal from "sweetalert2";
 import {
-  Toast,
-  showConfirmationDialog,
+  getStatusBgClassName,
+  getStatusName,
 } from "../../../../../../utils/GlobalFunction";
 import SpecialRequestService from "../../../../../../services/specialRequest.service";
 import { useNavigate } from "react-router-dom";
 
 const TableLayananSpesial = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const specialRequestService = SpecialRequestService();
 
   const [data, setData] = useState([]);
@@ -100,9 +99,11 @@ const TableLayananSpesial = () => {
     },
     {
       name: "Status",
-      cell: ({ uuid }) => (
+      cell: ({ status }) => (
         <div className="text-center">
-          <span className="badge text-bg-secondary p-2">Waiting</span>
+          <span className={`badge p-2 ${getStatusBgClassName(status)}`}>
+            {getStatusName(status)}
+          </span>
         </div>
       ),
     },
@@ -139,7 +140,9 @@ const TableLayananSpesial = () => {
           </div>
         }
         title="List Request Spesial Customer"
-        onRowClicked={(rowData) => navigate(`/dashboard/layanan-spesial/${rowData.uuid}`)}
+        onRowClicked={(rowData) =>
+          navigate(`/dashboard/layanan-spesial/${rowData.uuid}`)
+        }
         customStyles={{
           rows: {
             style: {

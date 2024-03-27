@@ -1,71 +1,133 @@
 /* eslint-disable react/prop-types */
 import { FaMapMarkedAlt } from "react-icons/fa";
 import {
+  convertTime,
   getNamaBulan,
   getTahun,
   getTanggal,
-  getWaktu,
   myDate,
 } from "../../../../../../../utils/GlobalFunction";
 import QRCode from "qrcode.react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import EventService from "../../../../../../../services/event.service";
+import { Link } from "react-router-dom";
 
-export const ComponentCardTiketSaya = ({ data }) => {
+export const ComponentCardTiketSaya = () => {
+  const eventService = EventService();
   const [selectedTicket, setSelectedTicket] = useState();
+  const [listMyTicket, setListMyTicket] = useState([]);
 
   useEffect(() => {
     console.log(selectedTicket);
-}, [selectedTicket])
+  }, [selectedTicket])
   
+
+  useEffect(() => {
+    handleGetTicket();
+  }, []);
+
+  const handleGetTicket = async () => {
+    try {
+      const response = await eventService.handleGetTicketEvent();
+      if (response.status === 200) {
+        setListMyTicket(response.data);
+      }
+
+      // console.log(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <div className="card-body row my-4 mb-5">
-        <div className="col-5 col-lg-2 col-md-3 col-sm-3">
-          <div className="row g-1">
-            <div className="col text-center shadow-sm">
-              <div className="h2">
-                {getTanggal(data.event_data && data.event_data.date_event)}
+      {listMyTicket && listMyTicket.length > 0 ? (
+        listMyTicket.map((data, index) => (
+          <div key={index} className="card-body row my-4 mb-5">
+            <div className="col-5 col-lg-2 col-md-3 col-sm-3">
+              <div className="row g-1">
+                <div className="col text-center shadow-sm">
+                  <div className="h2">
+                    {getTanggal(
+                      myDate(
+                        data.event_data &&
+                          data.event_data.detail_event_data[0].date_event.split(
+                            " "
+                          )[0]
+                      )
+                    )}
+                  </div>
+                  <div className="h5">
+                    {getNamaBulan(
+                      myDate(
+                        data.event_data &&
+                          data.event_data.detail_event_data[0].date_event.split(
+                            " "
+                          )[0]
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="h5">
-                {getNamaBulan(data.event_data && data.event_data.date_event)}
+            </div>
+            <div className="col-7 col-lg-10 col-md-6 col-sm-6 m-auto">
+              <div className="row gap-2">
+                <div className="col-lg-5">
+                  <div className="h5" style={{ fontSize: "1.2em" }}>
+                    {data.event_data && data.event_data.title_event}
+                  </div>
+                  <div className="mb-2">
+                    {convertTime(
+                      data.event_data &&
+                        data.event_data.detail_event_data[0].date_event
+                    )}{" "}
+                    - Selesai
+                  </div>
+                  <div className="">
+                    <FaMapMarkedAlt className="me-2" />{" "}
+                    {data.event_data && data.event_data.place}
+                  </div>
+                </div>
+                <div className="col-12 col-lg-3 col-md-12 col-sm-12 m-auto text-lg-center">
+                  {data.event_data && data.place}
+                </div>
+                <div className="col-10 col-lg-2 col-md-5 col-sm-5 m-auto">
+                  {/* <ModalDetailTiket title="Tiket Anda" data={data} /> */}
+                  <button
+                    onClick={() => setSelectedTicket(data)}
+                    className="btn bg-primary text-light fw-bold"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalTiket"
+                  >
+                    Lihat Tiket
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="col-7 col-lg-10 col-md-6 col-sm-6 m-auto">
-          <div className="row gap-2">
-            <div className="col-lg-5">
-              <div className="h5" style={{ fontSize: "1.2em" }}>
-                {data.event_data && data.event_data.title_event}
-              </div>
-              <div className="mb-2">
-                {getWaktu(data.event_data && data.event_data.date_event)} -
-                Selesai
-              </div>
-              <div className="">
-                <FaMapMarkedAlt className="me-2" />{" "}
-                {data.event_data && data.event_data.place}
-              </div>
-            </div>
-            <div className="col-12 col-lg-3 col-md-12 col-sm-12 m-auto text-lg-center">
-              {data.place}
-            </div>
-            <div className="col-10 col-lg-2 col-md-5 col-sm-5 m-auto">
-              {/* <ModalDetailTiket title="Tiket Anda" data={data} /> */}
-              <button
-                onClick={() => setSelectedTicket(data)}
-                type="button"
-                className="btn bg-primary text-light fw-bold"
-                data-bs-toggle="modal"
-                data-bs-target="#modalTiket"
-              >
-                Lihat Tiket
-              </button>
-            </div>
+        ))
+      ) : (
+        <div className="text-center">
+          <img
+            // src={empty_tiket}
+            className="img-fluid"
+            style={{ width: "200px" }}
+            alt="empty cart"
+          />
+          <div className="h5 my-3 text-muted">
+            Anda belum mendaftar event apapun
+          </div>
+          <div className="mt-3">
+            <Link
+              to="/event"
+              href="#"
+              className="btn btn-success btn-square mt-2 fs-6"
+            >
+              Cari Event
+            </Link>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ALERT */}
       <div
@@ -117,29 +179,36 @@ export const ComponentCardTiketSaya = ({ data }) => {
                       </div>
                       <div className="fs-5 text-dark mb-4 receipt-text-bold">
                         <span className="me-1">
-                          {getTanggal(
-                            selectedTicket &&
-                              selectedTicket.event_data.date_event
-                          )}
+                          {selectedTicket &&
+                            getTanggal(
+                              selectedTicket.event_data.detail_event_data[0].date_event.split(
+                                " "
+                              )[0]
+                            )}
                         </span>
                         <span className="me-1">
-                          {getNamaBulan(
-                            selectedTicket &&
-                              selectedTicket.event_data.date_event
-                          )}
+                          {selectedTicket &&
+                            getNamaBulan(
+                              selectedTicket.event_data.detail_event_data[0].date_event.split(
+                                " "
+                              )[0]
+                            )}
                         </span>
                         <span className="me-1">
-                          {getTahun(
-                            selectedTicket &&
-                              selectedTicket.event_data.date_event
-                          )}
+                          {selectedTicket &&
+                            getTahun(
+                              selectedTicket.event_data.detail_event_data[0].date_event.split(
+                                " "
+                              )[0]
+                            )}
                           ,
                         </span>
                         <span className="me-1">
-                          {getWaktu(
-                            selectedTicket &&
-                              selectedTicket.event_data.date_event
-                          )}
+                          {selectedTicket &&
+                            convertTime(
+                              selectedTicket.event_data.detail_event_data[0]
+                                .date_event
+                            )}
                         </span>
                       </div>
                       <div className="row">

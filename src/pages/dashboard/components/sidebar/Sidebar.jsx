@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 export const Sidebar = () => {
    const location = useLocation(); 
   const [activeNav, setActiveNav] = useState(location.pathname.split('/')[2] == undefined ? 'dashboard' :location.pathname.split('/')[2]);
-   console.log(location.pathname.split('/')[2]);
   return (
     <>
       <aside

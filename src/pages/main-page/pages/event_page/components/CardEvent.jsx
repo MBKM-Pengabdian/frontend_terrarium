@@ -1,5 +1,12 @@
-import { FaCalendar, FaClock, FaMapMarkerAlt } from "react-icons/fa";
+/* eslint-disable react/prop-types */
+import {
+  FaCalendar,
+  FaClock,
+  FaMapMarkerAlt,
+  FaTags,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { convertTime, formatRupiah } from "../../../../../utils/GlobalFunction";
 
 export const CardEvent = ({ data }) => {
   const navigate = useNavigate();
@@ -8,7 +15,7 @@ export const CardEvent = ({ data }) => {
       <div className="col-6 col-md-6 col-lg-6 col-sm-6">
         <div className="card shadow-sm rounded-3">
           <div className="row">
-            <div className="col-lg-5" style={{ height: "350px" }}>
+            <div className="col-lg-5" style={{ height: "370px" }}>
               <Link to={`/detail-event/${data.uuid}`}>
                 <img
                   src={import.meta.env.VITE_API_URL + data.img_event}
@@ -37,8 +44,17 @@ export const CardEvent = ({ data }) => {
                     className="time-event mb-2"
                     style={{ fontSize: "0.9rem" }}
                   >
+                    <FaTags className="text-primary me-3" />{" "}
+                    <span className="text-danger fw-bold" style={{ fontSize: "1rem" }}>
+                      {data.price_event == "0" ? 'Free' : formatRupiah(data.price_event)}
+                    </span>
+                  </div>
+                  <div
+                    className="time-event mb-2"
+                    style={{ fontSize: "0.9rem" }}
+                  >
                     <FaClock className="text-primary me-3" />{" "}
-                    {data2.date_event.split(" ")[1]} - Selesai
+                    {convertTime(data2.date_event)} - Selesai
                   </div>
                   <div
                     className="date-event mb-2"
@@ -65,10 +81,9 @@ export const CardEvent = ({ data }) => {
 
               {data.detail_event.map((data2, index) => (
                 <div className="row mt-auto my-2" key={index}>
-                  <div className="col fw-bold ">
+                  <div className="col-auto fw-bold ms-2">
                     Sisa {data2.kuota_event} Kuota
                   </div>
-                  <div className="col-3 text-end fw-bold  ">{data.status}</div>
                 </div>
               ))}
             </div>

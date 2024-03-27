@@ -12,7 +12,7 @@ import {
 import { useParams } from "react-router-dom";
 import EventService from "../../../../services/event.service";
 import { ModalForm } from "./components/modalForm/modalForm";
-import { Toast } from "../../../../utils/GlobalFunction";
+import { Toast, convertTime } from "../../../../utils/GlobalFunction";
 
 export const DetailEvent = () => {
   const { id } = useParams();
@@ -146,7 +146,7 @@ export const DetailEvent = () => {
             <div className="mb-2 text-dark">
               <div className="mb-2">
                 <FaClock className="text-primary me-2" />{" "}
-                {detailEvent.detail_event[0].date_event.split(" ")[1]}
+                {convertTime(detailEvent.detail_event[0].date_event)}
                 <FaCalendar className="text-primary ms-4 me-2" />{" "}
                 {detailEvent.detail_event[0].date_event.split(" ")[0]}
               </div>
